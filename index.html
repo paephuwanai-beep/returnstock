@@ -40,6 +40,10 @@
         .app-logo .return { color: #1e293b; }
         .app-logo .tagline { font-size: 11px; font-weight: bold; background: #1e293b; color: #fff; padding: 4px 10px; border-radius: 12px; font-style: normal; white-space: nowrap;}
 
+        /* ปุ่มตั้งค่ามุมขวาบน */
+        .settings-btn { position: absolute; top: 15px; right: 15px; width: 35px; height: 35px; border-radius: 50%; border: none; background: #f1f5f9; color: var(--primary); font-size: 16px; cursor: pointer; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.05);}
+        .settings-btn:active { transform: scale(0.9); }
+
         .sidebar-header { display: none; padding: 30px 20px; text-align: center; }
         .main-content { display: flex; flex: 1; overflow: hidden; flex-direction: column; }
         .page { display: none; padding: 20px; padding-bottom: 100px; flex: 1; overflow-y: auto; z-index: 1;}
@@ -57,7 +61,7 @@
         .card-history i, .card-history h3 { color: var(--success); }
 
         /* ================= Theme Colors For Forms ================= */
-        .glass-input { width: 100%; padding: 14px; margin-bottom: 15px; border-radius: 12px; background: #f8fafc; outline: none; font-size: 15px; color: #1e293b; transition: 0.3s; }
+        .glass-input { width: 100%; padding: 14px; margin-bottom: 15px; border-radius: 12px; background: #f8fafc; outline: none; font-size: 15px; color: #1e293b; border: 1px solid #e2e8f0; transition: 0.3s; }
         .input-label { font-size: 14px; margin-left: 5px; margin-bottom: 5px; display: block; font-weight: bold;}
         .file-upload-wrapper { position: relative; width: 100%; margin-bottom: 15px; }
         .file-upload-wrapper input[type="file"] { display: none; }
@@ -154,22 +158,8 @@
         .alert-title { font-size: 20px; font-weight: bold; color: #1e293b; margin-bottom: 10px;}
         .alert-msg { font-size: 15px; color: #64748b; margin-bottom: 20px; line-height: 1.5; word-break: break-word;}
 
-        /* ================= ใบเสร็จ K+ Style (9:16 สัดส่วนมือถือ) ================= */
-        .kplus-slip { 
-            border-radius: 12px; 
-            padding: 20px; 
-            margin-bottom: 15px; 
-            font-family: 'Sarabun', sans-serif; 
-            position: relative; 
-            overflow: hidden; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
-            border: 1px solid #eee; 
-            width: 100%; 
-            max-width: 400px;
-            aspect-ratio: 9 / 16; /* บังคับสัดส่วนให้เป็น 9:16 */
-            display: flex;
-            flex-direction: column;
-        }
+        /* ================= ใบเสร็จ K+ Style ================= */
+        .kplus-slip { border-radius: 12px; padding: 20px; margin-bottom: 15px; font-family: 'Sarabun', sans-serif; position: relative; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border: 1px solid #eee; width: 100%; max-width: 400px; aspect-ratio: 9 / 16; display: flex; flex-direction: column; }
         .slip-theme-blue { background: linear-gradient(180deg, #e0f2fe 0%, #f0f9ff 25%, #ffffff 100%); border-color: #bae6fd; }
         .slip-theme-orange { background: linear-gradient(180deg, #ffedd5 0%, #fff7ed 25%, #ffffff 100%); border-color: #fed7aa; }
         .kplus-slip::before { content: "\f1ad"; font-family: "Font Awesome 5 Free"; font-weight: 900; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 250px; color: rgba(0,0,0, 0.02); z-index: 0; pointer-events: none; }
@@ -198,27 +188,10 @@
         .k-label { color: #64748b; white-space: nowrap;}
         .k-value { font-weight: bold; color: #1e293b; text-align: right;}
         
-        /* กรอบภาพใบเสร็จ ที่ยืดหยุ่นและไม่ตัดภาพ 100% */
-        .k-image-container { 
-            flex: 1; /* สำคัญ: ยืดขยายเติมพื้นที่ที่เหลือในกรอบ 9:16 */
-            display: flex; justify-content: center; align-items: center; 
-            margin: 10px 0 0 0; position: relative; z-index: 1; 
-            background: #f8fafc; border-radius: 10px; padding: 5px; 
-            border: 1px dashed #cbd5e1; min-height: 0; 
-        }
-        .k-image-container img { 
-            max-width: 100%; max-height: 100%; width: auto; height: auto; 
-            border-radius: 6px; object-fit: contain; /* สำคัญ: ไม่ตัดภาพเด็ดขาด */
-            display: block; 
-        }
+        .k-image-container { flex: 1; display: flex; justify-content: center; align-items: center; margin: 10px 0 0 0; position: relative; z-index: 1; background: #f8fafc; border-radius: 10px; padding: 5px; border: 1px dashed #cbd5e1; min-height: 0; }
+        .k-image-container img { max-width: 100%; max-height: 100%; width: auto; height: auto; border-radius: 6px; object-fit: contain; display: block; }
         
-        /* โลโก้แอปที่อยู่ด้านล่างสุดของใบเสร็จ */
-        .k-footer { 
-            margin-top: auto; padding-top: 15px; 
-            border-top: 1px dashed rgba(0,0,0,0.05); 
-            display: flex; justify-content: center; align-items: center; 
-            position: relative; z-index: 1;
-        }
+        .k-footer { margin-top: auto; padding-top: 15px; border-top: 1px dashed rgba(0,0,0,0.05); display: flex; justify-content: center; align-items: center; position: relative; z-index: 1;}
 
         #reader { width: 100%; min-height: 250px; background: #000; border-radius: 12px; overflow: hidden; border: none; }
         .qr-upload-btn { display: block; padding: 12px; background: #f1f5f9; color: var(--primary); border-radius: 10px; font-weight: bold; cursor: pointer; text-align: center; width: 100%; border: 2px dashed #cbd5e1; margin-top: 15px; transition: 0.3s; }
@@ -228,10 +201,12 @@
             .app-container { max-width: 1000px; height: 90vh; flex-direction: row; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.08); background: white; }
             header { display: none; }
             .sidebar-header { display: block; border-bottom: 1px solid #f1f5f9; margin-bottom: 20px;}
+            
             .bottom-nav { position: relative; flex-direction: column; width: 220px; height: 100%; justify-content: flex-start; padding: 0; border-radius: 0; border-right: 1px solid #f1f5f9; background: #f8fafc; box-shadow: none; align-items: flex-start; gap: 0;}
             .nav-item { width: 100%; flex-direction: row; padding: 15px 20px; justify-content: flex-start; gap: 15px; font-size: 16px; border-left: 4px solid transparent; border-radius: 0;}
             .nav-item span { font-size: 15px; margin-top: 0; }
             .nav-item.active { background: white; border-left: 4px solid var(--primary); transform: none; box-shadow: 0 2px 10px rgba(0,0,0,0.02);}
+            
             .main-content { flex: 1; }
             .page { padding: 30px; padding-bottom: 30px; }
             .home-grid { grid-template-columns: repeat(3, 1fr); gap: 20px;}
@@ -244,7 +219,7 @@
     <div id="loading-overlay" class="loading-overlay hidden">
         <i class="fas fa-circle-notch spinner"></i>
         <h3 id="loading-title" style="color: var(--primary);">กำลังดำเนินการ...</h3>
-        <p style="color: #64748b;">กรุณารอสักครู่</p>
+        <p style="color: #64748b;">(อาจใช้เวลาโหลดข้อมูลจาก Cloud สักครู่)</p>
     </div>
 
     <!-- Custom Alert Modal -->
@@ -270,6 +245,31 @@
         </div>
     </div>
 
+    <!-- Modal ตั้งค่า Dropdown -->
+    <div id="settings-modal" class="modal hidden" style="z-index: 90000;">
+        <div class="modal-content">
+            <h3 style="color: var(--primary); margin-bottom: 10px;"><i class="fas fa-cog"></i> ตั้งค่าตัวเลือกบนระบบ</h3>
+            <p style="font-size: 12px; color: #64748b; margin-bottom: 15px;">* พิมพ์ชื่อที่ต้องการ โดยคั่นแต่ละชื่อด้วยเครื่องหมายลูกน้ำ (,) ข้อมูลนี้จะอัปเดตไปยังมือถือทุกคนอัตโนมัติ</p>
+            
+            <span class="input-label">ชื่อเจ้าหน้าที่ IPD3 (ผู้ให้ยืม/รับคืน):</span>
+            <textarea id="set-ipd3" class="glass-input" rows="2" style="font-size:13px;"></textarea>
+
+            <span class="input-label">ชื่อแผนกอื่นๆ (ผู้ยืม/มาส่งคืน):</span>
+            <textarea id="set-other" class="glass-input" rows="2" style="font-size:13px;"></textarea>
+
+            <span class="input-label">รายการอุปกรณ์:</span>
+            <textarea id="set-items" class="glass-input" rows="2" style="font-size:13px;"></textarea>
+
+            <span class="input-label">หน่วยนับ:</span>
+            <textarea id="set-units" class="glass-input" rows="2" style="font-size:13px;"></textarea>
+
+            <div style="display: flex; gap: 10px; margin-top: 10px;">
+                <button type="button" onclick="closeSettings()" class="glass-btn" style="background: #f1f5f9; color:#475569; flex: 1;">ยกเลิก</button>
+                <button type="button" onclick="saveSettings()" class="glass-btn btn-primary" style="flex: 1.5;"><i class="fas fa-cloud-upload-alt"></i> บันทึกขึ้น Cloud</button>
+            </div>
+        </div>
+    </div>
+
     <div class="app-container">
         <!-- Datalist -->
         <datalist id="ipd3-staff-list"></datalist>
@@ -285,15 +285,18 @@
                 <span class="return">Return</span> 
                 <span class="tagline">ยืมแล้วคืน</span>
             </div>
+            <!-- ปุ่มตั้งค่ามุมขวาบน -->
+            <button class="settings-btn" onclick="openSettings()"><i class="fas fa-cog"></i></button>
         </header>
 
         <!-- Sidebar / Bottom Nav -->
         <nav class="bottom-nav">
             <div class="sidebar-header">
-                <div class="app-logo" style="flex-direction: column; gap: 4px;">
+                <div class="app-logo" style="flex-direction: column; gap: 4px; position:relative;">
                     <div style="display:flex; align-items:center; gap:8px;"><i class="fas fa-infinity"></i> <span class="ipd3">IPD3</span></div>
                     <span class="return" style="font-size: 20px;">Return</span> 
                     <span class="tagline">ยืมแล้วคืน</span>
+                    <button class="settings-btn" style="top: 0; right: 0;" onclick="openSettings()"><i class="fas fa-cog"></i></button>
                 </div>
             </div>
             <button onclick="switchPage('home-page')" class="nav-item active" id="nav-home"><i class="fas fa-home"></i><span>หน้าแรก</span></button>
@@ -308,7 +311,7 @@
             <main id="home-page" class="page active">
                 <h3 style="color: #1e293b; margin-bottom: 20px;">เลือกทำรายการ</h3>
                 <button onclick="openQrScanner()" class="glass-btn btn-outline" style="margin-bottom: 20px;">
-                    <i class="fas fa-qrcode"></i> สแกน QR Code คืนของ
+                    <i class="fas fa-qrcode"></i> สแกน QR Code เพื่อคืนของ
                 </button>
 
                 <div class="home-grid">
@@ -325,7 +328,7 @@
                     <div class="menu-card card-history" onclick="switchPage('history-page')">
                         <i class="fas fa-history"></i>
                         <h3>ประวัติคืนแล้ว</h3>
-                        <p>จัดการประวัติ / ยกเลิกการคืน</p>
+                        <p>จัดการประวัติ / ดูใบเสร็จ</p>
                     </div>
                 </div>
             </main>
@@ -336,7 +339,7 @@
                     <h3 style="color: #1e293b;">รายการค้างส่งคืน</h3>
                     <div style="display: flex; gap: 8px;">
                         <button onclick="openQrScanner()" class="glass-btn btn-outline" style="width: auto; padding: 8px 12px; font-size: 13px;"><i class="fas fa-qrcode"></i> สแกน</button>
-                        <button onclick="fetchData()" class="glass-btn btn-primary" style="width: auto; padding: 8px 12px; font-size: 13px;"><i class="fas fa-sync-alt"></i> รีเฟรช</button>
+                        <button onclick="fetchData(true)" class="glass-btn btn-primary" style="width: auto; padding: 8px 12px; font-size: 13px;"><i class="fas fa-sync-alt"></i> รีเฟรช</button>
                     </div>
                 </div>
                 <div class="tab-container">
@@ -350,7 +353,7 @@
             <main id="history-page" class="page">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                     <h3 style="color: var(--success);">ประวัติ (คืนแล้ว)</h3>
-                    <button onclick="fetchData()" class="glass-btn" style="background:var(--success); width: auto; padding: 8px 12px; font-size: 13px;"><i class="fas fa-sync-alt"></i> รีเฟรช</button>
+                    <button onclick="fetchData(true)" class="glass-btn" style="background:var(--success); width: auto; padding: 8px 12px; font-size: 13px;"><i class="fas fa-sync-alt"></i> รีเฟรช</button>
                 </div>
                 <div class="table-responsive">
                     <table class="history-table">
@@ -393,7 +396,7 @@
                         <option value="เครื่องมือและอุปกรณ์ทางการแพทย์">1. เครื่องมือและอุปกรณ์ทางการแพทย์</option>
                         <option value="สำนักงานและอื่นๆ">2. สำนักงานและอื่นๆ</option>
                     </select>
-                    <input type="text" id="b-item" list="item-list" placeholder="ระบุสิ่งที่ยืม..." required class="glass-input" autocomplete="off">
+                    <input type="text" id="b-item" list="item-list" placeholder="ระบุหรือเลือกสิ่งที่ยืม..." required class="glass-input" autocomplete="off">
                     
                     <div style="display: flex; gap: 10px;">
                         <input type="number" id="b-qty" placeholder="จำนวน" required class="glass-input" style="flex: 1;">
@@ -411,10 +414,10 @@
                     <input type="text" id="b-dept-other" placeholder="ระบุชื่อหน่วยงาน..." class="glass-input" style="display: none;">
 
                     <span class="input-label" id="label-lender">ชื่อผู้ให้ยืม (เรา IPD3):</span>
-                    <input type="text" id="b-staff-dropdown" list="ipd3-staff-list" class="glass-input" required placeholder="ระบุชื่อ..." autocomplete="off">
+                    <input type="text" id="b-staff-dropdown" list="ipd3-staff-list" class="glass-input" required placeholder="ระบุหรือเลือกชื่อ..." autocomplete="off">
                     
                     <span class="input-label" id="label-borrower">ชื่อผู้ยืม (แผนกอื่น):</span>
-                    <input type="text" id="b-other-person" list="other-staff-list" class="glass-input" required placeholder="ระบุชื่อ..." autocomplete="off">
+                    <input type="text" id="b-other-person" list="other-staff-list" class="glass-input" required placeholder="ระบุหรือเลือกชื่อ..." autocomplete="off">
 
                     <span class="input-label">ภาพหลักฐาน (จะแสดงในใบเสร็จ):</span>
                     <div class="file-upload-wrapper">
@@ -511,7 +514,7 @@
         </div>
     </div>
 
-    <!-- Modal ใบเสร็จ (Slip 9:16) -->
+    <!-- Modal ใบเสร็จ (Slip 9:16 โชว์โลโก้ล่างสุด) -->
     <div id="receipt-modal" class="modal hidden">
         <div class="modal-content" style="background: transparent; box-shadow: none; padding: 10px; display: flex; flex-direction: column; align-items: center;">
             <div id="slip-capture-area" class="kplus-slip slip-theme-blue">
@@ -557,17 +560,17 @@
                     </div>
                 </div>
                 
-                <!-- คอนเทนเนอร์ภาพแบบไม่ตัด (Contain) -->
+                <!-- คอนเทนเนอร์ภาพแบบยืดสุดกรอบ (9:16) -->
                 <div class="k-image-container" id="slip-image-container" style="display: none;">
                     <img id="slip-preview-img" src="" alt="หลักฐานแนบ">
                 </div>
                 
                 <div class="k-footer">
-                    <div class="app-logo" style="font-size: 16px; margin:0;">
-                        <i class="fas fa-infinity"></i> 
-                        <span class="ipd3">IPD3</span> 
+                    <div class="app-logo" style="font-size: 16px; margin:0; color:#64748b;">
+                        <i class="fas fa-infinity" style="color:#64748b; font-size:18px;"></i> 
+                        <span class="ipd3" style="background: none; color:#64748b; -webkit-text-fill-color: #64748b;">IPD3</span> 
                         <span class="return">Return</span> 
-                        <span class="tagline" style="font-size: 9px; padding: 2px 6px;">ยืมแล้วคืน</span>
+                        <span class="tagline" style="font-size: 9px; padding: 2px 6px; background:#64748b;">ยืมแล้วคืน</span>
                     </div>
                 </div>
             </div>
@@ -581,15 +584,24 @@
 
     <script>
         // ===============================================
-        const API_URL = 'https://script.google.com/macros/s/AKfycbyGO52mRAJh60oODUWaIT71BTUnyIQ5_1ZwZQ6SP_N-sJsgOcCpa3OHuxfdavQ9Vj8d/exec'; // <--- ใส่ URL ตรงนี้
+        const API_URL = 'https://script.google.com/macros/s/AKfycbwDDhq9S4s5aW5z8zJmYHTPMBeurW2Uuu9UaETn-irywhgg7_gJygtedwhubFgExKjx/exec'; // <--- ใส่ URL ตรงนี้
         // ===============================================
 
-        let globalData = [];
+        // ระบบ Caching ทำให้โหลดไวเหมือนแอปมือถือ
+        let globalData = JSON.parse(localStorage.getItem('cached_ipd3_data')) || [];
+        let globalSettings = JSON.parse(localStorage.getItem('cached_ipd3_settings')) || {
+            ipd3_staff: ["ปิยะนาท", "ภูวนัย", "สุวนันท์", "สุรีภรณ์", "พรพิมล", "ปราณี"],
+            other_staff: [],
+            items: ["Syringe 10 ml", "Plaster transpore", "เกจ์ออกซิเจน", "ชุดให้เลือด"],
+            units: ["ชิ้น/อัน", "กล่อง", "pacs", "ถาด", "ชุด"]
+        };
+        
         let currentTab = 'ถูกยืม';
         let currentImageBase64 = ''; 
         let html5QrCode;
         let confirmResolve = null;
 
+        // Custom Alerts
         function showAlert(message, type='info') {
             document.getElementById('custom-alert-msg').innerText = message;
             const icon = document.getElementById('custom-alert-icon');
@@ -617,42 +629,78 @@
             const controller = new AbortController();
             const id = setTimeout(() => controller.abort(), timeout);
             const response = await fetch(resource, { ...options, signal: controller.signal });
-            clearTimeout(id);
-            return response;
+            clearTimeout(id); return response;
         };
 
         async function apiCall(payload) {
-            if(API_URL.includes('/edit') || API_URL === 'YOUR_WEB_APP_URL_HERE') {
-                throw new Error("URL ของ Apps Script ไม่ถูกต้อง กรุณาเปลี่ยนเป็น URL ที่ลงท้ายด้วย /exec");
-            }
+            if(API_URL.includes('/edit') || API_URL === 'YOUR_WEB_APP_URL_HERE') throw new Error("URL ของ Apps Script ไม่ถูกต้อง");
             try {
                 const res = await fetchWithTimeout(API_URL, { method: 'POST', body: JSON.stringify(payload), timeout: 15000 });
-                const text = await res.text();
-                try {
-                    const json = JSON.parse(text);
-                    if (json.status === 'error') throw new Error(json.message);
-                    return json;
-                } catch (e) { throw new Error("การรับส่งข้อมูลผิดพลาด กรุณา Deploy ใหม่"); }
-            } catch (err) { throw err; }
+                const json = await res.json();
+                if (json.status === 'error') throw new Error(json.message);
+                return json;
+            } catch (err) { throw new Error("การรับส่งข้อมูลผิดพลาด ตรวจสอบสัญญาณอินเทอร์เน็ต"); }
         }
 
-        let memoryStaffIpd3 = JSON.parse(localStorage.getItem('mem_ipd3')) || ["ปิยะนาท", "ภูวนัย", "สุวนันท์", "สุรีภรณ์", "พรพิมล", "ปราณี"];
-        let memoryStaffOther = JSON.parse(localStorage.getItem('mem_other')) || [];
-        let memoryItems = JSON.parse(localStorage.getItem('mem_items')) || [];
-        let memoryUnits = JSON.parse(localStorage.getItem('mem_units')) || ['ชิ้น/อัน', 'กล่อง', 'pacs', 'ถาด', 'ชุด'];
-
+        // ================== ระบบ Settings อัปเดตขึ้น Cloud เรียลไทม์ ==================
         function updateDatalists() {
             const populate = (id, arr) => {
                 const el = document.getElementById(id); el.innerHTML = '';
                 arr.forEach(val => { const opt = document.createElement('option'); opt.value = val; el.appendChild(opt); });
             };
-            populate('ipd3-staff-list', memoryStaffIpd3); populate('other-staff-list', memoryStaffOther);
-            populate('item-list', memoryItems); populate('unit-list', memoryUnits);
+            populate('ipd3-staff-list', globalSettings.ipd3_staff);
+            populate('other-staff-list', globalSettings.other_staff);
+            populate('item-list', globalSettings.items);
+            populate('unit-list', globalSettings.units);
+            
+            // อัปเดตในหน้าตั้งค่า
+            document.getElementById('set-ipd3').value = globalSettings.ipd3_staff.join(', ');
+            document.getElementById('set-other').value = globalSettings.other_staff.join(', ');
+            document.getElementById('set-items').value = globalSettings.items.join(', ');
+            document.getElementById('set-units').value = globalSettings.units.join(', ');
         }
         
-        function saveToMemory(key, arr, val) {
-            if(val && !arr.includes(val)) { arr.push(val); localStorage.setItem(key, JSON.stringify(arr)); updateDatalists(); }
+        function openSettings() {
+            updateDatalists();
+            document.getElementById('settings-modal').classList.remove('hidden');
         }
+        function closeSettings() { document.getElementById('settings-modal').classList.add('hidden'); }
+
+        async function saveSettings() {
+            showLoading(true, "กำลังอัปเดตข้อมูลขึ้นระบบ...");
+            try {
+                const parseList = (str) => str.split(',').map(s => s.trim()).filter(s => s !== '');
+                globalSettings.ipd3_staff = parseList(document.getElementById('set-ipd3').value);
+                globalSettings.other_staff = parseList(document.getElementById('set-other').value);
+                globalSettings.items = parseList(document.getElementById('set-items').value);
+                globalSettings.units = parseList(document.getElementById('set-units').value);
+
+                await apiCall({ action: 'save_settings', settings: globalSettings });
+                localStorage.setItem('cached_ipd3_settings', JSON.stringify(globalSettings));
+                updateDatalists();
+                closeSettings();
+                showAlert('บันทึกการตั้งค่าลงระบบออนไลน์เรียบร้อยแล้ว', 'success');
+            } catch (e) { showAlert(e.message, 'error'); }
+            finally { showLoading(false); }
+        }
+
+        // ฟังก์ชันตรวจจับว่ามีคำศัพท์ใหม่ไหม ถ้ามีจะเซฟขึ้น Cloud อัตโนมัติเบื้องหลัง
+        function checkAndSyncSettings(staffIpd3, staffOther, item, unit) {
+            let changed = false;
+            if(staffIpd3 && !globalSettings.ipd3_staff.includes(staffIpd3)) { globalSettings.ipd3_staff.push(staffIpd3); changed = true; }
+            if(staffOther && !globalSettings.other_staff.includes(staffOther)) { globalSettings.other_staff.push(staffOther); changed = true; }
+            if(item && !globalSettings.items.includes(item)) { globalSettings.items.push(item); changed = true; }
+            if(unit && !globalSettings.units.includes(unit)) { globalSettings.units.push(unit); changed = true; }
+
+            if(changed) {
+                updateDatalists();
+                localStorage.setItem('cached_ipd3_settings', JSON.stringify(globalSettings));
+                // ยิง API เซฟขึ้น Cloud แบบไม่รอกวน UI
+                fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'save_settings', settings: globalSettings }) }).catch(e=>{});
+            }
+        }
+
+        // ==============================================================================
 
         function formatThaiDate(dStr) {
             if(!dStr) return '-';
@@ -667,7 +715,11 @@
             if(document.getElementById(timeId)) document.getElementById(timeId).value = now.toTimeString().split(' ')[0].substring(0, 5);
         }
 
-        window.onload = function() { updateDatalists(); }
+        window.onload = function() { 
+            updateDatalists(); 
+            // โหลดข้อมูลอัตโนมัติครั้งแรกเงียบๆ
+            fetchData(false); 
+        }
 
         function showLoading(show, title="กำลังดำเนินการ...") {
             const overlay = document.getElementById('loading-overlay');
@@ -683,11 +735,11 @@
             if(pageId === 'home-page') document.getElementById('nav-home').classList.add('active');
             if(pageId === 'dashboard-page') { 
                 document.getElementById('nav-list').classList.add('active'); 
-                if(globalData.length === 0) fetchData(); else filterList(currentTab, 'ยืมอยู่');
+                filterList(currentTab, 'ยืมอยู่'); // แสดง Cache ทันที
             }
             if(pageId === 'history-page') { 
                 document.getElementById('nav-history').classList.add('active'); 
-                if(globalData.length === 0) fetchData(); else buildHistoryTable();
+                buildHistoryTable(); // แสดง Cache ทันที
             }
             if(pageId === 'borrow-page') { 
                 document.getElementById('nav-borrow').classList.add('active'); 
@@ -764,7 +816,7 @@
         setupImagePreview('b-image', 'b-img-preview');
         setupImagePreview('r-image', 'r-img-preview');
 
-        // ฟังก์ชันดูรูปภาพย้อนหลังเปลี่ยนเป็นสร้างสลิปแทน
+        // ดูสลิปใบเสร็จ แทนการดูรูปภาพเปล่าๆ
         function viewImage(id) {
             const item = globalData.find(i => i.ID === id);
             if(!item) return;
@@ -806,11 +858,11 @@
             const staff = document.getElementById('b-staff-dropdown').value;
             const other = document.getElementById('b-other-person').value;
             
-            saveToMemory('mem_ipd3', memoryStaffIpd3, staff); saveToMemory('mem_other', memoryStaffOther, other);
-            saveToMemory('mem_items', memoryItems, itemVal); saveToMemory('mem_units', memoryUnits, unitVal);
-
             let lender = txType === 'ถูกยืม' ? staff : other;
             let borrower = txType === 'ถูกยืม' ? other : staff;
+
+            // ส่งข้อมูลไปตรวจเช็คและเซฟลง Dropdown ให้ทุกคนเห็น
+            checkAndSyncSettings(txType === 'ถูกยืม' ? staff : null, txType === 'ยืมมา' ? staff : null, itemVal, unitVal);
 
             const payload = {
                 action: actionCmd, id: editId, txType: txType, category: document.getElementById('b-category').value,
@@ -833,6 +885,9 @@
                         slipItemData = globalData[idx];
                     }
                 }
+                
+                // เซฟ Cache ในเครื่องตัวเองด้วย จะได้โหลดไวขึ้นอีก
+                localStorage.setItem('cached_ipd3_data', JSON.stringify(globalData));
                 
                 generateSlip('borrow', slipItemData, currentImageBase64 || slipItemData.BorrowImage);
                 resetBorrowForm();
@@ -882,7 +937,7 @@
             }
 
             const btn = document.getElementById('btn-submit-borrow');
-            btn.innerHTML = '<i class="fas fa-save"></i> บันทึกการแก้ไข';
+            btn.innerHTML = '<i class="fas fa-save"></i> บันทึกการแก้ไข (พร้อมสร้างสลิป)';
             document.getElementById('btn-cancel-edit').style.display = 'block';
             document.getElementById('tx-toggle-box').style.display = 'none';
         }
@@ -899,30 +954,37 @@
             setNow('b-date', 'b-time');
         }
 
-        // ================== โหลดข้อมูล ==================
-        async function fetchData() {
+        // ================== โหลดข้อมูลแบบรวดเร็ว (Cache) ==================
+        async function fetchData(showUI = false) {
             if(API_URL === 'YOUR_WEB_APP_URL_HERE') return;
-            document.getElementById('borrow-list').innerHTML = '<div style="text-align: center; padding: 40px; color: var(--primary);"><i class="fas fa-spinner fa-spin fa-2x"></i></div>';
+            if(showUI) showLoading(true, "กำลังซิงค์ข้อมูลจาก Cloud...");
             try {
                 const res = await fetchWithTimeout(API_URL, { timeout: 15000 });
-                const text = await res.text();
+                const json = await res.json();
                 
-                try {
-                    globalData = JSON.parse(text);
-                    if(globalData.status === 'error') throw new Error(globalData.message);
-                } catch(e) {
-                    throw new Error("เกิดข้อผิดพลาดในการโหลดข้อมูล (อาจจะเกิดจากสิทธิ์การเข้าถึง หรือ URL ไม่ถูกต้อง)");
+                if(json.status === 'error') throw new Error(json.message);
+                
+                // อัปเดตข้อมูล Data
+                const oldDataStr = JSON.stringify(globalData);
+                const newDataStr = JSON.stringify(json.data);
+                if (oldDataStr !== newDataStr) {
+                    globalData = json.data;
+                    localStorage.setItem('cached_ipd3_data', newDataStr);
+                    if (document.getElementById('dashboard-page').classList.contains('active')) filterList(currentTab, 'ยืมอยู่');
+                    if (document.getElementById('history-page').classList.contains('active')) buildHistoryTable();
                 }
-                
-                if (document.getElementById('dashboard-page').classList.contains('active')) filterList(currentTab, 'ยืมอยู่');
-                if (document.getElementById('history-page').classList.contains('active')) buildHistoryTable();
+
+                // อัปเดตข้อมูล Settings 
+                if(json.settings) {
+                    globalSettings = json.settings;
+                    localStorage.setItem('cached_ipd3_settings', JSON.stringify(globalSettings));
+                    updateDatalists();
+                }
+
             } catch (err) { 
-                document.getElementById('borrow-list').innerHTML = `
-                    <div style="text-align: center; padding: 30px 15px; background: #fef2f2; border-radius: 16px; border: 1px solid #fecaca; margin: 15px 0;">
-                        <i class="fas fa-exclamation-triangle" style="color: var(--danger); font-size: 40px; margin-bottom: 10px;"></i>
-                        <h4 style="color: #991b1b; margin-bottom: 5px; font-size: 18px;">เกิดข้อผิดพลาดในการโหลดข้อมูล</h4>
-                        <p style="color: #b91c1c; font-size: 14px; margin-bottom: 0;">${err.message}</p>
-                    </div>`; 
+                if(showUI) showAlert('เกิดข้อผิดพลาดในการโหลดข้อมูลออนไลน์ แต่คุณยังดูข้อมูลเดิมได้', 'error');
+            } finally {
+                if(showUI) showLoading(false);
             }
         }
 
@@ -1021,6 +1083,7 @@
                 try {
                     await apiCall({ action: 'delete', id: id });
                     globalData = globalData.filter(i => i.ID !== id);
+                    localStorage.setItem('cached_ipd3_data', JSON.stringify(globalData));
                     if(document.getElementById('history-page').classList.contains('active')) buildHistoryTable();
                     else filterList(currentTab, 'ยืมอยู่');
                 } catch(e) { showAlert(e.message, 'error'); }
@@ -1037,6 +1100,7 @@
                     if(idx !== -1) {
                         globalData[idx].Status = 'ยืมอยู่'; globalData[idx].ReturnDate = ''; globalData[idx].ReturnTime = ''; globalData[idx].Receiver = ''; globalData[idx].Notes = ''; globalData[idx].ReturnImage = '';
                     }
+                    localStorage.setItem('cached_ipd3_data', JSON.stringify(globalData));
                     buildHistoryTable();
                     showAlert('ดึงรายการกลับไปที่ "รายการค้าง" สำเร็จแล้ว', 'success');
                 } catch(e) { showAlert(e.message, 'error'); }
@@ -1093,8 +1157,7 @@
             const staff = document.getElementById('r-staff-dropdown').value || '-';
             const other = document.getElementById('r-other-person').value || '-';
             
-            if(staff !== '-') saveToMemory('mem_ipd3', memoryStaffIpd3, staff);
-            if(other !== '-') saveToMemory('mem_other', memoryStaffOther, other);
+            checkAndSyncSettings(txType === 'ถูกยืม' ? staff : null, txType === 'ยืมมา' ? staff : null, null, null);
 
             const returnQtyNum = parseInt(document.getElementById('r-returned-qty').value, 10);
             const originalQtyNum = parseInt(document.getElementById('r-original-qty').value, 10);
@@ -1142,6 +1205,7 @@
                     }
                 }
                 
+                localStorage.setItem('cached_ipd3_data', JSON.stringify(globalData));
                 const slipData = { ...originalItem, sender: sender, receiver: receiver, customNotes: notesText, returnedQtyStr: returnedQtyStr, isPartial: isPartial, remainingQtyStr: remainingQtyStr };
                 generateSlip('return', slipData, currentImageBase64 || originalItem.BorrowImage);
                 filterList(currentTab, 'ยืมอยู่'); 
@@ -1178,12 +1242,6 @@
         }
 
         async function processQRCode(decodedText) {
-            showLoading(true, "ตรวจสอบข้อมูล...");
-            if(globalData.length === 0) {
-                try { const res = await fetchWithTimeout(API_URL); const text = await res.text(); globalData = JSON.parse(text); } catch(e){}
-            }
-            showLoading(false);
-            
             const item = globalData.find(i => String(i.ID).trim() === String(decodedText).trim());
             if(item) {
                 if(item.Status === 'คืนแล้ว') {
@@ -1196,7 +1254,7 @@
             } else { showAlert(`ไม่พบรหัส "${decodedText}" ในระบบ`, 'error'); }
         }
 
-        // ================== สลิป V2 (9:16) ==================
+        // ================== สลิป V2 ==================
         function generateSlip(actionType, data, imgBase64) {
             setNow('', 'slip-time-text');
             
