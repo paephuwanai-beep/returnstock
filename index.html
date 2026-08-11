@@ -4,17 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IPD3 Return System</title>
+    <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://unpkg.com/html5-qrcode"></script>
 
     <style>
         :root {
-            var(--primary): #004aad;    
+            --primary: #004aad;    
             --secondary: #0096ff;  
-            --success: #00a596; /* สีเขียวมิ้นต์แบบ K+ */
+            --success: #00a596; 
             --danger: #ff3b30;
             --warning: #ff9500;
             --bg-gradient: linear-gradient(135deg, #e6f2ff 0%, #ffffff 100%);
@@ -29,8 +31,8 @@
         .glass { background: var(--glass-bg); backdrop-filter: blur(12px); border: 1px solid var(--glass-border); }
 
         header { padding: 20px; text-align: center; z-index: 2; position: relative; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); background: white;}
-        .app-logo { font-size: 24px; font-weight: 700; color: #004aad; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .app-logo i { color: #0096ff; font-size: 28px;}
+        .app-logo { font-size: 24px; font-weight: 700; color: var(--primary); display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .app-logo i { color: var(--secondary); font-size: 28px;}
 
         .sidebar-header { display: none; padding: 30px 20px; text-align: center; }
 
@@ -44,40 +46,40 @@
         .menu-card { background: white; border-radius: 16px; padding: 20px; text-align: center; border: 1px solid var(--glass-border); box-shadow: 0 4px 15px rgba(0,74,173,0.08); cursor: pointer; transition: 0.3s; }
         .menu-card:active { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,74,173,0.15); }
         .menu-card i { font-size: 35px; margin-bottom: 10px; }
-        .menu-card h3 { color: #004aad; font-size: 18px; margin-bottom: 5px;}
+        .menu-card h3 { color: var(--primary); font-size: 18px; margin-bottom: 5px;}
         .menu-card p { color: #666; font-size: 13px; }
-        .card-lent i { color: #004aad; } .card-borrow i { color: #0096ff; } .card-history i { color: var(--success); }
+        .card-lent i { color: var(--primary); } .card-borrow i { color: var(--secondary); } .card-history i { color: var(--success); }
 
         /* Forms */
         .glass-input { width: 100%; padding: 14px; margin-bottom: 15px; border-radius: 10px; border: 1px solid #cce0ff; background: white; outline: none; font-size: 15px; color: #333; transition: 0.3s; box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);}
-        .glass-input:focus { border: 1px solid #0096ff; box-shadow: 0 0 8px rgba(0,150,255,0.2); }
-        .input-label { font-size: 14px; color: #004aad; margin-left: 5px; margin-bottom: 5px; display: block; font-weight: bold;}
+        .glass-input:focus { border: 1px solid var(--secondary); box-shadow: 0 0 8px rgba(0,150,255,0.2); }
+        .input-label { font-size: 14px; color: var(--primary); margin-left: 5px; margin-bottom: 5px; display: block; font-weight: bold;}
 
         .toggle-container { display: flex; background: #e6f2ff; border-radius: 10px; margin-bottom: 20px; padding: 5px; }
         .toggle-btn { flex: 1; padding: 10px; text-align: center; font-weight: bold; cursor: pointer; border-radius: 8px; color: #555; transition: 0.3s; }
-        .toggle-btn.active-lent { background: #004aad; color: white; box-shadow: 0 2px 8px rgba(0,74,173,0.2); }
-        .toggle-btn.active-borrow { background: #0096ff; color: white; box-shadow: 0 2px 8px rgba(0,150,255,0.2); }
+        .toggle-btn.active-lent { background: var(--primary); color: white; box-shadow: 0 2px 8px rgba(0,74,173,0.2); }
+        .toggle-btn.active-borrow { background: var(--secondary); color: white; box-shadow: 0 2px 8px rgba(0,150,255,0.2); }
 
         .glass-btn { width: 100%; padding: 14px; border-radius: 10px; border: none; cursor: pointer; font-weight: bold; color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.1); font-size: 15px; transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 8px; }
         .glass-btn:active { transform: scale(0.98); }
-        .btn-primary { background: linear-gradient(135deg, #004aad, #0096ff); }
-        .btn-outline { background: white; color: #004aad; border: 2px dashed #004aad; }
+        .btn-primary { background: linear-gradient(135deg, var(--primary), var(--secondary)); }
+        .btn-outline { background: white; color: var(--primary); border: 2px dashed var(--primary); }
 
         .file-upload-wrapper { position: relative; width: 100%; margin-bottom: 15px; }
         .file-upload-wrapper input[type="file"] { display: none; }
-        .file-upload-btn { width: 100%; padding: 14px; background: #f0f7ff; border: 2px dashed #0096ff; border-radius: 10px; color: #004aad; font-weight: bold; text-align: center; cursor: pointer; display: block; }
+        .file-upload-btn { width: 100%; padding: 14px; background: #f0f7ff; border: 2px dashed var(--secondary); border-radius: 10px; color: var(--primary); font-weight: bold; text-align: center; cursor: pointer; display: block; }
         .image-preview { width: 100%; max-height: 150px; object-fit: contain; margin-top: 10px; display: none; border-radius: 8px; border: 1px solid #ccc;}
 
         /* Tabs */
         .tab-container { display: flex; gap: 5px; margin-bottom: 15px; }
         .tab-btn { flex: 1; padding: 10px 5px; background: white; border: 1px solid #cce0ff; border-radius: 8px; font-weight: bold; color: #666; cursor: pointer; font-size: 14px; text-align: center;}
-        .tab-btn.active { background: #e6f2ff; color: #004aad; border: 1px solid #004aad; }
+        .tab-btn.active { background: #e6f2ff; color: var(--primary); border: 1px solid var(--primary); }
 
         /* Item Cards */
         .item-card { background: white; border-radius: 12px; padding: 15px; margin-bottom: 15px; border: 1px solid #e6f2ff; box-shadow: 0 4px 12px rgba(0,74,173,0.06); }
         .item-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; border-bottom: 1px solid #f0f0f0; padding-bottom: 10px;}
-        .item-title { font-size: 16px; font-weight: bold; color: #004aad; display: flex; align-items: center; gap: 8px;}
-        .qty-badge { background: #e6f2ff; color: #004aad; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold;}
+        .item-title { font-size: 16px; font-weight: bold; color: var(--primary); display: flex; align-items: center; gap: 8px;}
+        .qty-badge { background: #e6f2ff; color: var(--primary); padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold;}
         .item-body { display: flex; justify-content: space-between; align-items: center; }
         .item-details-list { flex: 1; }
         .item-detail { font-size: 13px; color: #555; margin-bottom: 4px;}
@@ -86,59 +88,57 @@
         .action-row { display: flex; gap: 8px; margin-top: 12px; }
         .btn-sm { flex: 1; padding: 8px; border-radius: 6px; font-size: 13px; display: flex; justify-content: center; align-items: center; gap: 5px; border: none; font-weight: bold; cursor: pointer;}
         .btn-return { background: var(--success); color: white; flex: 2;}
-        .btn-edit { background: #f0f7ff; color: #004aad; border: 1px solid #0096ff;}
+        .btn-edit { background: #f0f7ff; color: var(--primary); border: 1px solid var(--secondary);}
         .btn-delete { background: #fee2e2; color: var(--danger); border: 1px solid #fca5a5;}
         
         .overdue-row { border: 2px solid var(--danger); }
         .overdue-badge { background: #fee2e2; color: var(--danger); padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: bold; animation: pulse 1.5s infinite; }
 
-        /* Navigation (4 เมนู) */
-        .bottom-nav { position: absolute; bottom: 0; width: 100%; display: flex; justify-content: space-around; padding: 10px 0 15px 0; border-top-left-radius: 20px; border-top-right-radius: 20px; z-index: 5; box-shadow: 0 -5px 20px rgba(0,74,173,0.05); background: white; }
-        .nav-item { background: none; border: none; font-size: 20px; color: #999; display: flex; flex-direction: column; align-items: center; cursor: pointer; transition: 0.3s; }
-        .nav-item.active { color: #004aad; transform: translateY(-3px); }
-        .nav-item span { font-size: 11px; margin-top: 4px; font-weight: bold;}
+        /* Navigation (5 เมนู) */
+        .bottom-nav { position: absolute; bottom: 0; width: 100%; display: flex; justify-content: space-between; padding: 10px 5px 15px 5px; border-top-left-radius: 20px; border-top-right-radius: 20px; z-index: 5; box-shadow: 0 -5px 20px rgba(0,74,173,0.05); background: white; gap: 2px;}
+        .nav-item { background: none; border: none; font-size: 18px; color: #999; display: flex; flex-direction: column; align-items: center; cursor: pointer; transition: 0.3s; width: 20%;}
+        .nav-item.active { color: var(--primary); transform: translateY(-3px); }
+        .nav-item span { font-size: 10px; margin-top: 4px; font-weight: bold; white-space: nowrap;}
 
         /* Modals */
         .modal { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 50; background: rgba(0,0,0,0.6); backdrop-filter: blur(3px); }
         .hidden { display: none !important; }
         .modal-content { background: white; width: 90%; max-height: 90vh; overflow-y: auto; padding: 20px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);}
         
-        /* ================= สลิปสไตล์ K+ (อัปเกรดใหม่) ================= */
+        /* ================= สลิปสไตล์ K+ (อัปเกรดใหม่ QR ด้านบน) ================= */
         .kplus-slip {
             background: linear-gradient(180deg, #dcf3f1 0%, #f0fcfb 30%, #ffffff 100%);
-            border-radius: 0px; /* สลิปมักจะเหลี่ยมๆ */
+            border-radius: 12px;
             padding: 25px 20px; margin-bottom: 15px;
             font-family: 'Sarabun', sans-serif; position: relative; overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1); border: 1px solid #c8e9e6;
         }
-        /* ลายน้ำพื้นหลัง */
         .kplus-slip::before {
             content: "\f1ad"; font-family: "Font Awesome 5 Free"; font-weight: 900;
             position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%);
             font-size: 250px; color: rgba(0, 165, 150, 0.03); z-index: 0; pointer-events: none;
         }
         
-        .k-header { display: flex; justify-content: space-between; align-items: flex-start; position: relative; z-index: 1; border-bottom: 1px solid #bce0dd; padding-bottom: 12px; margin-bottom: 20px;}
+        .k-header { display: flex; justify-content: space-between; align-items: flex-start; position: relative; z-index: 1; border-bottom: 1px solid #bce0dd; padding-bottom: 12px; margin-bottom: 15px;}
         .k-title-wrap { display: flex; gap: 12px; }
         .k-status-bar { width: 5px; background: var(--success); border-radius: 3px; }
         .k-title { font-size: 20px; font-weight: bold; color: #111; line-height: 1.3;}
         .k-datetime { font-size: 14px; color: #555; margin-top: 4px;}
-        .k-logo { font-size: 26px; font-weight: 900; color: #005a51; font-style: italic; letter-spacing: -1px;}
+        .k-logo { font-size: 24px; font-weight: 900; color: #005a51; font-style: italic; letter-spacing: -1px;}
         .k-logo span { color: var(--success); }
+
+        /* จัด QR Code ให้อยู่ด้านบน */
+        .k-qr-top { display: flex; justify-content: center; align-items: center; margin: 10px 0 20px; position: relative; z-index: 1;}
+        .k-qr-box { background: white; padding: 10px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border: 1px solid #eee;}
         
         .k-parties { position: relative; z-index: 1; margin-bottom: 25px; padding-left: 15px;}
         .k-party { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; position: relative;}
-        
-        /* ไอคอนโปรไฟล์ */
         .k-avatar { width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); z-index: 2; background: white; border: 2px solid white;}
         .k-avatar.sender { color: var(--success); border-color: var(--success);}
         .k-avatar.receiver { color: #ff3b30; border-color: #ff3b30;}
-        
         .k-party-info { display: flex; flex-direction: column; }
         .k-party-name { font-size: 16px; font-weight: bold; color: #111; }
         .k-party-sub { font-size: 14px; color: #555; }
-        
-        /* ลูกศรชี้ลง */
         .k-arrow-container { position: absolute; left: 16px; top: 48px; height: 25px; border-left: 2px solid #999; z-index: 1;}
         .k-arrow-container::after { content: "\f063"; font-family: "Font Awesome 5 Free"; font-weight: 900; position: absolute; bottom: -12px; left: -7px; font-size: 12px; color: #999;}
         
@@ -147,16 +147,13 @@
         .k-label { color: #444; }
         .k-value { font-weight: bold; color: #111; max-width: 65%; text-align: right; }
         
-        /* คอนเทนเนอร์รูปถ่ายบนสลิปให้ใหญ่และชัดเจน */
+        /* ภาพในสลิปปรับให้ใหญ่ขึ้น */
         .k-image-container { text-align: center; margin: 20px 0; position: relative; z-index: 1;}
-        .k-image-container img { max-width: 100%; max-height: 280px; border-radius: 12px; border: 4px solid #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.1); object-fit: contain; }
+        .k-image-container img { max-width: 100%; width: 100%; max-height: 350px; border-radius: 12px; border: 4px solid #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.1); object-fit: cover; }
         
-        .k-footer { display: flex; justify-content: space-between; align-items: flex-end; position: relative; z-index: 1; margin-top: 20px;}
-        .k-qr-box { background: white; padding: 8px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border: 1px solid #eee; display: flex; flex-direction: column; align-items: center; gap: 5px;}
-        .k-qr-box span { font-size: 11px; color: #666; font-weight: bold;}
+        .k-footer { text-align: center; position: relative; z-index: 1; margin-top: 15px;}
         .k-watermark { font-size: 12px; color: #777;}
 
-        /* Scanner */
         #reader { width: 100%; border-radius: 12px; overflow: hidden; border: none; }
 
         @media (min-width: 768px) {
@@ -165,10 +162,10 @@
             header { display: none; }
             .sidebar-header { display: block; border-bottom: 1px solid #eee; margin-bottom: 20px;}
             
-            .bottom-nav { position: relative; flex-direction: column; width: 220px; height: 100%; justify-content: flex-start; padding: 0; border-radius: 0; border-right: 1px solid #eee; background: #fafbfc; box-shadow: none; align-items: flex-start;}
+            .bottom-nav { position: relative; flex-direction: column; width: 220px; height: 100%; justify-content: flex-start; padding: 0; border-radius: 0; border-right: 1px solid #eee; background: #fafbfc; box-shadow: none; align-items: flex-start; gap: 0;}
             .nav-item { width: 100%; flex-direction: row; padding: 15px 20px; justify-content: flex-start; gap: 15px; font-size: 18px; border-left: 4px solid transparent; border-radius: 0;}
             .nav-item span { font-size: 15px; margin-top: 0; }
-            .nav-item.active { background: #e6f2ff; border-left: 4px solid #004aad; transform: none; }
+            .nav-item.active { background: #e6f2ff; border-left: 4px solid var(--primary); transform: none; }
             
             .main-content { flex: 1; }
             .page { padding: 30px; padding-bottom: 30px; }
@@ -179,26 +176,31 @@
 </head>
 <body>
     <div class="app-container">
-        <!-- Header -->
+        <!-- Datalist สำหรับจำชื่อ (ระบบ Memory) -->
+        <datalist id="ipd3-staff-list"></datalist>
+        <datalist id="other-staff-list"></datalist>
+
+        <!-- Header Mobile -->
         <header>
             <div class="app-logo"><i class="fas fa-heartbeat"></i> <div><span>IPD3</span> Return</div></div>
         </header>
 
-        <!-- Sidebar Navigation -->
+        <!-- Sidebar Navigation (5 เมนู) -->
         <nav class="bottom-nav">
             <div class="sidebar-header">
                 <div class="app-logo"><i class="fas fa-heartbeat"></i> <div><span>IPD3</span> Return</div></div>
             </div>
             <button onclick="switchPage('home-page')" class="nav-item active" id="nav-home"><i class="fas fa-home"></i><span>หน้าแรก</span></button>
             <button onclick="switchPage('dashboard-page')" class="nav-item" id="nav-list"><i class="fas fa-clipboard-list"></i><span>รายการค้าง</span></button>
-            <button onclick="switchPage('history-page')" class="nav-item" id="nav-history"><i class="fas fa-history"></i><span>ประวัติ(คืนแล้ว)</span></button>
+            <button onclick="switchPage('history-page')" class="nav-item" id="nav-history"><i class="fas fa-history"></i><span>ประวัติ</span></button>
             <button onclick="switchPage('borrow-page')" class="nav-item" id="nav-borrow"><i class="fas fa-plus-circle"></i><span>บันทึกใหม่</span></button>
+            <button onclick="switchPage('report-page')" class="nav-item" id="nav-report"><i class="fas fa-file-excel"></i><span>ออกรายงาน</span></button>
         </nav>
 
         <div class="main-content">
             <!-- 1. หน้าแรก -->
             <main id="home-page" class="page active">
-                <h3 style="color: #004aad; margin-bottom: 20px;">เลือกทำรายการ</h3>
+                <h3 style="color: var(--primary); margin-bottom: 20px;">เลือกทำรายการ</h3>
                 
                 <button onclick="openQrScanner()" class="glass-btn btn-outline" style="margin-bottom: 20px;">
                     <i class="fas fa-qrcode"></i> สแกน QR Code เพื่อคืนของ
@@ -208,17 +210,17 @@
                     <div class="menu-card card-lent" onclick="openBorrowForm('ถูกยืม')">
                         <i class="fas fa-hand-holding-medical"></i>
                         <h3>ให้เขายืม (ถูกยืม)</h3>
-                        <p>บันทึกเมื่อแผนกอื่นมายืมของ</p>
+                        <p>แผนกอื่นมายืมของ</p>
                     </div>
                     <div class="menu-card card-borrow" onclick="openBorrowForm('ยืมมา')">
                         <i class="fas fa-truck-loading"></i>
                         <h3>ไปยืมเขามา (ยืมมา)</h3>
-                        <p>บันทึกเมื่อเราไปยืมของแผนกอื่น</p>
+                        <p>เราไปยืมของแผนกอื่น</p>
                     </div>
                     <div class="menu-card card-history" onclick="switchPage('history-page')">
                         <i class="fas fa-history"></i>
                         <h3>ประวัติคืนแล้ว</h3>
-                        <p>ดูรายการที่ทำการคืนสำเร็จ</p>
+                        <p>ดูรายการที่คืนสำเร็จ</p>
                     </div>
                 </div>
             </main>
@@ -226,7 +228,7 @@
             <!-- 2. หน้ารายการค้าง (Active) -->
             <main id="dashboard-page" class="page">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                    <h3 style="color: #004aad;">รายการค้างส่งคืน</h3>
+                    <h3 style="color: var(--primary);">รายการค้างส่งคืน</h3>
                     <div style="display: flex; gap: 8px;">
                         <button onclick="openQrScanner()" class="glass-btn btn-outline" style="width: auto; padding: 8px 12px; font-size: 13px;"><i class="fas fa-qrcode"></i> สแกน</button>
                         <button onclick="fetchData()" class="glass-btn" style="width: auto; padding: 8px 12px; font-size: 13px;"><i class="fas fa-sync-alt"></i> รีเฟรช</button>
@@ -234,12 +236,12 @@
                 </div>
                 
                 <div class="tab-container">
-                    <button id="tab-lent" class="tab-btn active" onclick="filterList('ถูกยืม', 'ยืมอยู่', 'dashboard-page')">รายการที่ถูกยืมไป</button>
-                    <button id="tab-borrowed" class="tab-btn" onclick="filterList('ยืมมา', 'ยืมอยู่', 'dashboard-page')">รายการที่เรายืมมา</button>
+                    <button id="tab-lent" class="tab-btn active" onclick="filterList('ถูกยืม', 'ยืมอยู่', 'dashboard-page')">ที่ถูกยืมไป</button>
+                    <button id="tab-borrowed" class="tab-btn" onclick="filterList('ยืมมา', 'ยืมอยู่', 'dashboard-page')">ที่เรายืมมา</button>
                 </div>
 
                 <div id="borrow-list">
-                    <div style="text-align: center; padding: 40px; color: #0096ff;"><i class="fas fa-spinner fa-spin fa-2x"></i></div>
+                    <div style="text-align: center; padding: 40px; color: var(--secondary);"><i class="fas fa-spinner fa-spin fa-2x"></i></div>
                 </div>
             </main>
 
@@ -249,7 +251,6 @@
                     <h3 style="color: var(--success);">ประวัติ (คืนแล้ว)</h3>
                     <button onclick="fetchData()" class="glass-btn" style="background:var(--success); width: auto; padding: 8px 12px; font-size: 13px;"><i class="fas fa-sync-alt"></i> รีเฟรช</button>
                 </div>
-                
                 <div id="history-list">
                     <div style="text-align: center; padding: 40px; color: var(--success);"><i class="fas fa-spinner fa-spin fa-2x"></i></div>
                 </div>
@@ -297,14 +298,12 @@
                     </select>
                     <input type="text" id="b-dept-other" placeholder="ระบุชื่อหน่วยงาน..." class="glass-input" style="display: none;">
 
+                    <!-- เปลี่ยนจาก select เป็น input text with datalist -->
                     <span class="input-label" id="label-lender">ผู้ให้ยืม (เรา IPD3):</span>
-                    <select id="b-staff-dropdown" required class="glass-input">
-                        <option value="" disabled selected>เลือกชื่อ IPD3...</option>
-                        <option value="ปิยะนาท">ปิยะนาท</option><option value="ภูวนัย">ภูวนัย</option><option value="สุวนันท์">สุวนันท์</option><option value="สุรีภรณ์">สุรีภรณ์</option><option value="พรพิมล">พรพิมล</option><option value="ปราณี">ปราณี</option>
-                    </select>
+                    <input type="text" id="b-staff-dropdown" list="ipd3-staff-list" class="glass-input" required placeholder="ระบุชื่อหรือเลือก..." autocomplete="off">
                     
                     <span class="input-label" id="label-borrower">ชื่อผู้ยืม (แผนกอื่น):</span>
-                    <input type="text" id="b-other-person" placeholder="ระบุชื่อผู้ติดต่อ" required class="glass-input">
+                    <input type="text" id="b-other-person" list="other-staff-list" class="glass-input" required placeholder="ระบุชื่อผู้ติดต่อ..." autocomplete="off">
 
                     <span class="input-label">ภาพหลักฐาน (จะแสดงในใบเสร็จ):</span>
                     <div class="file-upload-wrapper">
@@ -318,22 +317,43 @@
                     <button type="submit" class="btn-primary glass-btn"><i class="fas fa-save"></i> บันทึกรายการใหม่</button>
                 </form>
             </main>
+
+            <!-- 5. หน้าออกรายงาน (PC Feature) -->
+            <main id="report-page" class="page">
+                <h3 style="color: var(--primary); margin-bottom: 20px;"><i class="fas fa-file-excel"></i> ส่งออกรายงาน (CSV)</h3>
+                <div style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #eee;">
+                    <span class="input-label">เลือกประเภทรายการ:</span>
+                    <select id="rep-type" class="glass-input">
+                        <option value="ทั้งหมด">ทั้งหมด</option>
+                        <option value="ถูกยืม">เฉพาะถูกยืม</option>
+                        <option value="ยืมมา">เฉพาะยืมมา</option>
+                    </select>
+                    
+                    <span class="input-label">ช่วงวันที่ยืม:</span>
+                    <div style="display: flex; gap: 10px;">
+                        <div style="flex:1;"><small>จากวันที่</small><input type="date" id="rep-start" class="glass-input"></div>
+                        <div style="flex:1;"><small>ถึงวันที่</small><input type="date" id="rep-end" class="glass-input"></div>
+                    </div>
+                    
+                    <button onclick="exportReport()" class="btn-primary glass-btn" style="margin-top: 10px;"><i class="fas fa-download"></i> ดาวน์โหลด CSV</button>
+                </div>
+            </main>
         </div>
     </div>
 
     <!-- Modal สแกน QR -->
     <div id="qr-modal" class="modal hidden">
         <div class="modal-content" style="background: white;">
-            <h3 style="color: #004aad; margin-bottom: 15px; text-align: center;"><i class="fas fa-qrcode"></i> สแกน QR คืนของ</h3>
+            <h3 style="color: var(--primary); margin-bottom: 15px; text-align: center;"><i class="fas fa-qrcode"></i> สแกน QR คืนของ</h3>
             <div id="reader"></div>
             <button onclick="closeQrScanner()" class="glass-btn" style="background: #e2e8f0; color:#333; margin-top: 15px;">ยกเลิก</button>
         </div>
     </div>
 
-    <!-- Modal คืนของ / แก้ไข (ปลด Required แล้ว) -->
+    <!-- Modal คืนของ / แก้ไข -->
     <div id="action-modal" class="modal hidden">
         <div class="modal-content">
-            <h3 id="modal-title" style="color: #004aad; margin-bottom: 15px;"></h3>
+            <h3 id="modal-title" style="color: var(--primary); margin-bottom: 15px;"></h3>
             <form id="action-form">
                 <input type="hidden" id="m-action-type">
                 <input type="hidden" id="m-id">
@@ -348,13 +368,10 @@
                     </div>
                     
                     <span class="input-label" id="label-r-receiver">ผู้รับคืน (จนท. IPD3):</span>
-                    <select id="r-staff-dropdown" class="glass-input">
-                        <option value="" selected>เลือกชื่อ...</option>
-                        <option value="ปิยะนาท">ปิยะนาท</option><option value="ภูวนัย">ภูวนัย</option><option value="สุวนันท์">สุวนันท์</option><option value="สุรีภรณ์">สุรีภรณ์</option><option value="พรพิมล">พรพิมล</option><option value="ปราณี">ปราณี</option>
-                    </select>
+                    <input type="text" id="r-staff-dropdown" list="ipd3-staff-list" class="glass-input" placeholder="ระบุชื่อหรือเลือก..." autocomplete="off">
 
                     <span class="input-label" id="label-r-sender">ชื่อผู้ส่งคืน (แผนกอื่น):</span>
-                    <input type="text" id="r-other-person" placeholder="ระบุชื่อผู้ติดต่อ (ไม่บังคับ)" class="glass-input">
+                    <input type="text" id="r-other-person" list="other-staff-list" class="glass-input" placeholder="ระบุชื่อผู้ติดต่อ (ไม่บังคับ)" autocomplete="off">
                     
                     <div class="file-upload-wrapper">
                         <label class="file-upload-btn"><i class="fas fa-camera"></i> ถ่ายภาพตอนคืน <input type="file" id="r-image" accept="image/*" capture="environment"></label>
@@ -362,7 +379,7 @@
                     </div>
                 </div>
 
-                <!-- ส่วนแก้ไข (ซ่อนไว้ และเอา required ออกเพื่อไม่ให้บั๊ก) -->
+                <!-- ส่วนแก้ไข -->
                 <div id="edit-fields" style="display: none;">
                     <span class="input-label">สิ่งที่ยืม:</span><input type="text" id="e-item" class="glass-input">
                     <span class="input-label">จำนวน:</span><input type="text" id="e-qty" class="glass-input">
@@ -379,7 +396,7 @@
         </div>
     </div>
 
-    <!-- Modal ใบเสร็จ (K+ Style) -->
+    <!-- Modal ใบเสร็จ (K+ Style แบบ QR อยู่ด้านบน) -->
     <div id="receipt-modal" class="modal hidden">
         <div class="modal-content" style="background: transparent; box-shadow: none; padding: 10px; display: flex; flex-direction: column; align-items: center;">
             <div id="slip-capture-area" class="kplus-slip" style="width: 100%; max-width: 400px;">
@@ -388,13 +405,20 @@
                     <div class="k-title-wrap">
                         <div class="k-status-bar"></div>
                         <div>
-                            <div class="k-title" id="slip-type-title">ทำรายการสำเร็จ</div>
+                            <div class="k-title" id="slip-type-title">บันทึกสำเร็จ</div>
                             <div class="k-datetime" id="slip-time-text"></div>
                         </div>
                     </div>
                     <div class="k-logo">I<span>P</span>D3+</div>
                 </div>
                 
+                <!-- QR Code โชว์บนสุด (เด่นๆ) -->
+                <div class="k-qr-top" id="slip-qr-box" style="display:none;">
+                    <div class="k-qr-box">
+                        <div id="slip-qrcode"></div>
+                    </div>
+                </div>
+
                 <div class="k-parties">
                     <div class="k-party">
                         <div class="k-avatar sender"><i class="fas fa-hospital-user"></i></div>
@@ -422,7 +446,7 @@
                     </div>
                     <div class="k-row">
                         <span class="k-label">รายการ:</span>
-                        <span class="k-value" style="font-size: 16px; color: #004aad;" id="slip-item">-</span>
+                        <span class="k-value" style="font-size: 16px; color: var(--primary);" id="slip-item">-</span>
                     </div>
                     <div class="k-row" id="slip-qty-row">
                         <span class="k-label">จำนวน:</span>
@@ -436,16 +460,13 @@
                 </div>
                 
                 <div class="k-footer">
-                    <span class="k-watermark">สแกนเพื่อจัดการรายการ</span>
-                    <div class="k-qr-box" id="slip-qr-box">
-                        <div id="slip-qrcode"></div>
-                    </div>
+                    <span class="k-watermark">บันทึกอัตโนมัติจาก IPD3 Return System</span>
                 </div>
             </div>
             
             <div style="display: flex; gap: 10px; width: 100%; max-width: 400px;">
                 <button onclick="downloadSlip()" class="glass-btn btn-primary" style="flex: 1.5;"><i class="fas fa-download"></i> บันทึกภาพสลิป</button>
-                <button onclick="closeReceipt()" class="glass-btn" style="background: white; color: #004aad; border: 1px solid #004aad; flex: 1;">ปิดหน้าต่าง</button>
+                <button onclick="closeReceipt()" class="glass-btn" style="background: white; color: var(--primary); border: 1px solid var(--primary); flex: 1;">ปิดหน้าต่าง</button>
             </div>
         </div>
     </div>
@@ -460,10 +481,43 @@
         let currentImageBase64 = ''; 
         let html5QrCode;
 
+        // ระบบจดจำชื่อ (Memory Storage)
+        let ipd3Staffs = JSON.parse(localStorage.getItem('ipd3_staffs')) || ["ปิยะนาท", "ภูวนัย", "สุวนันท์", "สุรีภรณ์", "พรพิมล", "ปราณี"];
+        let otherStaffs = JSON.parse(localStorage.getItem('other_staffs')) || [];
+
+        function updateDatalists() {
+            const ipd3List = document.getElementById('ipd3-staff-list');
+            const otherList = document.getElementById('other-staff-list');
+            ipd3List.innerHTML = ''; otherList.innerHTML = '';
+            
+            ipd3Staffs.forEach(name => {
+                const opt = document.createElement('option'); opt.value = name; ipd3List.appendChild(opt);
+            });
+            otherStaffs.forEach(name => {
+                const opt = document.createElement('option'); opt.value = name; otherList.appendChild(opt);
+            });
+        }
+        
+        function saveStaffName(type, name) {
+            if(!name) return;
+            if(type === 'ipd3' && !ipd3Staffs.includes(name)) {
+                ipd3Staffs.push(name);
+                localStorage.setItem('ipd3_staffs', JSON.stringify(ipd3Staffs));
+            } else if(type === 'other' && !otherStaffs.includes(name)) {
+                otherStaffs.push(name);
+                localStorage.setItem('other_staffs', JSON.stringify(otherStaffs));
+            }
+            updateDatalists();
+        }
+
         function setNow(dateId, timeId) {
             const now = new Date();
             if(document.getElementById(dateId)) document.getElementById(dateId).value = now.toISOString().split('T')[0];
             if(document.getElementById(timeId)) document.getElementById(timeId).value = now.toTimeString().split(' ')[0].substring(0, 5);
+        }
+
+        window.onload = function() {
+            updateDatalists();
         }
 
         function switchPage(pageId) {
@@ -488,6 +542,11 @@
             if(pageId === 'borrow-page') { 
                 document.getElementById('nav-borrow').classList.add('active'); 
                 setNow('b-date', 'b-time'); 
+            }
+            
+            if(pageId === 'report-page') { 
+                document.getElementById('nav-report').classList.add('active'); 
+                setNow('rep-start', ''); setNow('rep-end', ''); 
             }
         }
 
@@ -550,6 +609,10 @@
             const staff = document.getElementById('b-staff-dropdown').value;
             const other = document.getElementById('b-other-person').value;
             
+            // เซฟชื่อลง Memory
+            saveStaffName('ipd3', staff);
+            saveStaffName('other', other);
+            
             let lender = txType === 'ถูกยืม' ? staff : other;
             let borrower = txType === 'ถูกยืม' ? other : staff;
 
@@ -570,7 +633,6 @@
                 };
                 globalData.push(newData);
 
-                // ออกสลิปใหม่ (สร้าง Object สมบูรณ์ส่งไป)
                 generateSlip('borrow', newData, currentImageBase64);
                 
                 document.getElementById('borrow-form').reset();
@@ -580,18 +642,15 @@
             finally { btn.innerHTML = '<i class="fas fa-save"></i> บันทึกรายการใหม่'; btn.disabled = false; }
         });
 
-        // ================== โหลดข้อมูล ==================
+        // ================== โหลดและจัดการ List ==================
         async function fetchData() {
             if(API_URL === 'YOUR_WEB_APP_URL_HERE') return;
-            
-            document.getElementById('borrow-list').innerHTML = '<div style="text-align: center; padding: 40px; color: #0096ff;"><i class="fas fa-spinner fa-spin fa-2x"></i></div>';
+            document.getElementById('borrow-list').innerHTML = '<div style="text-align: center; padding: 40px; color: var(--secondary);"><i class="fas fa-spinner fa-spin fa-2x"></i></div>';
             document.getElementById('history-list').innerHTML = '<div style="text-align: center; padding: 40px; color: var(--success);"><i class="fas fa-spinner fa-spin fa-2x"></i></div>';
-            
             try {
                 const res = await fetch(API_URL);
                 globalData = await res.json();
                 
-                // ถ้ารีเฟรชจากหน้าไหน ก็ให้โหลดหน้านั้น
                 if (document.getElementById('dashboard-page').classList.contains('active')) {
                     filterList(currentTab, 'ยืมอยู่', 'dashboard-page');
                 } else if (document.getElementById('history-page').classList.contains('active')) {
@@ -602,7 +661,6 @@
             }
         }
 
-        // ================== จัดการ List แยก 2 หน้า ==================
         function filterList(type, status, containerId) {
             currentTab = type;
             let listBox = document.getElementById('borrow-list');
@@ -610,7 +668,6 @@
             if(containerId === 'history-page') {
                 listBox = document.getElementById('history-list');
             } else {
-                // จัดการแท็บในหน้า Dashboard
                 document.getElementById('tab-lent').classList.remove('active'); 
                 document.getElementById('tab-borrowed').classList.remove('active');
                 if(type === 'ถูกยืม') document.getElementById('tab-lent').classList.add('active'); 
@@ -623,13 +680,11 @@
             if(status === 'คืนแล้ว') {
                 active = globalData.filter(i => i.Status === 'คืนแล้ว');
             } else {
-                // ตรวจจับเผื่อบางแถวไม่มี TransactionType
                 active = globalData.filter(i => i.Status === 'ยืมอยู่' && (i.TransactionType === type || (!i.TransactionType && type === 'ถูกยืม')));
             }
             
             if(active.length === 0) { listBox.innerHTML = `<div style="text-align:center; padding: 30px; color:#999;">ไม่มีรายการ</div>`; return; }
 
-            // เรียงล่าสุดขึ้นก่อน
             active.sort((a,b) => new Date(b.BorrowDate) - new Date(a.BorrowDate));
 
             active.forEach(item => {
@@ -638,7 +693,6 @@
                 const safeTxType = item.TransactionType || 'ถูกยืม';
                 
                 if(status === 'คืนแล้ว') {
-                    // รูปแบบ Card สำหรับประวัติ
                     card.innerHTML = `
                         <div class="item-header" style="border-bottom-color: #d1fae5;">
                             <div class="item-title" style="color:var(--success);"><i class="fas fa-check-circle"></i> ${item.Item}</div>
@@ -652,9 +706,11 @@
                                 <div class="item-detail" style="color:var(--success); font-weight:bold;"><i class="fas fa-comment-dots"></i> ${item.Notes}</div>
                             </div>
                         </div>
+                        <div class="action-row">
+                            <button onclick="deleteItem('${item.ID}', '${item.Item}')" class="btn-sm btn-delete" style="flex: 1;"><i class="fas fa-trash"></i> ลบรายการนี้ทิ้ง</button>
+                        </div>
                     `;
                 } else {
-                    // รูปแบบ Card สำหรับรายการค้าง
                     const today = new Date(); today.setHours(0,0,0,0);
                     const due = new Date(item.DueDate); due.setHours(0,0,0,0);
                     const isOverdue = today > due;
@@ -679,16 +735,30 @@
                         <div class="action-row">
                             <button onclick="openActionModal('return', '${item.ID}', '${item.Item}', '${safeTxType}')" class="btn-sm btn-return"><i class="fas fa-undo"></i> คืนของ</button>
                             <button onclick="openActionModal('edit', '${item.ID}', '${item.Item}', '${item.Qty}', '${item.DueDate}', '${item.Borrower}', '${item.Lender}')" class="btn-sm btn-edit"><i class="fas fa-pen"></i> แก้ไข</button>
+                            <button onclick="deleteItem('${item.ID}', '${item.Item}')" class="btn-sm btn-delete"><i class="fas fa-trash"></i> ลบ</button>
                         </div>
                     `;
                 }
                 listBox.appendChild(card);
-                
                 if(status === 'ยืมอยู่') {
-                    // สร้าง QR สำหรับรายการค้าง
                     new QRCode(document.getElementById(`qr-list-${item.ID}`), { text: item.ID, width: 50, height: 50 });
                 }
             });
+        }
+
+        // ================== ลบรายการ (ทุกสถานะ) ==================
+        async function deleteItem(id, itemName) {
+            if(confirm(`คุณต้องการลบรายการ "${itemName}" ใช่หรือไม่?\n(การลบจะไม่สามารถกู้คืนได้)`)) {
+                try {
+                    await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'delete', id: id }) });
+                    globalData = globalData.filter(i => i.ID !== id);
+                    if(document.getElementById('history-page').classList.contains('active')) {
+                        filterList('ทั้งหมด', 'คืนแล้ว', 'history-page');
+                    } else {
+                        filterList(currentTab, 'ยืมอยู่', 'dashboard-page');
+                    }
+                } catch(e) { alert('เกิดข้อผิดพลาดในการลบ'); }
+            }
         }
 
         // ================== Modal Action ==================
@@ -729,7 +799,6 @@
             const id = document.getElementById('m-id').value;
             const btn = document.getElementById('m-submit-btn'); btn.disabled = true;
 
-            // ดึงข้อมูลเดิมทั้งหมดมาเตรียมไว้เพื่อออกสลิปได้ครบถ้วน
             const originalItem = globalData.find(i => i.ID === id) || {};
 
             if(action === 'return') {
@@ -737,6 +806,10 @@
                 const staff = document.getElementById('r-staff-dropdown').value || '-';
                 const other = document.getElementById('r-other-person').value || '-';
                 
+                // เซฟชื่อลง Memory
+                if(staff !== '-') saveStaffName('ipd3', staff);
+                if(other !== '-') saveStaffName('other', other);
+
                 let receiver = txType === 'ถูกยืม' ? staff : other;
                 let sender = txType === 'ถูกยืม' ? other : staff;
 
@@ -746,7 +819,6 @@
                     await fetch(API_URL, { method: 'POST', body: JSON.stringify(payload) });
                     closeActionModal();
                     
-                    // อัปเดตข้อมูล Local
                     if(originalItem.ID) {
                         originalItem.Status = 'คืนแล้ว';
                         originalItem.ReturnDate = payload.returnDate;
@@ -755,7 +827,6 @@
                         originalItem.Notes = payload.notes;
                     }
                     
-                    // รวมข้อมูลเพื่อทำสลิป
                     const slipData = { ...originalItem, sender: sender, receiver: receiver };
                     generateSlip('return', slipData, currentImageBase64);
                     
@@ -775,7 +846,7 @@
             btn.disabled = false;
         });
 
-        // ================== QR Scanner (สแกนปุ๊บเด้งคืนของปั๊บ) ==================
+        // ================== QR Scanner ==================
         function openQrScanner() {
             document.getElementById('qr-modal').classList.remove('hidden');
             html5QrCode = new Html5Qrcode("reader");
@@ -783,7 +854,6 @@
                 { facingMode: "environment" },
                 { fps: 10, qrbox: { width: 250, height: 250 } },
                 async (decodedText) => {
-                    // เมื่อสแกนติด -> หยุดกล้องทันที
                     html5QrCode.stop().then(async () => {
                         closeQrScanner();
                         
@@ -800,15 +870,12 @@
                                 alert('รายการนี้ถูกคืนเรียบร้อยแล้ว (ดูได้ในเมนูประวัติ)');
                                 switchPage('history-page');
                             } else {
-                                // เปลี่ยนหน้า และ เด้งป๊อปอัปคืนของทันที
                                 switchPage('dashboard-page');
                                 const safeTxType = item.TransactionType || 'ถูกยืม';
                                 filterList(safeTxType, 'ยืมอยู่', 'dashboard-page');
                                 openActionModal('return', item.ID, item.Item, safeTxType);
                             }
-                        } else {
-                            alert('ไม่พบรหัสนี้ หรือ ของคืนไปแล้ว');
-                        }
+                        } else { alert('ไม่พบรหัสนี้ หรือ ของคืนไปแล้ว'); }
                     }).catch(err => console.log(err));
                 },
                 (errorMessage) => { /* ignore */ }
@@ -822,62 +889,59 @@
             if(html5QrCode) { html5QrCode.stop().catch(err => console.log(err)); }
         }
 
-        // ================== สลิป K+ Style สุดเนียน ==================
+        // ================== สลิป K+ Style (แก้ QR ไว้บน & คำบรรยาย) ==================
         function generateSlip(actionType, data, imgBase64) {
             setNow('', 'slip-time-text');
             
             const isLent = (data.TransactionType === 'ถูกยืม' || data.txType === 'ถูกยืม');
-            
             let titleHTML = '';
             let s_name = '', s_dept = '', r_name = '', r_dept = '';
+
+            const qrBox = document.getElementById('slip-qr-box');
+            qrBox.style.display = 'flex';
+            document.getElementById("slip-qrcode").innerHTML = ""; 
+            if(data.ID || data.id) new QRCode(document.getElementById("slip-qrcode"), { text: (data.ID || data.id), width: 100, height: 100 });
 
             // 1. ถ้าเป็นการ "ยืม"
             if (actionType === 'borrow') {
                 if (isLent) {
-                    titleHTML = `ใบบันทึกการยืม<br><span style="color:#004aad; font-size:18px;">(ถูกยืมไป)</span>`;
-                    s_name = data.Lender; s_dept = 'IPD3';
-                    r_name = data.Borrower; r_dept = data.Dept;
+                    titleHTML = `ใบบันทึกการยืม<br><span style="color:var(--primary); font-size:18px;">(ถูกยืมไป)</span>`;
+                    s_name = data.Lender + ' (ผู้ให้ยืม)'; s_dept = 'IPD3';
+                    r_name = data.Borrower + ' (ผู้ยืม)'; r_dept = data.Dept;
                 } else {
-                    titleHTML = `ใบบันทึกการยืม<br><span style="color:#0096ff; font-size:18px;">(ยืมมา)</span>`;
-                    s_name = data.Lender; s_dept = data.Dept;
-                    r_name = data.Borrower; r_dept = 'IPD3';
+                    titleHTML = `ใบบันทึกการยืม<br><span style="color:var(--secondary); font-size:18px;">(ยืมมา)</span>`;
+                    s_name = data.Lender + ' (ผู้ให้ยืม)'; s_dept = data.Dept;
+                    r_name = data.Borrower + ' (ผู้ยืม)'; r_dept = 'IPD3';
                 }
-                
                 document.getElementById('slip-qty-row').style.display = 'flex';
-                document.getElementById('slip-qr-box').style.display = 'flex';
-                if(data.ID) new QRCode(document.getElementById("slip-qrcode"), { text: data.ID, width: 80, height: 80 });
             } 
             // 2. ถ้าเป็นการ "คืน"
             else if (actionType === 'return') {
-                if (isLent) {
-                    titleHTML = `บันทึกรับคืนสำเร็จ<br><span style="color:var(--success); font-size:18px;">(รับคืนเข้า IPD3)</span>`;
-                    s_name = data.sender; s_dept = data.Dept;
-                    r_name = data.receiver; r_dept = 'IPD3';
-                } else {
-                    titleHTML = `บันทึกส่งคืนสำเร็จ<br><span style="color:var(--warning); font-size:18px;">(ส่งคืนแผนกอื่น)</span>`;
-                    s_name = data.sender; s_dept = 'IPD3';
-                    r_name = data.receiver; r_dept = data.Dept;
-                }
-                
                 document.getElementById('slip-qty-row').style.display = 'none';
-                document.getElementById('slip-qr-box').style.display = 'none';
+                
+                if (isLent) {
+                    titleHTML = `บันทึกการคืนรายการ<br><span style="color:var(--success); font-size:18px;">(รายการที่ถูกยืมไป)</span>`;
+                    s_name = data.sender + ' (ผู้ส่งคืน)'; s_dept = data.Dept;
+                    r_name = data.receiver + ' (ผู้รับคืน)'; r_dept = 'IPD3';
+                } else {
+                    titleHTML = `บันทึกการคืนรายการ<br><span style="color:var(--warning); font-size:18px;">(รายการที่ยืมมา)</span>`;
+                    s_name = data.sender + ' (ผู้ส่งคืน)'; s_dept = 'IPD3';
+                    r_name = data.receiver + ' (ผู้รับคืน)'; r_dept = data.Dept;
+                }
             }
 
-            // ใส่ข้อมูลลงในหน้า HTML
             document.getElementById('slip-type-title').innerHTML = titleHTML;
             document.getElementById('slip-sender-name').innerText = s_name || '-';
             document.getElementById('slip-sender-dept').innerText = s_dept || '-';
             document.getElementById('slip-receiver-name').innerText = r_name || '-';
             document.getElementById('slip-receiver-dept').innerText = r_dept || '-';
 
-            document.getElementById('slip-id').innerText = data.ID || '-';
+            document.getElementById('slip-id').innerText = data.ID || data.id || '-';
             document.getElementById('slip-item').innerText = data.Item || '-';
             document.getElementById('slip-qty').innerText = data.Qty || '-';
 
-            // จัดการรูปภาพ ให้ใหญ่และชัด
             const imgContainer = document.getElementById('slip-image-container');
             const imgEl = document.getElementById('slip-preview-img');
-            
             if (imgBase64) { 
                 imgEl.src = imgBase64; 
                 imgContainer.style.display = 'block';
@@ -896,6 +960,34 @@
             } catch (err) { alert("บันทึกภาพไม่สำเร็จ"); }
         }
         function closeReceipt() { document.getElementById('receipt-modal').classList.add('hidden'); }
+
+        // ================== Export CSV ==================
+        function exportReport() {
+            if(globalData.length === 0) { alert('กรุณาโหลดข้อมูลก่อน (โดยกดเข้าไปที่เมนูรายการค้าง หรือประวัติ)'); return; }
+            const type = document.getElementById('rep-type').value;
+            const start = document.getElementById('rep-start').value;
+            const end = document.getElementById('rep-end').value;
+
+            let filtered = globalData;
+            if(type !== 'ทั้งหมด') filtered = filtered.filter(i => i.TransactionType === type);
+            if(start) filtered = filtered.filter(i => i.BorrowDate >= start);
+            if(end) filtered = filtered.filter(i => i.BorrowDate <= end);
+            if(filtered.length === 0) { alert('ไม่พบข้อมูลในช่วงที่เลือก'); return; }
+
+            let csvContent = "data:text/csv;charset=utf-8,\uFEFF";
+            csvContent += "ID,ประเภท,วันที่ยืม,เวลา,รายการ,จำนวน,กำหนดคืน,ผู้ให้ยืม,แผนก,ผู้ยืม,สถานะ,วันที่คืน,เวลาคืน,ผู้รับคืน,หมายเหตุ\n";
+            filtered.forEach(row => {
+                let r = [row.ID, row.TransactionType, row.BorrowDate, row.BorrowTime, row.Item, row.Qty, row.DueDate, row.Lender, row.Dept, row.Borrower, row.Status, row.ReturnDate, row.ReturnTime, row.Receiver, row.Notes];
+                csvContent += r.join(",") + "\n";
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `IPD3_Report_${start||'all'}_to_${end||'all'}.csv`);
+            document.body.appendChild(link);
+            link.click();
+        }
     </script>
 </body>
 </html>
