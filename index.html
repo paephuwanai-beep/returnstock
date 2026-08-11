@@ -103,7 +103,6 @@
         .item-thumbnail img { width: 100%; height: 100%; object-fit: cover; }
         .item-thumbnail i { font-size: 24px; color: #cbd5e1; }
         
-        /* Theme specifically for Cards */
         .type-lent { border-color: #ffedd5; }
         .type-lent .item-title { color: var(--orange-main); }
         .type-lent .qty-badge { background: #fff7ed; color: var(--orange-main); }
@@ -118,7 +117,6 @@
 
         .action-row { display: flex; gap: 6px; margin-top: 12px; }
         .btn-sm { flex: 1; padding: 8px 4px; border-radius: 8px; font-size: 12px; display: flex; justify-content: center; align-items: center; gap: 4px; border: none; font-weight: bold; cursor: pointer; white-space: nowrap;}
-        
         .btn-return { flex: 1.5; }
         .btn-edit { flex: 1.2; }
         .btn-view-img { background: #f8fafc; color: #475569; border: 1px solid #cbd5e1; flex: 1.2; }
@@ -154,6 +152,12 @@
         .alert-icon { font-size: 50px; margin-bottom: 15px; }
         .alert-title { font-size: 20px; font-weight: bold; color: #1e293b; margin-bottom: 10px;}
         .alert-msg { font-size: 15px; color: #64748b; margin-bottom: 20px; line-height: 1.5; word-break: break-word;}
+
+        /* Error Box in Dashboard */
+        .error-box { text-align: center; padding: 30px 15px; background: #fef2f2; border-radius: 16px; border: 1px solid #fecaca; margin: 15px 0;}
+        .error-box i { color: var(--danger); font-size: 40px; margin-bottom: 10px; }
+        .error-box h4 { color: #991b1b; margin-bottom: 5px; font-size: 18px;}
+        .error-box p { color: #b91c1c; font-size: 14px; margin-bottom: 0;}
 
         /* ================= ใบเสร็จ K+ Style ================= */
         .kplus-slip { border-radius: 12px; padding: 20px; margin-bottom: 15px; font-family: 'Sarabun', sans-serif; position: relative; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border: 1px solid #eee; width: 100%; }
@@ -238,6 +242,25 @@
                 <button onclick="resolveConfirm(false)" class="glass-btn" style="background: #f1f5f9; color: #475569; flex: 1;">ยกเลิก</button>
                 <button onclick="resolveConfirm(true)" class="glass-btn btn-primary" style="flex: 1;">ตกลง</button>
             </div>
+        </div>
+    </div>
+
+    <!-- Modal ดูรูปภาพย้อนหลัง -->
+    <div id="image-viewer-modal" class="modal hidden">
+        <div class="modal-content" style="max-width: 450px; text-align: center;">
+            <h3 style="color: var(--primary); margin-bottom: 15px;"><i class="fas fa-images"></i> รูปภาพหลักฐาน</h3>
+            
+            <div id="viewer-borrow-box" style="margin-bottom: 15px; display: none;">
+                <span class="input-label" style="text-align: left;"><i class="fas fa-camera"></i> ภาพตอนยืม:</span>
+                <img id="viewer-borrow-img" style="width: 100%; border-radius: 8px; border: 1px solid #e2e8f0; object-fit: contain; background: #f8fafc; max-height: 350px;">
+            </div>
+            
+            <div id="viewer-return-box" style="margin-bottom: 15px; display: none;">
+                <span class="input-label" style="text-align: left; color: var(--success);"><i class="fas fa-camera"></i> ภาพตอนคืน:</span>
+                <img id="viewer-return-img" style="width: 100%; border-radius: 8px; border: 1px solid #e2e8f0; object-fit: contain; background: #f8fafc; max-height: 350px;">
+            </div>
+            
+            <button onclick="closeImageViewer()" class="glass-btn" style="background: #f1f5f9; color:#475569;">ปิดหน้าต่าง</button>
         </div>
     </div>
 
@@ -481,7 +504,7 @@
         </div>
     </div>
 
-    <!-- Modal ใบเสร็จ สลิป -->
+    <!-- Modal ใบเสร็จ -->
     <div id="receipt-modal" class="modal hidden">
         <div class="modal-content" style="background: transparent; box-shadow: none; padding: 10px; display: flex; flex-direction: column; align-items: center;">
             <div id="slip-capture-area" class="kplus-slip slip-theme-blue" style="width: 100%; max-width: 420px;">
@@ -543,7 +566,7 @@
 
     <script>
         // ===============================================
-        const API_URL = 'https://script.google.com/macros/s/AKfycbwwGSeRRsLT7RPI7-aIMByFl00T9dNPHQz-8P11xfFC40CHYiBaDjD2jIkD18MQa0Yy/exec'; // <--- ใส่ URL ตรงนี้
+        const API_URL = 'https://script.google.com/macros/s/AKfycbyGO52mRAJh60oODUWaIT71BTUnyIQ5_1ZwZQ6SP_N-sJsgOcCpa3OHuxfdavQ9Vj8d/exec'; // <--- ใส่ URL ตรงนี้
         // ===============================================
 
         let globalData = [];
@@ -585,7 +608,7 @@
 
         async function apiCall(payload) {
             if(API_URL.includes('/edit') || API_URL === 'YOUR_WEB_APP_URL_HERE') {
-                throw new Error("URL ของ Apps Script ไม่ถูกต้อง กรุณาเปลี่ยนเป็น URL ที่ลงท้ายด้วย /exec");
+                throw new Error("URL ของ Apps Script ไม่ถูกต้อง กรุณาตรวจสอบและตั้งค่าใหม่");
             }
             try {
                 const res = await fetchWithTimeout(API_URL, { method: 'POST', body: JSON.stringify(payload), timeout: 15000 });
@@ -594,7 +617,11 @@
                     const json = JSON.parse(text);
                     if (json.status === 'error') throw new Error(json.message);
                     return json;
-                } catch (e) { throw new Error("การรับส่งข้อมูลผิดพลาด หรือรูปภาพอาจมีขนาดใหญ่เกินไป"); }
+                } catch (e) {
+                    // แอบแสดงข้อมูลตอบกลับจริงเพื่อช่วยดีบัก
+                    console.error("Google Response:", text);
+                    throw new Error("ระบบตอบกลับข้อมูลผิดพลาด (อาจตั้งค่าสิทธิ์ Apps Script ผิด)\nรายละเอียดเพิ่มเติมดูใน Console");
+                }
             } catch (err) { throw err; }
         }
 
@@ -726,32 +753,34 @@
         setupImagePreview('b-image', 'b-img-preview');
         setupImagePreview('r-image', 'r-img-preview');
 
-        // ดูสลิปใบเสร็จ แทนการดูรูปภาพเปล่าๆ
+        // ฟังก์ชันดูรูปภาพย้อนหลัง
         function viewImage(id) {
             const item = globalData.find(i => i.ID === id);
             if(!item) return;
+            const borrowImg = item.BorrowImage;
+            const returnImg = item.ReturnImage;
 
-            if(item.Status === 'คืนแล้ว') {
-                let sender = '-';
-                let customNotes = '-';
-                if(item.Notes) {
-                    const parts = item.Notes.split('|');
-                    if(parts.length > 0) sender = parts[0].replace('ผู้ส่งคืน:', '').trim();
-                    if(parts.length > 1) customNotes = parts[1].replace('หมายเหตุ:', '').trim();
-                }
-                const slipData = { 
-                    ...item, 
-                    sender: sender, 
-                    receiver: item.Receiver, 
-                    customNotes: customNotes,
-                    returnedQtyStr: item.Qty,
-                    isPartial: false 
-                };
-                generateSlip('return', slipData, item.ReturnImage || item.BorrowImage);
-            } else {
-                generateSlip('borrow', item, item.BorrowImage);
+            if(!borrowImg && !returnImg) {
+                showAlert('รายการนี้ไม่มีการแนบรูปภาพไว้', 'info');
+                return;
             }
+
+            const borrowBox = document.getElementById('viewer-borrow-box');
+            const returnBox = document.getElementById('viewer-return-box');
+
+            if(borrowImg) {
+                document.getElementById('viewer-borrow-img').src = borrowImg;
+                borrowBox.style.display = 'block';
+            } else { borrowBox.style.display = 'none'; }
+
+            if(returnImg) {
+                document.getElementById('viewer-return-img').src = returnImg;
+                returnBox.style.display = 'block';
+            } else { returnBox.style.display = 'none'; }
+
+            document.getElementById('image-viewer-modal').classList.remove('hidden');
         }
+        function closeImageViewer() { document.getElementById('image-viewer-modal').classList.add('hidden'); }
 
         // ================== บันทึกข้อมูล (New / Edit) ==================
         document.getElementById('borrow-form').addEventListener('submit', async (e) => {
@@ -868,11 +897,24 @@
             try {
                 const res = await fetchWithTimeout(API_URL, { timeout: 15000 });
                 const text = await res.text();
-                globalData = JSON.parse(text);
+                
+                try {
+                    globalData = JSON.parse(text);
+                    if(globalData.status === 'error') throw new Error(globalData.message);
+                } catch(e) {
+                    throw new Error("สิทธิ์ Apps Script ผิดพลาด หรือ URL ไม่ถูกต้อง");
+                }
                 
                 if (document.getElementById('dashboard-page').classList.contains('active')) filterList(currentTab, 'ยืมอยู่');
                 if (document.getElementById('history-page').classList.contains('active')) buildHistoryTable();
-            } catch (err) { document.getElementById('borrow-list').innerHTML = '<p>เกิดข้อผิดพลาดในการโหลดข้อมูล</p>'; }
+            } catch (err) { 
+                document.getElementById('borrow-list').innerHTML = `
+                    <div class="error-box">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h4>เกิดข้อผิดพลาดในการโหลดข้อมูล</h4>
+                        <p>${err.message}</p>
+                    </div>`; 
+            }
         }
 
         // ================== List (Card) ==================
@@ -921,7 +963,6 @@
                     <div class="action-row">
                         <button onclick="openActionModal('return', '${item.ID}', '${item.Item}', '${safeTxType}', '${item.Qty}')" class="btn-sm btn-return"><i class="fas fa-undo"></i> คืน</button>
                         <button onclick="editItemFull('${item.ID}')" class="btn-sm btn-edit"><i class="fas fa-pen"></i> แก้ไข</button>
-                        <button onclick="viewImage('${item.ID}')" class="btn-sm btn-view-img"><i class="fas fa-file-invoice"></i> สลิป</button>
                         <button onclick="deleteItem('${item.ID}', '${item.Item}')" class="btn-sm btn-delete"><i class="fas fa-trash"></i></button>
                     </div>
                 `;
@@ -951,7 +992,7 @@
                         <div style="display:flex; flex-direction:column; gap:4px;">
                             <button onclick="undoReturn('${item.ID}', '${item.Item}')" class="glass-btn" style="padding:4px; font-size:11px; background:#fef08a; color:#b45309; box-shadow:none;"><i class="fas fa-undo-alt"></i> ยกเลิกคืน</button>
                             <div style="display:flex; gap:4px;">
-                                <button onclick="viewImage('${item.ID}')" class="glass-btn" style="padding:4px; font-size:11px; flex:1; background:#f1f5f9; color:#475569; box-shadow:none;"><i class="fas fa-file-invoice"></i></button>
+                                <button onclick="viewImage('${item.ID}')" class="glass-btn" style="padding:4px; font-size:11px; flex:1; background:#f1f5f9; color:#475569; box-shadow:none;"><i class="fas fa-image"></i></button>
                                 <button onclick="editItemFull('${item.ID}')" class="glass-btn" style="padding:4px; font-size:11px; flex:1; background:#e0f2fe; color:#0369a1; box-shadow:none;"><i class="fas fa-pen"></i></button>
                                 <button onclick="deleteItem('${item.ID}', '${item.Item}')" class="glass-btn" style="padding:4px; font-size:11px; flex:1; background:#fee2e2; color:#ef4444; box-shadow:none;"><i class="fas fa-trash"></i></button>
                             </div>
@@ -995,6 +1036,7 @@
         function openActionModal(action, id, item, arg1='', originalQtyStr='') {
             document.getElementById('m-id').value = id;
             document.getElementById('m-tx-type').value = arg1;
+            document.getElementById('modal-title').innerText = `คืน: ${item}`;
             currentImageBase64 = ''; document.getElementById('r-img-preview').style.display = 'none'; document.getElementById('r-image').value = "";
             setNow('r-date', 'r-time'); document.getElementById('r-notes').value = '';
             
@@ -1012,8 +1054,6 @@
             const form = document.getElementById('action-form');
             const title = document.getElementById('modal-title');
             const btn = document.getElementById('r-submit-btn');
-
-            title.innerText = `คืน: ${item}`;
 
             if(arg1 === 'ถูกยืม') {
                 form.className = 'theme-orange';
@@ -1114,9 +1154,10 @@
             if (event.target.files.length == 0) return;
             const file = event.target.files[0];
             if (!html5QrCode) html5QrCode = new Html5Qrcode("reader");
+            
             html5QrCode.scanFile(file, true)
             .then(decodedText => { event.target.value = ""; closeQrScanner(); processQRCode(decodedText); })
-            .catch(err => { event.target.value = ""; showAlert("ไม่พบ QR Code ในรูปภาพนี้", "error"); });
+            .catch(err => { event.target.value = ""; showAlert("ไม่พบ QR Code ในรูปภาพนี้ กรุณาลองใหม่อีกครั้ง", "error"); });
         }
 
         function closeQrScanner() { 
