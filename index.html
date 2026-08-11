@@ -40,7 +40,6 @@
         .app-logo .return { color: #1e293b; }
         .app-logo .tagline { font-size: 11px; font-weight: bold; background: #1e293b; color: #fff; padding: 4px 10px; border-radius: 12px; font-style: normal; white-space: nowrap;}
 
-        /* ปุ่มตั้งค่ามุมขวาบน */
         .settings-btn { position: absolute; top: 15px; right: 15px; width: 35px; height: 35px; border-radius: 50%; border: none; background: #f1f5f9; color: var(--primary); font-size: 16px; cursor: pointer; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.05);}
         .settings-btn:active { transform: scale(0.9); }
 
@@ -60,7 +59,6 @@
         .card-borrow i, .card-borrow h3 { color: var(--primary); } 
         .card-history i, .card-history h3 { color: var(--success); }
 
-        /* ================= Theme Colors For Forms ================= */
         .glass-input { width: 100%; padding: 14px; margin-bottom: 15px; border-radius: 12px; background: #f8fafc; outline: none; font-size: 15px; color: #1e293b; border: 1px solid #e2e8f0; transition: 0.3s; }
         .input-label { font-size: 14px; margin-left: 5px; margin-bottom: 5px; display: block; font-weight: bold;}
         .file-upload-wrapper { position: relative; width: 100%; margin-bottom: 15px; }
@@ -94,7 +92,6 @@
         .tab-btn.active-orange { background: #fff7ed; color: var(--orange-main); border: 1px solid var(--orange-main); }
         .tab-btn.active-blue { background: #eff6ff; color: var(--primary); border: 1px solid var(--primary); }
 
-        /* Item Cards */
         .item-card { background: white; border-radius: 16px; padding: 15px; margin-bottom: 15px; border: 1px solid #f1f5f9; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
         .item-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; border-bottom: 1px solid #f8fafc; padding-bottom: 10px;}
         .item-title { font-size: 16px; font-weight: bold; display: flex; align-items: center; gap: 8px;}
@@ -300,11 +297,10 @@
         </nav>
 
         <div class="main-content">
-            <!-- หน้าแรก -->
             <main id="home-page" class="page active">
                 <h3 style="color: #1e293b; margin-bottom: 20px;">เลือกทำรายการ</h3>
                 <button onclick="openQrScanner()" class="glass-btn btn-outline" style="margin-bottom: 20px;">
-                    <i class="fas fa-qrcode"></i> สแกน QR Code เพื่อคืนของ
+                    <i class="fas fa-qrcode"></i> สแกน QR Code คืนของ
                 </button>
 
                 <div class="home-grid">
@@ -321,12 +317,11 @@
                     <div class="menu-card card-history" onclick="switchPage('history-page')">
                         <i class="fas fa-history"></i>
                         <h3>ประวัติคืนแล้ว</h3>
-                        <p>ดูประวัติ / ยกเลิกการคืน</p>
+                        <p>จัดการประวัติ / ดูสลิป</p>
                     </div>
                 </div>
             </main>
 
-            <!-- หน้ารายการค้าง -->
             <main id="dashboard-page" class="page">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                     <h3 style="color: #1e293b;">รายการค้างส่งคืน</h3>
@@ -342,7 +337,6 @@
                 <div id="borrow-list"><div style="text-align: center; padding: 40px; color: var(--primary);"><i class="fas fa-spinner fa-spin fa-2x"></i></div></div>
             </main>
 
-            <!-- หน้าประวัติ -->
             <main id="history-page" class="page">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                     <h3 style="color: var(--success);">ประวัติ (คืนแล้ว)</h3>
@@ -366,7 +360,6 @@
                 </div>
             </main>
 
-            <!-- หน้าฟอร์มบันทึก / แก้ไข -->
             <main id="borrow-page" class="page">
                 <div class="toggle-container" id="tx-toggle-box">
                     <div id="toggle-lent" class="toggle-btn active-lent" onclick="switchTxType('ถูกยืม')">ถูกยืมไป</div>
@@ -399,7 +392,6 @@
                     <span class="input-label">กำหนดส่งคืน:</span>
                     <input type="date" id="b-due" required class="glass-input">
                     
-                    <!-- ส่วนระบุบุคคล -->
                     <div style="background: rgba(255,255,255,0.7); border-radius:12px; padding: 10px; margin-bottom: 15px; border: 1px dashed #cbd5e1;">
                         <span class="input-label" id="label-dept">แผนกที่ยืมของไป:</span>
                         <select id="b-dept-select" required class="glass-input" onchange="toggleDeptOther('b')">
@@ -429,7 +421,6 @@
                 </form>
             </main>
 
-            <!-- หน้าออกรายงาน -->
             <main id="report-page" class="page">
                 <h3 style="color: var(--primary); margin-bottom: 20px;"><i class="fas fa-file-excel"></i> ส่งออกรายงาน (CSV)</h3>
                 <div style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0;">
@@ -450,7 +441,7 @@
         </div>
     </div>
 
-    <!-- Modal สแกน QR (รื้อกลับไปใช้เวอร์ชันที่สแกนติดง่ายๆ) -->
+    <!-- Modal สแกน QR: รื้อกลับเป็นเวอร์ชันที่ทำงานได้ -->
     <div id="qr-modal" class="modal hidden">
         <div class="modal-content" style="width: 95%; max-width: 400px; padding: 15px;">
             <h3 style="color: #1e293b; margin-bottom: 15px; text-align: center;"><i class="fas fa-qrcode"></i> สแกน QR เพื่อทำรายการ</h3>
@@ -610,7 +601,6 @@
         let html5QrCode;
         let confirmResolve = null;
 
-        // Custom Alerts
         function showAlert(message, type='info') {
             document.getElementById('custom-alert-msg').innerText = message;
             const icon = document.getElementById('custom-alert-icon');
@@ -633,7 +623,6 @@
             if(confirmResolve) { confirmResolve(result); confirmResolve = null; }
         }
 
-        // เพิ่ม Timeout เป็น 30 วิ ป้องกัน Error ตัดจบไวไป
         const fetchWithTimeout = async (resource, options = {}) => {
             const { timeout = 30000 } = options;
             const controller = new AbortController();
@@ -822,7 +811,6 @@
         setupImagePreview('b-image', 'b-img-preview');
         setupImagePreview('r-image', 'r-img-preview');
 
-        // ฟังก์ชันดูสลิปใบเสร็จ
         function viewImage(id) {
             const item = globalData.find(i => i.ID === id);
             if(!item) return;
@@ -863,13 +851,11 @@
             const dept = document.getElementById('b-dept-select').value === 'อื่นๆ' ? document.getElementById('b-dept-other').value : document.getElementById('b-dept-select').value;
             const qty = document.getElementById('b-qty').value + ' ' + unitVal;
             
-            // อ่านค่าจาก Input ที่ตรงกับหน้าจอ
             const ipd3Staff = document.getElementById('b-staff-ipd3').value;
             const otherStaff = document.getElementById('b-staff-other').value;
             
             checkAndSyncSettings(ipd3Staff, otherStaff, itemVal, unitVal);
 
-            // แมปลอจิกให้ถูกต้อง: ถูกยืม=เราให้เขายืม, ยืมมา=เขาให้เรายืม
             let lender = txType === 'ถูกยืม' ? ipd3Staff : otherStaff;
             let borrower = txType === 'ถูกยืม' ? otherStaff : ipd3Staff;
 
@@ -962,7 +948,7 @@
             setNow('b-date', 'b-time');
         }
 
-        // ================== โหลดข้อมูล ==================
+        // ================== โหลดข้อมูลแบบรวดเร็ว (Cache) ==================
         async function fetchData(showUI = false) {
             if(API_URL === 'YOUR_WEB_APP_URL_HERE') return;
             if(showUI) showLoading(true, "กำลังซิงค์ข้อมูลจาก Cloud...");
@@ -1006,7 +992,18 @@
             let active = globalData.filter(i => i.Status === 'ยืมอยู่' && (i.TransactionType === type || (!i.TransactionType && type === 'ถูกยืม')));
             
             if(active.length === 0) { listBox.innerHTML = `<div style="text-align:center; padding: 30px; color:#94a3b8;">ไม่มีรายการค้าง</div>`; return; }
-            active.sort((a,b) => new Date(b.BorrowDate) - new Date(a.BorrowDate));
+            
+            // เรียงลำดับจากวันที่-เวลาล่าสุด
+            active.sort((a,b) => {
+                let timeA = new Date(`${a.BorrowDate}T${a.BorrowTime || '00:00:00'}`).getTime() || 0;
+                let timeB = new Date(`${b.BorrowDate}T${b.BorrowTime || '00:00:00'}`).getTime() || 0;
+                if(timeA === timeB) {
+                    let idA = parseInt(String(a.ID).replace(/\D/g, '')) || 0;
+                    let idB = parseInt(String(b.ID).replace(/\D/g, '')) || 0;
+                    return idB - idA;
+                }
+                return timeB - timeA;
+            });
 
             active.forEach(item => {
                 const safeTxType = item.TransactionType || 'ถูกยืม';
@@ -1058,7 +1055,18 @@
             if(returned.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; padding: 20px; color: #94a3b8;">ไม่มีประวัติ</td></tr>`; return;
             }
-            returned.sort((a,b) => new Date(b.ReturnDate) - new Date(a.ReturnDate));
+            
+            // เรียงลำดับจากวันที่-เวลาล่าสุด
+            returned.sort((a,b) => {
+                let timeA = new Date(`${a.ReturnDate}T${a.ReturnTime || '00:00:00'}`).getTime() || 0;
+                let timeB = new Date(`${b.ReturnDate}T${b.ReturnTime || '00:00:00'}`).getTime() || 0;
+                if(timeA === timeB) {
+                    let idA = parseInt(String(a.ID).replace(/\D/g, '')) || 0;
+                    let idB = parseInt(String(b.ID).replace(/\D/g, '')) || 0;
+                    return idB - idA;
+                }
+                return timeB - timeA;
+            });
             
             returned.forEach(item => {
                 const tr = document.createElement('tr');
@@ -1220,26 +1228,30 @@
             finally { showLoading(false); }
         });
 
-        // ================== QR Scanner (สแกนปุ๊บ ติดปั๊บ) ==================
+        // ================== QR Scanner ==================
         function openQrScanner() {
             document.getElementById('qr-modal').classList.remove('hidden');
             setTimeout(() => {
                 if(!html5QrCode) html5QrCode = new Html5Qrcode("reader");
-                const config = { fps: 10, qrbox: { width: 250, height: 250 } };
                 
-                html5QrCode.start({ facingMode: "environment" }, config, onScanSuccess)
-                .catch(err => {
-                    showAlert("ไม่สามารถเปิดกล้องได้ กรุณาใช้กล้องหลัง หรืออัปโหลดรูปแทน", "error");
+                const config = { fps: 10, qrbox: { width: 250, height: 250 } };
+                html5QrCode.start({ facingMode: "environment" }, config, 
+                    (decodedText) => {
+                        if (html5QrCode.isScanning) {
+                            html5QrCode.stop().then(() => {
+                                closeQrScanner();
+                                processQRCode(decodedText);
+                            }).catch(err => {
+                                closeQrScanner();
+                                processQRCode(decodedText);
+                            });
+                        }
+                    },
+                    (errorMessage) => { }
+                ).catch((err) => {
+                    showAlert("ไม่สามารถเปิดกล้องได้ กรุณาอนุญาตให้เข้าถึงกล้องเบราว์เซอร์ หรือใช้วิธีอัปโหลดรูปภาพแทน", "error");
                 });
             }, 300);
-        }
-
-        async function onScanSuccess(decodedText) {
-            if(html5QrCode) {
-                try { await html5QrCode.stop(); html5QrCode.clear(); } catch(e){}
-            }
-            closeQrScanner();
-            processQRCode(decodedText);
         }
 
         function scanQRFromFile(event) {
@@ -1254,7 +1266,9 @@
 
         function closeQrScanner() { 
             document.getElementById('qr-modal').classList.add('hidden'); 
-            if(html5QrCode) { try { html5QrCode.stop().then(() => html5QrCode.clear()); } catch(e){} }
+            if(html5QrCode && html5QrCode.isScanning) { 
+                html5QrCode.stop().then(() => html5QrCode.clear()).catch(e => console.log(e)); 
+            }
         }
 
         async function processQRCode(decodedText) {
@@ -1290,7 +1304,7 @@
             setNow('', 'slip-time-text');
             
             const isLent = (data.TransactionType === 'ถูกยืม' || data.txType === 'ถูกยืม');
-            let titleHTML = ''; 
+            let titleHTML = ''; let s_name = '', s_dept = '', r_name = '', r_dept = '';
 
             const slipContainer = document.getElementById('slip-capture-area');
             const qrBox = document.getElementById('slip-qr-box');
