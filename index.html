@@ -15,8 +15,8 @@
     <style>
         :root {
             /* ธีมสี น้ำเงิน ฟ้า ขาว */
-            --primary: #004aad;    /* น้ำเงินเข้ม */
-            --secondary: #0096ff;  /* ฟ้าสว่าง */
+            --primary: #004aad;    
+            --secondary: #0096ff;  
             --success: #00c853;
             --danger: #ff3b30;
             --warning: #ff9500;
@@ -28,7 +28,6 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Sarabun', sans-serif; }
         body { background: var(--bg-gradient); min-height: 100vh; display: flex; justify-content: center; align-items: center; color: #333; }
 
-        /* โครงสร้างหลักรองรับทั้ง Mobile และ PC */
         .app-container {
             width: 100%; height: 100vh; position: relative; display: flex; flex-direction: column; overflow: hidden;
             background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(10px);
@@ -36,12 +35,12 @@
         
         .glass { background: var(--glass-bg); backdrop-filter: blur(12px); border: 1px solid var(--glass-border); }
 
-        /* Header (แสดงเฉพาะบนมือถือ) */
+        /* Header (Mobile) */
         header { padding: 20px; text-align: center; z-index: 2; position: relative; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); background: white;}
         .app-logo { font-size: 24px; font-weight: 700; color: var(--primary); display: flex; align-items: center; justify-content: center; gap: 10px; }
         .app-logo i { color: var(--secondary); font-size: 28px;}
 
-        /* Sidebar Logo (แสดงเฉพาะ PC) */
+        /* Sidebar Logo (PC) */
         .sidebar-header { display: none; padding: 30px 20px; text-align: center; }
 
         .main-content { display: flex; flex: 1; overflow: hidden; flex-direction: column; }
@@ -76,18 +75,19 @@
         .btn-primary { background: linear-gradient(135deg, var(--primary), var(--secondary)); }
         .btn-outline { background: white; color: var(--primary); border: 2px solid var(--primary); }
 
-        /* Camera Input Style */
+        /* Camera Input */
         .file-upload-wrapper { position: relative; width: 100%; margin-bottom: 15px; }
         .file-upload-wrapper input[type="file"] { display: none; }
         .file-upload-btn { width: 100%; padding: 14px; background: #f0f7ff; border: 2px dashed var(--secondary); border-radius: 10px; color: var(--primary); font-weight: bold; text-align: center; cursor: pointer; display: block; transition: 0.3s; }
         .file-upload-btn:hover { background: #e6f2ff; }
         .image-preview { width: 100%; max-height: 150px; object-fit: contain; margin-top: 10px; display: none; border-radius: 8px; border: 1px solid #ccc;}
 
-        /* Item List */
+        /* Item List Tabs */
         .tab-container { display: flex; gap: 10px; margin-bottom: 15px; }
         .tab-btn { flex: 1; padding: 10px; background: white; border: 1px solid #cce0ff; border-radius: 8px; font-weight: bold; color: #666; cursor: pointer; transition: 0.3s; }
         .tab-btn.active { background: #e6f2ff; color: var(--primary); border: 1px solid var(--primary); }
 
+        /* Item Card */
         .item-card { background: white; border-radius: 12px; padding: 15px; margin-bottom: 15px; border: 1px solid #e6f2ff; box-shadow: 0 4px 12px rgba(0,74,173,0.06); display: flex; flex-direction: column; }
         .item-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; border-bottom: 1px solid #f0f0f0; padding-bottom: 10px;}
         .item-title { font-size: 16px; font-weight: bold; color: var(--primary); display: flex; align-items: center; gap: 8px;}
@@ -96,7 +96,6 @@
         .item-body { display: flex; justify-content: space-between; align-items: center; }
         .item-details-list { flex: 1; }
         .item-detail { font-size: 13px; color: #555; margin-bottom: 4px;}
-        
         .qr-small { width: 60px; height: 60px; background: #fff; padding: 2px; border: 1px solid #eee; border-radius: 4px; display: flex; justify-content: center; align-items: center;}
         
         .action-row { display: flex; gap: 8px; margin-top: 12px; }
@@ -132,7 +131,6 @@
 
         /* QR Scanner Reader Box */
         #reader { width: 100%; border-radius: 12px; overflow: hidden; border: none; }
-        #reader__dashboard_section_csr span { color: var(--primary) !important; font-family: 'Sarabun' !important; }
 
         /* ================= Desktop UI (PC) ================= */
         @media (min-width: 768px) {
@@ -149,7 +147,6 @@
             .main-content { flex: 1; }
             .page { padding: 30px; padding-bottom: 30px; }
             .home-grid { grid-template-columns: repeat(3, 1fr); gap: 20px;}
-            
             .modal-content { width: 500px; }
         }
     </style>
@@ -270,7 +267,6 @@
                     <span class="input-label" id="label-borrower">ชื่อผู้ยืม (แผนกอื่น):</span>
                     <input type="text" id="b-other-person" placeholder="ระบุชื่อผู้ติดต่อ" required class="glass-input">
 
-                    <!-- ปุ่มถ่ายภาพ (กล้อง) -->
                     <span class="input-label">ภาพหลักฐาน:</span>
                     <div class="file-upload-wrapper">
                         <label class="file-upload-btn">
@@ -307,12 +303,11 @@
         </div>
     </div>
 
-    <!-- Modals -->
-
     <!-- Modal สแกน QR -->
     <div id="qr-modal" class="modal hidden">
         <div class="modal-content" style="background: white;">
             <h3 style="color: var(--primary); margin-bottom: 15px; text-align: center;"><i class="fas fa-qrcode"></i> สแกน QR คืนของ</h3>
+            <!-- กล่องแสดงภาพจากกล้อง -->
             <div id="reader"></div>
             <button onclick="closeQrScanner()" class="glass-btn" style="background: #e2e8f0; color:#333; margin-top: 15px;">ยกเลิก</button>
         </div>
@@ -328,6 +323,7 @@
                 <input type="hidden" id="m-tx-type">
                 
                 <div id="return-fields">
+                    <span class="input-label">วันที่และเวลาคืน:</span>
                     <div style="display: flex; gap: 10px;">
                         <input type="date" id="r-date" class="glass-input" style="flex: 1;">
                         <input type="time" id="r-time" class="glass-input" style="flex: 1;">
@@ -378,6 +374,10 @@
                     <div style="font-size: 18px; font-weight: bold; color: var(--primary);" id="slip-item"></div>
                 </div>
                 
+                <div class="slip-row" id="slip-date-row">
+                    <span class="slip-label">วันที่ยืม</span>
+                    <span class="slip-value" id="slip-borrow-date"></span>
+                </div>
                 <div class="slip-row" id="slip-qty-row">
                     <span class="slip-label">จำนวน</span>
                     <span class="slip-value" style="color: var(--danger); font-size:15px;" id="slip-qty"></span>
@@ -408,7 +408,7 @@
             
             <div style="display: flex; gap: 10px;">
                 <button onclick="downloadSlip()" class="glass-btn btn-primary" style="flex: 1.5;"><i class="fas fa-download"></i> บันทึกภาพ</button>
-                <button onclick="closeReceipt()" class="glass-btn" style="background: white; color: var(--primary); flex: 1;">ปิด</button>
+                <button onclick="closeReceipt()" class="glass-btn" style="background: white; color: var(--primary); border: 1px solid var(--primary); flex: 1;">ปิด</button>
             </div>
         </div>
     </div>
@@ -421,7 +421,7 @@
         let globalData = [];
         let currentTab = 'ถูกยืม';
         let currentImageBase64 = ''; 
-        let html5QrcodeScanner;
+        let html5QrCode; // ตัวแปรสำหรับคุมกล้อง
 
         // อัปเดตเวลาปัจจุบัน
         function setNow(dateId, timeId) {
@@ -489,7 +489,7 @@
         setupImagePreview('b-image', 'b-img-preview');
         setupImagePreview('r-image', 'r-img-preview');
 
-        // ================== บันทึกข้อมูล ==================
+        // ================== บันทึกข้อมูล (ทำ Local Cache เพื่อความเร็ว) ==================
         document.getElementById('borrow-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = e.target.querySelector('button[type="submit"]');
@@ -512,19 +512,29 @@
             };
 
             try {
+                // ส่งข้อมูลไปบันทึก
                 const res = await fetch(API_URL, { method: 'POST', body: JSON.stringify(payload) });
                 const json = await res.json();
-                // นำ json.id (ที่ส่งกลับมาจาก GAS) ไปสร้างสลิป + QR
+                
+                // [เพิ่มความเร็ว] บันทึกลงตัวแปร Local ทันทีโดยไม่ต้องดึงใหม่ทั้งหมด
+                globalData.push({
+                    ID: json.id, TransactionType: txType, BorrowDate: payload.borrowDate, BorrowTime: payload.borrowTime,
+                    Item: payload.item, Qty: payload.qty, DueDate: payload.dueDate, Lender: payload.lender, Dept: payload.dept, Borrower: payload.borrower, Status: 'ยืมอยู่'
+                });
+
+                // สร้างใบเสร็จ
                 generateSlip(txType === 'ถูกยืม' ? 'ปล่อยยืม' : 'ยืมเข้า', { ...payload, id: json.id }, currentImageBase64);
                 
+                // ล้างค่า
                 document.getElementById('borrow-form').reset();
                 document.getElementById('b-img-preview').style.display = 'none';
-                currentImageBase64 = ''; globalData = []; switchTxType(txType);
+                currentImageBase64 = ''; switchTxType(txType);
+                setNow('b-date', 'b-time'); // ตั้งเวลาใหม่
             } catch (err) { alert('ผิดพลาด'); } 
             finally { btn.innerHTML = '<i class="fas fa-save"></i> บันทึกข้อมูล'; btn.disabled = false; }
         });
 
-        // ================== โหลดข้อมูล ==================
+        // ================== โหลดข้อมูล (ดึงจาก Sheet) ==================
         async function fetchData() {
             if(API_URL === 'YOUR_WEB_APP_URL_HERE') return;
             document.getElementById('borrow-list').innerHTML = '<div style="text-align: center; padding: 40px; color: var(--secondary);"><i class="fas fa-spinner fa-spin fa-2x"></i></div>';
@@ -535,6 +545,7 @@
             } catch (err) { document.getElementById('borrow-list').innerHTML = '<p>เกิดข้อผิดพลาด</p>'; }
         }
 
+        // ================== จัดการรายการที่แสดงบนหน้าจอ ==================
         function filterList(type) {
             currentTab = type;
             document.getElementById('tab-lent').classList.remove('active'); document.getElementById('tab-borrowed').classList.remove('active');
@@ -545,6 +556,9 @@
             const active = globalData.filter(i => i.Status === 'ยืมอยู่' && i.TransactionType === type);
             
             if(active.length === 0) { listBox.innerHTML = `<div style="text-align:center; padding: 30px; color:#999;">ไม่มีรายการค้าง</div>`; return; }
+
+            // เรียงลำดับเอาวันที่ล่าสุดขึ้นก่อน
+            active.sort((a,b) => new Date(b.BorrowDate) - new Date(a.BorrowDate));
 
             active.forEach(item => {
                 const today = new Date(); today.setHours(0,0,0,0);
@@ -563,24 +577,25 @@
                         <div class="item-details-list">
                             <div class="item-detail"><i class="fas fa-hospital"></i> แผนก: <strong>${item.Dept}</strong></div>
                             <div class="item-detail"><i class="fas fa-user"></i> ให้ยืม: ${item.Lender} | ผู้ยืม: ${item.Borrower}</div>
+                            <!-- เพิ่มแสดงวันที่ยืมแล้ว -->
+                            <div class="item-detail"><i class="far fa-calendar-check"></i> วันที่ยืม: ${item.BorrowDate} ${item.BorrowTime}</div>
                             <div class="item-detail ${isOverdue ? 'overdue-text' : ''}">
-                                <i class="far fa-calendar-times"></i> คืน: ${item.DueDate} ${isOverdue ? '<span class="overdue-badge">เลยกำหนด!</span>' : ''}
+                                <i class="far fa-calendar-times"></i> กำหนดคืน: ${item.DueDate} ${isOverdue ? '<span class="overdue-badge">เลยกำหนด!</span>' : ''}
                             </div>
                         </div>
                         <div class="qr-small" id="qr-list-${item.ID}"></div>
                     </div>
                     <div class="action-row">
                         <button onclick="openActionModal('return', '${item.ID}', '${item.Item}', '${type}')" class="btn-sm btn-return"><i class="fas fa-undo"></i> คืนของ</button>
-                        <button onclick="openActionModal('edit', '${item.ID}', '${item.Item}', '${item.Qty}', '${item.DueDate}', '${item.Borrower}', '${item.Lender}')" class="btn-sm btn-edit"><i class="fas fa-pen"></i></button>
+                        <button onclick="openActionModal('edit', '${item.ID}', '${item.Item}', '${item.Qty}', '${item.DueDate}', '${item.Borrower}', '${item.Lender}')" class="btn-sm btn-edit"><i class="fas fa-pen"></i> แก้ไข</button>
                     </div>
                 `;
                 listBox.appendChild(card);
-                // Render QR code in list
                 new QRCode(document.getElementById(`qr-list-${item.ID}`), { text: item.ID, width: 50, height: 50 });
             });
         }
 
-        // ================== Modal Action ==================
+        // ================== Modal Action (คืน/แก้ไข) ==================
         function openActionModal(action, id, item, arg1='', arg2='', arg3='', arg4='') {
             document.getElementById('m-id').value = id;
             document.getElementById('m-action-type').value = action;
@@ -590,7 +605,7 @@
                 document.getElementById('m-tx-type').value = arg1;
                 document.getElementById('modal-title').innerText = `คืน: ${item}`;
                 document.getElementById('return-fields').style.display = 'block'; document.getElementById('edit-fields').style.display = 'none';
-                setNow('r-date', 'r-time');
+                setNow('r-date', 'r-time'); // ตั้งวันที่คืนอัตโนมัติ
                 
                 if(arg1 === 'ถูกยืม') {
                     document.getElementById('label-r-receiver').innerText = 'ผู้รับคืน (เรา IPD3):';
@@ -623,50 +638,90 @@
                 let sender = txType === 'ถูกยืม' ? other : staff;
 
                 const payload = { action: 'return', id: id, returnDate: document.getElementById('r-date').value, returnTime: document.getElementById('r-time').value, receiver: receiver, notes: 'ผู้ส่งคืน: ' + sender };
+                
                 try {
                     await fetch(API_URL, { method: 'POST', body: JSON.stringify(payload) });
                     closeActionModal();
                     generateSlip('รับคืนสำเร็จ', { ...payload, id: id, item: document.getElementById('modal-title').innerText.replace('คืน: ',''), sender: sender }, currentImageBase64);
-                    fetchData(); 
+                    
+                    // [เพิ่มความเร็ว] อัปเดตสถานะในตัวแปรทันที ไม่ต้องโหลดใหม่
+                    const index = globalData.findIndex(i => i.ID === id);
+                    if(index !== -1) globalData[index].Status = 'คืนแล้ว';
+                    filterList(currentTab); 
                 } catch(e) { alert('ผิดพลาด'); }
             } else {
                 const payload = { action: 'edit', id: id, item: document.getElementById('e-item').value, qty: document.getElementById('e-qty').value, dueDate: document.getElementById('e-due').value, lender: document.getElementById('e-lender').value, borrower: document.getElementById('e-borrower').value };
-                try { await fetch(API_URL, { method: 'POST', body: JSON.stringify(payload) }); closeActionModal(); fetchData(); } catch(e) { alert('ผิดพลาด'); }
+                try { 
+                    await fetch(API_URL, { method: 'POST', body: JSON.stringify(payload) }); 
+                    closeActionModal(); 
+                    
+                    // อัปเดตข้อมูลแก้ไขในตัวแปร
+                    const index = globalData.findIndex(i => i.ID === id);
+                    if(index !== -1) {
+                        globalData[index].Item = payload.item; globalData[index].Qty = payload.qty; globalData[index].DueDate = payload.dueDate; globalData[index].Lender = payload.lender; globalData[index].Borrower = payload.borrower;
+                    }
+                    filterList(currentTab); 
+                } catch(e) { alert('ผิดพลาด'); }
             }
             btn.disabled = false;
         });
 
-        // ================== QR Scanner ==================
+        // ================== กล้องสแกน QR อัตโนมัติ ==================
         function openQrScanner() {
             document.getElementById('qr-modal').classList.remove('hidden');
-            html5QrcodeScanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: {width: 250, height: 250} }, false);
-            html5QrcodeScanner.render((decodedText) => {
-                html5QrcodeScanner.clear(); closeQrScanner();
-                const item = globalData.find(i => i.ID === decodedText && i.Status === 'ยืมอยู่');
-                if(item) openActionModal('return', item.ID, item.Item, item.TransactionType);
-                else alert('ไม่พบรหัสการยืมนี้ หรือ คืนไปแล้ว');
+            
+            // เปิดกล้องหลังทันที
+            html5QrCode = new Html5Qrcode("reader");
+            html5QrCode.start(
+                { facingMode: "environment" },
+                { fps: 10, qrbox: { width: 250, height: 250 } },
+                (decodedText) => {
+                    // ปิดกล้องเมื่อสแกนเจอ
+                    html5QrCode.stop().then(() => {
+                        closeQrScanner();
+                        // ค้นหารายการจากรหัส QR
+                        if(globalData.length === 0) { alert('กรุณาไปที่ "รายการค้าง" เพื่อโหลดข้อมูลก่อนสแกน'); return; }
+                        const item = globalData.find(i => i.ID === decodedText && i.Status === 'ยืมอยู่');
+                        if(item) openActionModal('return', item.ID, item.Item, item.TransactionType);
+                        else alert('ไม่พบรหัสการยืมนี้ หรือ รายการนี้ถูกคืนไปแล้ว');
+                    }).catch(err => console.log(err));
+                },
+                (errorMessage) => { /* ignore */ }
+            ).catch((err) => {
+                alert("ไม่สามารถเปิดกล้องได้ กรุณาอนุญาตให้ใช้งานกล้อง");
+                closeQrScanner();
             });
         }
-        function closeQrScanner() { document.getElementById('qr-modal').classList.add('hidden'); if(html5QrcodeScanner) html5QrcodeScanner.clear(); }
+        function closeQrScanner() { 
+            document.getElementById('qr-modal').classList.add('hidden'); 
+            if(html5QrCode) {
+                html5QrCode.stop().catch(err => console.log(err));
+            }
+        }
 
-        // ================== Slip ==================
+        // ================== สร้างใบเสร็จ ==================
         function generateSlip(type, data, imgBase64) {
             setNow('', 'slip-time-text');
             document.getElementById('slip-type-title').innerText = type;
             document.getElementById('slip-item').innerText = data.item || '-';
             
             const qrBox = document.getElementById('slip-qr-box');
-            document.getElementById("slip-qrcode").innerHTML = ""; // clear old QR
+            document.getElementById("slip-qrcode").innerHTML = ""; 
             
             if (type.includes('ยืม')) {
+                // เพิ่มวันที่ยืมลงในสลิปตามที่ขอ
+                document.getElementById('slip-date-row').style.display = 'flex';
+                document.getElementById('slip-borrow-date').innerText = `${data.borrowDate} ${data.borrowTime}`;
+
                 document.getElementById('slip-qty-row').style.display = 'flex'; document.getElementById('slip-dept-row').style.display = 'flex';
                 document.getElementById('slip-qty').innerText = data.qty; document.getElementById('slip-dept').innerText = data.dept;
                 document.getElementById('slip-person1-label').innerText = 'ผู้ให้ยืม'; document.getElementById('slip-person1').innerText = data.lender;
                 document.getElementById('slip-person2-label').innerText = 'ผู้ยืม'; document.getElementById('slip-person2').innerText = data.borrower;
                 
                 qrBox.style.display = 'flex';
-                if(data.id) new QRCode(document.getElementById("slip-qrcode"), { text: data.id, width: 80, height: 80 });
+                if(data.id) new QRCode(document.getElementById("slip-qrcode"), { text: data.id, width: 90, height: 90 });
             } else {
+                document.getElementById('slip-date-row').style.display = 'none';
                 document.getElementById('slip-qty-row').style.display = 'none'; document.getElementById('slip-dept-row').style.display = 'none';
                 document.getElementById('slip-person1-label').innerText = 'ผู้รับคืน'; document.getElementById('slip-person1').innerText = data.receiver;
                 document.getElementById('slip-person2-label').innerText = 'ผู้ส่งคืน'; document.getElementById('slip-person2').innerText = data.sender;
