@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IPD3 Return</title>
+    <title>IPD3 Return System</title>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- เพิ่ม Library สำหรับแปลง HTML เป็นรูปภาพ -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         :root {
             --primary: #007aff;
+            --secondary: #5856d6;
+            --success: #34c759;
+            --danger: #ff3b30;
             --bg-gradient: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
             --glass-bg: rgba(255, 255, 255, 0.45);
-            --glass-border: rgba(255, 255, 255, 0.18);
+            --glass-border: rgba(255, 255, 255, 0.25);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Sarabun', sans-serif; }
@@ -22,107 +24,151 @@
 
         .app-container {
             width: 100%; max-width: 450px; height: 100vh; position: relative; display: flex; flex-direction: column; overflow: hidden;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.1); box-shadow: 0 0 20px rgba(0,0,0,0.1);
         }
 
         .glass {
-            background: var(--glass-bg); backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px); border: 1px solid var(--glass-border);
+            background: var(--glass-bg); backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px); border: 1px solid var(--glass-border);
         }
 
-        header { padding: 20px; text-align: center; color: #333; z-index: 2; position: relative;}
+        /* Logo Design */
+        header { padding: 25px 20px; text-align: center; z-index: 2; position: relative; border-bottom-left-radius: 25px; border-bottom-right-radius: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);}
+        .app-logo {
+            font-size: 26px; font-weight: 700; color: #333; display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
+        .app-logo i { background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 32px;}
+        .app-logo span { color: var(--primary); }
 
-        .page { display: none; padding: 20px; padding-bottom: 90px; flex: 1; overflow-y: auto; z-index: 1;}
-        .page.active { display: block; }
+        .page { display: none; padding: 20px; padding-bottom: 100px; flex: 1; overflow-y: auto; z-index: 1;}
+        .page.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Home Menu Cards */
+        .home-grid { display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 10px; }
+        .menu-card {
+            background: rgba(255,255,255,0.7); border-radius: 20px; padding: 30px 20px; text-align: center;
+            border: 1px solid white; box-shadow: 0 8px 25px rgba(0,0,0,0.05); cursor: pointer; transition: 0.3s;
+        }
+        .menu-card:hover, .menu-card:active { transform: translateY(-5px); background: rgba(255,255,255,0.9); }
+        .menu-card i { font-size: 45px; margin-bottom: 15px; color: var(--primary); }
+        .menu-card.borrow-card i { color: var(--secondary); }
+        .menu-card h3 { color: #333; font-size: 20px; margin-bottom: 5px;}
+        .menu-card p { color: #666; font-size: 14px; }
 
         .glass-input {
-            width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.5); background: rgba(255,255,255,0.6); outline: none;
-            font-size: 16px; color: #333;
+            width: 100%; padding: 14px; margin-bottom: 15px; border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.6); background: rgba(255,255,255,0.6); outline: none; font-size: 16px; color: #333; transition: 0.3s;
         }
-        
-        .glass-input:focus { border: 1px solid var(--primary); background: rgba(255,255,255,0.9); }
+        .glass-input:focus { border: 1px solid var(--primary); background: rgba(255,255,255,0.95); box-shadow: 0 0 10px rgba(0,122,255,0.1); }
+        .glass-input[type="file"] { padding: 10px; font-size: 14px; background: rgba(255,255,255,0.4);}
 
         .glass-btn {
             width: 100%; padding: 15px; border-radius: 12px; border: none; cursor: pointer;
-            font-weight: bold; background: var(--primary); color: white; box-shadow: 0 4px 15px rgba(0,122,255,0.3);
-            font-size: 16px; transition: 0.3s;
+            font-weight: bold; color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            font-size: 16px; transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 8px;
         }
-        
         .glass-btn:active { transform: scale(0.98); }
+        .btn-primary { background: linear-gradient(135deg, var(--primary), var(--secondary)); }
 
-        /* Card รายการยืม */
+        /* Item List UI Refined */
         .item-card {
-            background: rgba(255,255,255,0.7); border-radius: 12px; padding: 15px; margin-bottom: 15px;
-            border: 1px solid white; box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            background: rgba(255,255,255,0.85); border-radius: 16px; padding: 18px; margin-bottom: 15px;
+            border: 1px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.05); position: relative;
         }
-        .item-card h4 { color: #333; margin-bottom: 8px; }
-        .item-card p { font-size: 14px; color: #555; margin-bottom: 4px;}
+        .item-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 10px;}
+        .item-title { font-size: 18px; font-weight: bold; color: #222; display: flex; align-items: center; gap: 8px;}
+        .qty-badge { background: #e0f2fe; color: #0284c7; padding: 4px 10px; border-radius: 20px; font-size: 13px; font-weight: bold;}
+        .item-detail { font-size: 14px; color: #555; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;}
+        .item-detail i { color: #888; width: 16px; text-align: center;}
+        
+        .action-row { display: flex; gap: 8px; margin-top: 15px; }
+        .btn-sm { flex: 1; padding: 10px; border-radius: 8px; font-size: 14px; display: flex; justify-content: center; align-items: center; gap: 5px; border: none; font-weight: bold; cursor: pointer;}
+        .btn-return { background: var(--success); color: white; flex: 2;}
+        .btn-edit { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1;}
+        .btn-delete { background: #fee2e2; color: #ef4444; border: 1px solid #fca5a5;}
 
-        /* อนิเมชันกระพริบ */
-        .overdue-row { background: rgba(255, 0, 0, 0.15); border: 1px solid red; animation: blinkRow 1.5s infinite; }
-        .overdue-text { color: red; font-weight: bold; }
-        @keyframes blinkRow { 0%, 100% { background: rgba(255, 0, 0, 0.15); opacity: 1; } 50% { background: rgba(255, 0, 0, 0.4); opacity: 0.7; } }
+        /* อนิเมชันกระพริบเมื่อเลยกำหนด */
+        .overdue-row { border: 2px solid var(--danger); }
+        .overdue-badge { background: #fee2e2; color: var(--danger); padding: 4px 10px; border-radius: 20px; font-size: 13px; font-weight: bold; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
 
         /* Bottom Navigator */
         .bottom-nav {
             position: absolute; bottom: 0; width: 100%; display: flex; justify-content: space-around;
-            padding: 15px 0; border-top-left-radius: 20px; border-top-right-radius: 20px;
-            z-index: 5; box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            padding: 12px 0 20px 0; border-top-left-radius: 25px; border-top-right-radius: 25px;
+            z-index: 5; box-shadow: 0 -5px 20px rgba(0,0,0,0.05); background: rgba(255,255,255,0.9);
         }
-
         .nav-item {
-            background: none; border: none; font-size: 20px; color: #777;
+            background: none; border: none; font-size: 22px; color: #999;
             display: flex; flex-direction: column; align-items: center; cursor: pointer; transition: 0.3s;
         }
-        .nav-item.active { color: var(--primary); }
-        .nav-item span { font-size: 12px; margin-top: 5px; font-weight: 500;}
+        .nav-item.active { color: var(--primary); transform: translateY(-3px); }
+        .nav-item span { font-size: 11px; margin-top: 4px; font-weight: bold;}
 
-        /* Modal ทั่วไป */
-        .modal { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 10; background: rgba(0,0,0,0.4); backdrop-filter: blur(5px); }
+        /* Modal */
+        .modal { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 10; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); }
         .hidden { display: none !important; }
-        .modal-content { background: rgba(255,255,255,0.85); width: 90%; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); border: 1px solid white;}
+        .modal-content { background: #fff; width: 90%; max-height: 90vh; overflow-y: auto; padding: 25px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.2);}
 
-        /* สไตล์ใบเสร็จ TrueMoney */
-        .slip-container {
-            background: #ffffff;
-            border-radius: 16px;
-            padding: 30px 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            position: relative;
-        }
-        .slip-header { text-align: center; margin-bottom: 20px; }
-        .slip-icon {
-            width: 50px; height: 50px; background: #34c759; color: white; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; font-size: 24px; margin: 0 auto 10px;
-        }
+        /* สลิป (TrueMoney Style) */
+        .slip-container { background: #fff; border-radius: 16px; padding: 25px 20px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); position: relative; }
+        .slip-header { text-align: center; margin-bottom: 15px; }
+        .slip-icon { width: 50px; height: 50px; background: var(--success); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; margin: 0 auto 10px; }
         .slip-title { color: #333; font-size: 20px; font-weight: bold; margin-bottom: 5px; }
         .slip-time { color: #888; font-size: 13px; }
-        .slip-divider { border: 0; border-top: 2px dashed #e0e0e0; margin: 20px 0; }
-        .slip-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 14px; }
+        .slip-divider { border: 0; border-top: 2px dashed #e0e0e0; margin: 15px 0; }
+        .slip-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; }
         .slip-label { color: #777; }
-        .slip-value { color: #333; font-weight: 500; text-align: right; max-width: 60%; }
-        .slip-footer { text-align: center; margin-top: 30px; font-size: 12px; color: #bbb; }
+        .slip-value { color: #222; text-align: right; max-width: 65%; }
         
-        .loader { text-align: center; padding: 20px; color: #555; }
+        /* เน้นข้อความในสลิป */
+        .highlight-item { font-size: 18px; font-weight: bold; color: var(--primary); background: #eff6ff; padding: 5px 10px; border-radius: 8px;}
+        .highlight-qty { font-size: 16px; font-weight: bold; color: var(--danger); }
+        .slip-image-box { width: 100%; margin-top: 15px; border-radius: 12px; overflow: hidden; border: 1px solid #eee; text-align: center;}
+        .slip-image-box img { max-width: 100%; height: auto; display: block; }
+
+        .loader { text-align: center; padding: 30px; color: var(--primary); font-size: 18px; font-weight: bold;}
     </style>
 </head>
 <body>
-    <div class="app-container glass">
+    <div class="app-container">
         <header class="glass">
-            <h2><i class="fas fa-hospital-user"></i> IPD3 Return</h2>
+            <div class="app-logo">
+                <i class="fas fa-notes-medical"></i>
+                <div><span>IPD3</span> Return</div>
+            </div>
         </header>
 
-        <!-- หน้า Dashboard -->
-        <main id="dashboard-page" class="page active">
-            <h3 style="margin-bottom: 15px; color: #333;">รายการที่กำลังยืม</h3>
+        <!-- 1. หน้าแรก (Home) -->
+        <main id="home-page" class="page active">
+            <h3 style="color: #444; margin-bottom: 20px;">เลือกทำรายการ</h3>
+            <div class="home-grid">
+                <div class="menu-card" onclick="switchPage('dashboard-page')">
+                    <i class="fas fa-clipboard-list"></i>
+                    <h3>รายการที่ถูกยืม</h3>
+                    <p>ตรวจสอบและรับคืนอุปกรณ์</p>
+                </div>
+                <div class="menu-card borrow-card" onclick="switchPage('borrow-page')">
+                    <i class="fas fa-hand-holding-medical"></i>
+                    <h3>ยืมรายการใหม่</h3>
+                    <p>บันทึกการยืมและแนบหลักฐาน</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- 2. หน้าแสดงรายการถูกยืม (Dashboard) -->
+        <main id="dashboard-page" class="page">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h3 style="color: #333;">รายการที่ถูกยืม</h3>
+                <button onclick="fetchData()" style="background:none; border:none; color:var(--primary); font-size:18px; cursor:pointer;"><i class="fas fa-sync-alt"></i></button>
+            </div>
             <div id="borrow-list" class="list-container">
                 <div class="loader"><i class="fas fa-spinner fa-spin"></i> กำลังโหลดข้อมูล...</div>
             </div>
         </main>
 
-        <!-- หน้าฟอร์มยืม -->
+        <!-- 3. หน้าฟอร์มยืมของ -->
         <main id="borrow-page" class="page">
             <h3 style="margin-bottom: 15px; color: #333;">บันทึกการยืม</h3>
             <form id="borrow-form">
@@ -139,7 +185,6 @@
                 
                 <input type="text" id="b-item" placeholder="สิ่งที่ยืม (เช่น เครื่องวัดความดัน)" required class="glass-input">
                 
-                <!-- ระบุจำนวนและหน่วย -->
                 <div style="display: flex; gap: 10px;">
                     <input type="number" id="b-qty" placeholder="จำนวน" required class="glass-input" style="flex: 1;">
                     <select id="b-unit" required class="glass-input" style="flex: 1;">
@@ -154,7 +199,6 @@
                 <label style="font-size: 14px; color: #555; margin-left: 5px;">กำหนดส่งคืน:</label>
                 <input type="date" id="b-due" required class="glass-input" style="margin-top: 5px;">
                 
-                <!-- ผู้ให้ยืม (อิงจาก จนท. IPD3) -->
                 <select id="b-lender" required class="glass-input">
                     <option value="" disabled selected>ผู้ให้ยืม (จนท. IPD3)...</option>
                     <option value="ปิยะนาท">ปิยะนาท</option>
@@ -165,7 +209,6 @@
                     <option value="ปราณี">ปราณี</option>
                 </select>
                 
-                <!-- หน่วยงานที่ยืม (Dropdown) -->
                 <select id="b-dept-select" required class="glass-input" onchange="toggleDeptOther()">
                     <option value="" disabled selected>หน่วยงานที่ยืม...</option>
                     <option value="IPDหญิง">IPDหญิง</option>
@@ -179,44 +222,65 @@
                 
                 <input type="text" id="b-borrower" placeholder="ชื่อผู้ยืม" required class="glass-input">
                 
-                <button type="submit" class="btn-primary glass-btn"><i class="fas fa-save"></i> บันทึกการยืม</button>
+                <label style="font-size: 14px; color: #555; margin-left: 5px;"><i class="fas fa-camera"></i> แนบภาพหลักฐาน (แสดงในใบเสร็จ):</label>
+                <input type="file" id="b-image" accept="image/*" capture="environment" class="glass-input" style="margin-top: 5px;">
+                
+                <button type="submit" class="btn-primary glass-btn"><i class="fas fa-save"></i> บันทึกรายการ</button>
             </form>
         </main>
 
-        <!-- Modal สำหรับทำรายการคืน -->
-        <div id="custom-return-modal" class="modal hidden">
+        <!-- Modal สำหรับคืนของ / แก้ไข -->
+        <div id="action-modal" class="modal hidden">
             <div class="modal-content glass">
-                <h3 style="color: #333; margin-bottom: 15px;"><i class="fas fa-undo"></i> คืนรายการ: <br><span id="r-item-name" style="color: var(--primary);"></span></h3>
-                <form id="return-form">
-                    <div style="display: flex; gap: 10px;">
-                        <input type="date" id="r-date" required class="glass-input" style="flex: 1;">
-                        <input type="time" id="r-time" required class="glass-input" style="flex: 1;">
+                <h3 id="modal-title" style="color: #333; margin-bottom: 15px;"></h3>
+                <form id="action-form">
+                    <input type="hidden" id="m-action-type">
+                    <input type="hidden" id="m-id">
+                    
+                    <!-- ส่วนฟอร์มคืนของ -->
+                    <div id="return-fields">
+                        <div style="display: flex; gap: 10px;">
+                            <input type="date" id="r-date" class="glass-input" style="flex: 1;">
+                            <input type="time" id="r-time" class="glass-input" style="flex: 1;">
+                        </div>
+                        <select id="r-receiver" class="glass-input">
+                            <option value="" disabled selected>ผู้รับคืน (จนท. IPD3)...</option>
+                            <option value="ปิยะนาท">ปิยะนาท</option>
+                            <option value="ภูวนัย">ภูวนัย</option>
+                            <option value="สุวนันท์">สุวนันท์</option>
+                            <option value="สุรีภรณ์">สุรีภรณ์</option>
+                            <option value="พรพิมล">พรพิมล</option>
+                            <option value="ปราณี">ปราณี</option>
+                        </select>
+                        <input type="text" id="r-sender" placeholder="ชื่อผู้ส่งคืน" class="glass-input">
+                        
+                        <label style="font-size: 14px; color: #555;"><i class="fas fa-camera"></i> แนบภาพตอนคืน (แสดงในใบเสร็จ):</label>
+                        <input type="file" id="r-image" accept="image/*" capture="environment" class="glass-input">
+                    </div>
+
+                    <!-- ส่วนฟอร์มแก้ไข -->
+                    <div id="edit-fields" style="display: none;">
+                        <label style="font-size: 14px; color: #555;">สิ่งที่ยืม:</label>
+                        <input type="text" id="e-item" required class="glass-input">
+                        <label style="font-size: 14px; color: #555;">จำนวนและหน่วย:</label>
+                        <input type="text" id="e-qty" required class="glass-input">
+                        <label style="font-size: 14px; color: #555;">กำหนดคืน:</label>
+                        <input type="date" id="e-due" required class="glass-input">
+                        <label style="font-size: 14px; color: #555;">ผู้ยืม:</label>
+                        <input type="text" id="e-borrower" required class="glass-input">
                     </div>
                     
-                    <select id="r-receiver" required class="glass-input">
-                        <option value="" disabled selected>ผู้รับคืน (จนท. IPD3)...</option>
-                        <option value="ปิยะนาท">ปิยะนาท</option>
-                        <option value="ภูวนัย">ภูวนัย</option>
-                        <option value="สุวนันท์">สุวนันท์</option>
-                        <option value="สุรีภรณ์">สุรีภรณ์</option>
-                        <option value="พรพิมล">พรพิมล</option>
-                        <option value="ปราณี">ปราณี</option>
-                    </select>
-                    
-                    <input type="text" id="r-sender" placeholder="ชื่อผู้ส่งคืน" required class="glass-input">
-                    
-                    <div style="display: flex; gap: 10px; margin-top: 10px;">
-                        <button type="button" onclick="closeReturnModal()" class="glass-btn" style="background: rgba(255,255,255,0.7); color:#333; flex: 1;">ยกเลิก</button>
-                        <button type="submit" class="glass-btn" style="background: #34c759; flex: 1.5;">ยืนยันการคืน</button>
+                    <div style="display: flex; gap: 10px; margin-top: 15px;">
+                        <button type="button" onclick="closeActionModal()" class="glass-btn" style="background: #e2e8f0; color:#333; flex: 1;">ยกเลิก</button>
+                        <button type="submit" id="m-submit-btn" class="glass-btn btn-primary" style="flex: 1.5;">ยืนยัน</button>
                     </div>
                 </form>
             </div>
         </div>
 
-        <!-- Modal ใบเสร็จแบบสลิป (TrueMoney Style) -->
+        <!-- Modal ใบเสร็จ (TrueMoney Style) -->
         <div id="receipt-modal" class="modal hidden">
             <div class="modal-content" style="background: transparent; box-shadow: none; border: none; padding: 10px;">
-                <!-- พื้นที่สำหรับ Capture ภาพสลิป -->
                 <div id="slip-capture-area" class="slip-container">
                     <div class="slip-header">
                         <div class="slip-icon"><i class="fas fa-check"></i></div>
@@ -225,17 +289,17 @@
                     </div>
                     <hr class="slip-divider">
                     
-                    <div class="slip-row">
-                        <span class="slip-label">รายการอุปกรณ์</span>
-                        <span class="slip-value" id="slip-item"></span>
+                    <div class="slip-row" style="flex-direction: column; text-align: center; margin-bottom: 20px;">
+                        <span class="slip-label" style="margin-bottom: 5px;">รายการอุปกรณ์</span>
+                        <div class="highlight-item" id="slip-item"></div>
                     </div>
                     <div class="slip-row" id="slip-qty-row">
                         <span class="slip-label">จำนวน</span>
-                        <span class="slip-value" id="slip-qty"></span>
+                        <span class="slip-value highlight-qty" id="slip-qty"></span>
                     </div>
                     <div class="slip-row" id="slip-dept-row">
                         <span class="slip-label">หน่วยงาน</span>
-                        <span class="slip-value" id="slip-dept"></span>
+                        <span class="slip-value" style="font-weight: bold;" id="slip-dept"></span>
                     </div>
                     <div class="slip-row">
                         <span class="slip-label" id="slip-person1-label">ผู้ให้ยืม</span>
@@ -246,41 +310,58 @@
                         <span class="slip-value" id="slip-person2"></span>
                     </div>
                     
-                    <div class="slip-footer">IPD3 Return System</div>
+                    <!-- พื้นที่แสดงภาพหลักฐาน -->
+                    <div class="slip-image-box" id="slip-image-container" style="display: none;">
+                        <img id="slip-preview-img" src="" alt="Proof Image">
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 25px; font-size: 12px; color: #bbb;">IPD3 Return System</div>
                 </div>
                 
                 <div style="display: flex; gap: 10px; padding: 0 10px;">
-                    <button onclick="downloadSlip()" class="glass-btn" style="background: #007aff; flex: 1.5;"><i class="fas fa-download"></i> บันทึกภาพ</button>
-                    <button onclick="closeReceipt()" class="glass-btn" style="background: rgba(255,255,255,0.9); color:#333; flex: 1;">ปิด</button>
+                    <button onclick="downloadSlip()" class="glass-btn" style="background: #007aff; flex: 1.5;"><i class="fas fa-download"></i> บันทึกสลิป</button>
+                    <button onclick="closeReceipt()" class="glass-btn" style="background: #fff; color:#333; flex: 1;">ปิด</button>
                 </div>
             </div>
         </div>
 
-        <nav class="bottom-nav glass">
-            <button onclick="switchPage('dashboard-page')" class="nav-item active">
-                <i class="fas fa-list-ul"></i><span>รายการยืม</span>
+        <!-- Navigator ด้านล่าง -->
+        <nav class="bottom-nav">
+            <button onclick="switchPage('home-page')" class="nav-item active" id="nav-home">
+                <i class="fas fa-home"></i><span>หน้าแรก</span>
             </button>
-            <button onclick="switchPage('borrow-page')" class="nav-item">
-                <i class="fas fa-hand-holding-medical"></i><span>ยืมของ</span>
+            <button onclick="switchPage('dashboard-page')" class="nav-item" id="nav-list">
+                <i class="fas fa-list-ul"></i><span>ถูกยืม</span>
+            </button>
+            <button onclick="switchPage('borrow-page')" class="nav-item" id="nav-borrow">
+                <i class="fas fa-plus-circle"></i><span>ยืมรายการ</span>
             </button>
         </nav>
     </div>
 
     <script>
-        const API_URL = 'https://script.google.com/macros/s/AKfycbykO-1SChXfcC4IoRE7my-rULQJXWbACRZSX-gaNQmlmE5vflSWwWVqSGodno4e8i38/exec'; // <--- ใส่ URL ตรงนี้
-        
-        let currentReturnId = '';
-        let currentReturnItem = '';
+        // ===============================================
+        const API_URL = 'https://script.google.com/macros/s/AKfycbwduj_E8EGb-dWDR3R0q-d6i5_LUkRw8cGylJ2DEkSF_-2H2t2mw5ltJR_QODENSg7X/exec'; // เปลี่ยน URL ที่นี่
+        // ===============================================
+
+        let currentImageBase64 = ''; // เก็บภาพที่แปลงเป็น Base64
+        let currentItemName = '';
 
         function switchPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            
             document.getElementById(pageId).classList.add('active');
-            event.currentTarget.classList.add('active');
-            if(pageId === 'dashboard-page') fetchData();
+            
+            // Highlight nav button
+            if(pageId === 'home-page') document.getElementById('nav-home').classList.add('active');
+            if(pageId === 'dashboard-page') {
+                document.getElementById('nav-list').classList.add('active');
+                fetchData();
+            }
+            if(pageId === 'borrow-page') document.getElementById('nav-borrow').classList.add('active');
         }
 
-        // จัดการ Dropdown หน่วยงาน "อื่นๆ"
         function toggleDeptOther() {
             const select = document.getElementById('b-dept-select');
             const otherInput = document.getElementById('b-dept-other');
@@ -293,16 +374,29 @@
             }
         }
 
+        // แปลงไฟล์ภาพเป็น Base64
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    currentImageBase64 = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            } else {
+                currentImageBase64 = '';
+            }
+        }
+        document.getElementById('b-image').addEventListener('change', handleImageUpload);
+        document.getElementById('r-image').addEventListener('change', handleImageUpload);
+
         document.addEventListener('DOMContentLoaded', () => {
             const today = new Date();
             const dateStr = today.toISOString().split('T')[0];
             const timeStr = today.toTimeString().split(' ')[0].substring(0, 5);
-            
             document.getElementById('b-date').value = dateStr;
             document.getElementById('b-time').value = timeStr;
             document.getElementById('b-due').value = dateStr;
-            
-            if(API_URL !== 'YOUR_WEB_APP_URL_HERE') fetchData();
         });
 
         // ================== บันทึกการยืม ==================
@@ -312,12 +406,9 @@
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> กำลังบันทึก...';
             submitBtn.disabled = true;
 
-            // ตรวจสอบหน่วยงาน
             const deptValue = document.getElementById('b-dept-select').value === 'อื่นๆ' 
                 ? document.getElementById('b-dept-other').value 
                 : document.getElementById('b-dept-select').value;
-            
-            // รวมจำนวนและหน่วยเข้าด้วยกัน
             const qtyWithUnit = document.getElementById('b-qty').value + ' ' + document.getElementById('b-unit').value;
 
             const payload = {
@@ -334,24 +425,14 @@
             };
 
             try {
-                // ส่งข้อมูล (ใช้ Script ฝั่งเซิร์ฟเวอร์เดิมได้เลย)
                 await fetch(API_URL, { method: 'POST', body: JSON.stringify(payload) });
-                
-                // สร้างสลิป
-                generateSlip('ยืมอุปกรณ์', payload);
+                generateSlip('ยืมอุปกรณ์', payload, currentImageBase64); // ส่งภาพไปที่สลิป
                 document.getElementById('borrow-form').reset();
-                document.getElementById('b-dept-other').style.display = 'none'; // ซ่อนช่องระบุเอง
-                
-                // คืนค่าเวลาให้เป็นปัจจุบัน
-                const today = new Date();
-                document.getElementById('b-date').value = today.toISOString().split('T')[0];
-                document.getElementById('b-due').value = today.toISOString().split('T')[0];
-                document.getElementById('b-time').value = today.toTimeString().split(' ')[0].substring(0, 5);
-
+                currentImageBase64 = ''; // เคลียร์ภาพ
             } catch (error) {
                 alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล');
             } finally {
-                submitBtn.innerHTML = '<i class="fas fa-save"></i> บันทึกการยืม';
+                submitBtn.innerHTML = '<i class="fas fa-save"></i> บันทึกรายการ';
                 submitBtn.disabled = false;
             }
         });
@@ -369,29 +450,40 @@
                 
                 const activeBorrows = data.filter(item => item.Status === 'ยืมอยู่');
                 if(activeBorrows.length === 0) {
-                    listContainer.innerHTML = '<p style="text-align:center; color:#777; margin-top:20px;">ไม่มีรายการค้างคืน</p>';
+                    listContainer.innerHTML = '<div style="text-align:center; padding: 40px; color:#999;"><i class="fas fa-box-open" style="font-size:40px; margin-bottom:10px;"></i><br>ไม่มีรายการค้างคืน</div>';
                     return;
                 }
 
                 activeBorrows.forEach(item => {
-                    const today = new Date();
-                    today.setHours(0,0,0,0);
-                    const dueDate = new Date(item.DueDate);
-                    dueDate.setHours(0,0,0,0);
+                    const today = new Date(); today.setHours(0,0,0,0);
+                    const dueDate = new Date(item.DueDate); dueDate.setHours(0,0,0,0);
                     const isOverdue = today > dueDate;
                     
                     const card = document.createElement('div');
                     card.className = `item-card ${isOverdue ? 'overdue-row' : ''}`;
                     card.innerHTML = `
-                        <h4><i class="fas fa-box"></i> ${item.Item} (จำนวน: ${item.Qty})</h4>
-                        <p><strong>หน่วยงาน:</strong> ${item.Dept} | <strong>ผู้ยืม:</strong> ${item.Borrower}</p>
-                        <p><strong>วันที่ยืม:</strong> ${item.BorrowDate}</p>
-                        <p class="${isOverdue ? 'overdue-text' : ''}">
-                            <i class="fas fa-calendar-alt"></i> <strong>กำหนดคืน:</strong> ${item.DueDate} ${isOverdue ? '(เลยกำหนด!)' : ''}
-                        </p>
-                        <button onclick="openReturnModal('${item.ID}', '${item.Item}')" class="btn-secondary glass-btn" style="margin-top:12px; background: #34c759; padding: 10px;">
-                            <i class="fas fa-undo"></i> คืนรายการนี้
-                        </button>
+                        <div class="item-header">
+                            <div class="item-title"><i class="fas fa-stethoscope" style="color:var(--primary);"></i> ${item.Item}</div>
+                            <div class="qty-badge">${item.Qty}</div>
+                        </div>
+                        <div class="item-detail"><i class="fas fa-hospital-user"></i> ผู้ยืม: <strong>${item.Borrower}</strong> (${item.Dept})</div>
+                        <div class="item-detail"><i class="far fa-calendar-check"></i> วันที่ยืม: ${item.BorrowDate}</div>
+                        <div class="item-detail ${isOverdue ? 'overdue-text' : ''}">
+                            <i class="far fa-calendar-times"></i> กำหนดคืน: ${item.DueDate} 
+                            ${isOverdue ? '<span class="overdue-badge">เลยกำหนด!</span>' : ''}
+                        </div>
+                        
+                        <div class="action-row">
+                            <button onclick="openActionModal('return', '${item.ID}', '${item.Item}')" class="btn-sm btn-return">
+                                <i class="fas fa-undo"></i> คืน
+                            </button>
+                            <button onclick="openActionModal('edit', '${item.ID}', '${item.Item}', '${item.Qty}', '${item.DueDate}', '${item.Borrower}')" class="btn-sm btn-edit">
+                                <i class="fas fa-pen"></i>
+                            </button>
+                            <button onclick="deleteItem('${item.ID}', '${item.Item}')" class="btn-sm btn-delete">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
                     `;
                     listContainer.appendChild(card);
                 });
@@ -400,66 +492,117 @@
             }
         }
 
-        // ================== เปิด Modal คืนของ ==================
-        function openReturnModal(id, itemName) {
-            currentReturnId = id;
-            currentReturnItem = itemName;
-            document.getElementById('r-item-name').innerText = itemName;
+        // ================== จัดการ Modal Action (คืน/แก้ไข) ==================
+        function openActionModal(type, id, item, qty='', due='', borrower='') {
+            document.getElementById('m-id').value = id;
+            document.getElementById('m-action-type').value = type;
+            currentItemName = item;
+            currentImageBase64 = ''; // รีเซ็ตภาพเสมอเมื่อเปิด Modal
+
+            if(type === 'return') {
+                document.getElementById('modal-title').innerHTML = `<i class="fas fa-undo"></i> คืน: <span style="color:var(--primary);">${item}</span>`;
+                document.getElementById('return-fields').style.display = 'block';
+                document.getElementById('edit-fields').style.display = 'none';
+                
+                const today = new Date();
+                document.getElementById('r-date').value = today.toISOString().split('T')[0];
+                document.getElementById('r-time').value = today.toTimeString().split(' ')[0].substring(0, 5);
+                document.getElementById('r-receiver').required = true;
+                document.getElementById('r-sender').required = true;
+                
+                document.getElementById('m-submit-btn').innerText = 'ยืนยันการคืน';
+                document.getElementById('m-submit-btn').style.background = 'var(--success)';
+            } else if(type === 'edit') {
+                document.getElementById('modal-title').innerHTML = `<i class="fas fa-pen"></i> แก้ไขรายการ`;
+                document.getElementById('return-fields').style.display = 'none';
+                document.getElementById('edit-fields').style.display = 'block';
+                
+                document.getElementById('e-item').value = item;
+                document.getElementById('e-qty').value = qty;
+                document.getElementById('e-due').value = due;
+                document.getElementById('e-borrower').value = borrower;
+                
+                document.getElementById('r-receiver').required = false;
+                document.getElementById('r-sender').required = false;
+                
+                document.getElementById('m-submit-btn').innerText = 'บันทึกการแก้ไข';
+                document.getElementById('m-submit-btn').style.background = 'var(--primary)';
+            }
             
-            // ตั้งค่าเวลาปัจจุบัน
-            const today = new Date();
-            document.getElementById('r-date').value = today.toISOString().split('T')[0];
-            document.getElementById('r-time').value = today.toTimeString().split(' ')[0].substring(0, 5);
-            
-            document.getElementById('r-receiver').value = "";
-            document.getElementById('r-sender').value = "";
-            
-            document.getElementById('custom-return-modal').classList.remove('hidden');
+            document.getElementById('action-modal').classList.remove('hidden');
         }
 
-        function closeReturnModal() {
-            document.getElementById('custom-return-modal').classList.add('hidden');
+        function closeActionModal() {
+            document.getElementById('action-modal').classList.add('hidden');
         }
 
-        // ================== บันทึกการคืน ==================
-        document.getElementById('return-form').addEventListener('submit', async (e) => {
+        // Submit ฟอร์ม คืน/แก้ไข
+        document.getElementById('action-form').addEventListener('submit', async (e) => {
             e.preventDefault();
+            const actionType = document.getElementById('m-action-type').value;
+            const id = document.getElementById('m-id').value;
             
-            const submitBtn = e.target.querySelector('button[type="submit"]');
-            submitBtn.innerHTML = 'กำลังคืน...';
+            const submitBtn = document.getElementById('m-submit-btn');
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> รอสักครู่...';
             submitBtn.disabled = true;
 
-            const returnSender = document.getElementById('r-sender').value;
+            let payload = {};
 
-            const payload = {
-                action: 'return',
-                id: currentReturnId,
-                returnDate: document.getElementById('r-date').value,
-                returnTime: document.getElementById('r-time').value,
-                receiver: document.getElementById('r-receiver').value,
-                notes: 'ผู้ส่งคืน: ' + returnSender  // นำชื่อผู้ส่งคืนไปใส่ท้ายตารางในช่อง Notes
-            };
-
-            try {
-                await fetch(API_URL, { method: 'POST', body: JSON.stringify(payload) });
-                
-                closeReturnModal();
-                generateSlip('คืนอุปกรณ์', { ...payload, item: currentReturnItem, sender: returnSender });
-                fetchData(); 
-            } catch(error) {
-                alert('เกิดข้อผิดพลาดในการบันทึกการคืน');
-            } finally {
-                submitBtn.innerHTML = 'ยืนยันการคืน';
-                submitBtn.disabled = false;
+            if(actionType === 'return') {
+                const returnSender = document.getElementById('r-sender').value;
+                payload = {
+                    action: 'return', id: id,
+                    returnDate: document.getElementById('r-date').value,
+                    returnTime: document.getElementById('r-time').value,
+                    receiver: document.getElementById('r-receiver').value,
+                    notes: 'ผู้ส่งคืน: ' + returnSender
+                };
+                try {
+                    await fetch(API_URL, { method: 'POST', body: JSON.stringify(payload) });
+                    closeActionModal();
+                    generateSlip('คืนอุปกรณ์', { ...payload, item: currentItemName, sender: returnSender }, currentImageBase64);
+                    fetchData(); 
+                } catch(e) { alert('เกิดข้อผิดพลาด'); }
+            } 
+            else if(actionType === 'edit') {
+                payload = {
+                    action: 'edit', id: id,
+                    item: document.getElementById('e-item').value,
+                    qty: document.getElementById('e-qty').value,
+                    dueDate: document.getElementById('e-due').value,
+                    borrower: document.getElementById('e-borrower').value
+                };
+                try {
+                    await fetch(API_URL, { method: 'POST', body: JSON.stringify(payload) });
+                    closeActionModal();
+                    fetchData(); 
+                } catch(e) { alert('เกิดข้อผิดพลาด'); }
             }
+            
+            submitBtn.disabled = false;
         });
 
-        // ================== จัดการสลิปใบเสร็จ ==================
-        function generateSlip(type, data) {
+        // ================== ฟังก์ชันลบ ==================
+        async function deleteItem(id, itemName) {
+            if(confirm(`คุณต้องการลบรายการ "${itemName}" ใช่หรือไม่?\n(การลบจะไม่สามารถกู้คืนได้)`)) {
+                try {
+                    await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'delete', id: id }) });
+                    fetchData();
+                } catch(e) {
+                    alert('เกิดข้อผิดพลาดในการลบ');
+                }
+            }
+        }
+
+        // ================== จัดการสลิป ==================
+        function generateSlip(type, data, imageBase64) {
             const now = new Date();
-            const timeString = `${now.getDate()} ${now.toLocaleString('th-TH', {month: 'short'})} ${now.getFullYear()} - ${now.toTimeString().substring(0, 5)}`;
+            const timeString = `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()} - ${now.toTimeString().substring(0, 5)}`;
             
-            document.getElementById('slip-type-title').innerText = type === 'ยืมอุปกรณ์' ? 'ทำรายการยืมสำเร็จ' : 'ทำรายการคืนสำเร็จ';
+            document.getElementById('slip-type-title').innerText = type === 'ยืมอุปกรณ์' ? 'รายการยืมสำเร็จ' : 'รายการคืนสำเร็จ';
+            document.getElementById('slip-type-title').style.color = type === 'ยืมอุปกรณ์' ? 'var(--primary)' : 'var(--success)';
+            document.querySelector('.slip-icon').style.background = type === 'ยืมอุปกรณ์' ? 'var(--primary)' : 'var(--success)';
+            
             document.getElementById('slip-time-text').innerText = timeString;
             document.getElementById('slip-item').innerText = data.item || '-';
             
@@ -473,32 +616,37 @@
                 document.getElementById('slip-person2-label').innerText = 'ผู้ยืม';
                 document.getElementById('slip-person2').innerText = data.borrower;
             } else {
-                document.getElementById('slip-qty-row').style.display = 'none'; // ซ่อนแถวจำนวน
-                document.getElementById('slip-dept-row').style.display = 'none'; // ซ่อนแถวหน่วยงาน
+                document.getElementById('slip-qty-row').style.display = 'none';
+                document.getElementById('slip-dept-row').style.display = 'none';
                 document.getElementById('slip-person1-label').innerText = 'ผู้รับคืน (จนท. IPD3)';
                 document.getElementById('slip-person1').innerText = data.receiver;
                 document.getElementById('slip-person2-label').innerText = 'ผู้ส่งคืน';
                 document.getElementById('slip-person2').innerText = data.sender;
             }
 
+            // แสดงภาพถ้ามีการแนบ
+            const imageContainer = document.getElementById('slip-image-container');
+            const previewImg = document.getElementById('slip-preview-img');
+            if (imageBase64) {
+                previewImg.src = imageBase64;
+                imageContainer.style.display = 'block';
+            } else {
+                imageContainer.style.display = 'none';
+                previewImg.src = '';
+            }
+
             document.getElementById('receipt-modal').classList.remove('hidden');
         }
 
-        // ดาวน์โหลดสลิปเป็นภาพ JPEG
         async function downloadSlip() {
             const slipElement = document.getElementById('slip-capture-area');
             try {
-                const canvas = await html2canvas(slipElement, { 
-                    scale: 3, // ความละเอียด 3 เท่า
-                    backgroundColor: '#ffffff'
-                });
-                
+                const canvas = await html2canvas(slipElement, { scale: 3, backgroundColor: '#ffffff', useCORS: true });
                 const link = document.createElement('a');
                 link.download = `IPD3_Slip_${new Date().getTime()}.jpg`;
                 link.href = canvas.toDataURL('image/jpeg', 0.9);
                 link.click();
             } catch (error) {
-                console.error(error);
                 alert("ไม่สามารถบันทึกภาพสลิปได้");
             }
         }
