@@ -4,20 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IPD3 Return System</title>
-    <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://unpkg.com/html5-qrcode"></script>
 
     <style>
         :root {
-            /* ธีมสี น้ำเงิน ฟ้า ขาว */
-            --primary: #004aad;    
+            var(--primary): #004aad;    
             --secondary: #0096ff;  
-            --success: #00a596; /* ปรับสีเขียวให้คล้าย K+ */
+            --success: #00a596; /* สีเขียวมิ้นต์แบบ K+ */
             --danger: #ff3b30;
             --warning: #ff9500;
             --bg-gradient: linear-gradient(135deg, #e6f2ff 0%, #ffffff 100%);
@@ -28,19 +25,13 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Sarabun', sans-serif; }
         body { background: var(--bg-gradient); min-height: 100vh; display: flex; justify-content: center; align-items: center; color: #333; }
 
-        .app-container {
-            width: 100%; height: 100vh; position: relative; display: flex; flex-direction: column; overflow: hidden;
-            background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(10px);
-        }
-        
+        .app-container { width: 100%; height: 100vh; position: relative; display: flex; flex-direction: column; overflow: hidden; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(10px); }
         .glass { background: var(--glass-bg); backdrop-filter: blur(12px); border: 1px solid var(--glass-border); }
 
-        /* Header (Mobile) */
         header { padding: 20px; text-align: center; z-index: 2; position: relative; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); background: white;}
-        .app-logo { font-size: 24px; font-weight: 700; color: var(--primary); display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .app-logo i { color: var(--secondary); font-size: 28px;}
+        .app-logo { font-size: 24px; font-weight: 700; color: #004aad; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .app-logo i { color: #0096ff; font-size: 28px;}
 
-        /* Sidebar Logo (PC) */
         .sidebar-header { display: none; padding: 30px 20px; text-align: center; }
 
         .main-content { display: flex; flex: 1; overflow: hidden; flex-direction: column; }
@@ -48,50 +39,45 @@
         .page.active { display: block; animation: fadeIn 0.3s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Home Menu Cards */
+        /* Home Cards */
         .home-grid { display: grid; grid-template-columns: 1fr; gap: 15px; margin-top: 10px; }
         .menu-card { background: white; border-radius: 16px; padding: 20px; text-align: center; border: 1px solid var(--glass-border); box-shadow: 0 4px 15px rgba(0,74,173,0.08); cursor: pointer; transition: 0.3s; }
-        .menu-card:active, .menu-card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,74,173,0.15); }
+        .menu-card:active { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,74,173,0.15); }
         .menu-card i { font-size: 35px; margin-bottom: 10px; }
-        .menu-card h3 { color: var(--primary); font-size: 18px; margin-bottom: 5px;}
+        .menu-card h3 { color: #004aad; font-size: 18px; margin-bottom: 5px;}
         .menu-card p { color: #666; font-size: 13px; }
-        .card-lent i { color: var(--primary); }
-        .card-borrow i { color: var(--secondary); }
+        .card-lent i { color: #004aad; } .card-borrow i { color: #0096ff; } .card-history i { color: var(--success); }
 
-        /* Form Inputs */
+        /* Forms */
         .glass-input { width: 100%; padding: 14px; margin-bottom: 15px; border-radius: 10px; border: 1px solid #cce0ff; background: white; outline: none; font-size: 15px; color: #333; transition: 0.3s; box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);}
-        .glass-input:focus { border: 1px solid var(--secondary); box-shadow: 0 0 8px rgba(0,150,255,0.2); }
-        .input-label { font-size: 14px; color: var(--primary); margin-left: 5px; margin-bottom: 5px; display: block; font-weight: bold;}
+        .glass-input:focus { border: 1px solid #0096ff; box-shadow: 0 0 8px rgba(0,150,255,0.2); }
+        .input-label { font-size: 14px; color: #004aad; margin-left: 5px; margin-bottom: 5px; display: block; font-weight: bold;}
 
-        /* Toggle Button */
         .toggle-container { display: flex; background: #e6f2ff; border-radius: 10px; margin-bottom: 20px; padding: 5px; }
         .toggle-btn { flex: 1; padding: 10px; text-align: center; font-weight: bold; cursor: pointer; border-radius: 8px; color: #555; transition: 0.3s; }
-        .toggle-btn.active-lent { background: var(--primary); color: white; box-shadow: 0 2px 8px rgba(0,74,173,0.2); }
-        .toggle-btn.active-borrow { background: var(--secondary); color: white; box-shadow: 0 2px 8px rgba(0,150,255,0.2); }
+        .toggle-btn.active-lent { background: #004aad; color: white; box-shadow: 0 2px 8px rgba(0,74,173,0.2); }
+        .toggle-btn.active-borrow { background: #0096ff; color: white; box-shadow: 0 2px 8px rgba(0,150,255,0.2); }
 
         .glass-btn { width: 100%; padding: 14px; border-radius: 10px; border: none; cursor: pointer; font-weight: bold; color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.1); font-size: 15px; transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 8px; }
         .glass-btn:active { transform: scale(0.98); }
-        .btn-primary { background: linear-gradient(135deg, var(--primary), var(--secondary)); }
-        .btn-outline { background: white; color: var(--primary); border: 2px solid var(--primary); }
+        .btn-primary { background: linear-gradient(135deg, #004aad, #0096ff); }
+        .btn-outline { background: white; color: #004aad; border: 2px dashed #004aad; }
 
-        /* Camera Input */
         .file-upload-wrapper { position: relative; width: 100%; margin-bottom: 15px; }
         .file-upload-wrapper input[type="file"] { display: none; }
-        .file-upload-btn { width: 100%; padding: 14px; background: #f0f7ff; border: 2px dashed var(--secondary); border-radius: 10px; color: var(--primary); font-weight: bold; text-align: center; cursor: pointer; display: block; transition: 0.3s; }
-        .file-upload-btn:hover { background: #e6f2ff; }
+        .file-upload-btn { width: 100%; padding: 14px; background: #f0f7ff; border: 2px dashed #0096ff; border-radius: 10px; color: #004aad; font-weight: bold; text-align: center; cursor: pointer; display: block; }
         .image-preview { width: 100%; max-height: 150px; object-fit: contain; margin-top: 10px; display: none; border-radius: 8px; border: 1px solid #ccc;}
 
-        /* Item List Tabs (ปรับเป็น 3 แท็บ) */
+        /* Tabs */
         .tab-container { display: flex; gap: 5px; margin-bottom: 15px; }
-        .tab-btn { flex: 1; padding: 10px 5px; background: white; border: 1px solid #cce0ff; border-radius: 8px; font-weight: bold; color: #666; cursor: pointer; transition: 0.3s; font-size: 13px; text-align: center;}
-        .tab-btn.active { background: #e6f2ff; color: var(--primary); border: 1px solid var(--primary); }
+        .tab-btn { flex: 1; padding: 10px 5px; background: white; border: 1px solid #cce0ff; border-radius: 8px; font-weight: bold; color: #666; cursor: pointer; font-size: 14px; text-align: center;}
+        .tab-btn.active { background: #e6f2ff; color: #004aad; border: 1px solid #004aad; }
 
-        /* Item Card */
-        .item-card { background: white; border-radius: 12px; padding: 15px; margin-bottom: 15px; border: 1px solid #e6f2ff; box-shadow: 0 4px 12px rgba(0,74,173,0.06); display: flex; flex-direction: column; }
+        /* Item Cards */
+        .item-card { background: white; border-radius: 12px; padding: 15px; margin-bottom: 15px; border: 1px solid #e6f2ff; box-shadow: 0 4px 12px rgba(0,74,173,0.06); }
         .item-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; border-bottom: 1px solid #f0f0f0; padding-bottom: 10px;}
-        .item-title { font-size: 16px; font-weight: bold; color: var(--primary); display: flex; align-items: center; gap: 8px;}
-        .qty-badge { background: #e6f2ff; color: var(--primary); padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold;}
-        
+        .item-title { font-size: 16px; font-weight: bold; color: #004aad; display: flex; align-items: center; gap: 8px;}
+        .qty-badge { background: #e6f2ff; color: #004aad; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold;}
         .item-body { display: flex; justify-content: space-between; align-items: center; }
         .item-details-list { flex: 1; }
         .item-detail { font-size: 13px; color: #555; margin-bottom: 4px;}
@@ -100,16 +86,16 @@
         .action-row { display: flex; gap: 8px; margin-top: 12px; }
         .btn-sm { flex: 1; padding: 8px; border-radius: 6px; font-size: 13px; display: flex; justify-content: center; align-items: center; gap: 5px; border: none; font-weight: bold; cursor: pointer;}
         .btn-return { background: var(--success); color: white; flex: 2;}
-        .btn-edit { background: #f0f7ff; color: var(--primary); border: 1px solid var(--secondary);}
+        .btn-edit { background: #f0f7ff; color: #004aad; border: 1px solid #0096ff;}
         .btn-delete { background: #fee2e2; color: var(--danger); border: 1px solid #fca5a5;}
         
         .overdue-row { border: 2px solid var(--danger); }
         .overdue-badge { background: #fee2e2; color: var(--danger); padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: bold; animation: pulse 1.5s infinite; }
 
-        /* Navigation */
+        /* Navigation (4 เมนู) */
         .bottom-nav { position: absolute; bottom: 0; width: 100%; display: flex; justify-content: space-around; padding: 10px 0 15px 0; border-top-left-radius: 20px; border-top-right-radius: 20px; z-index: 5; box-shadow: 0 -5px 20px rgba(0,74,173,0.05); background: white; }
         .nav-item { background: none; border: none; font-size: 20px; color: #999; display: flex; flex-direction: column; align-items: center; cursor: pointer; transition: 0.3s; }
-        .nav-item.active { color: var(--primary); transform: translateY(-3px); }
+        .nav-item.active { color: #004aad; transform: translateY(-3px); }
         .nav-item span { font-size: 11px; margin-top: 4px; font-weight: bold;}
 
         /* Modals */
@@ -117,61 +103,72 @@
         .hidden { display: none !important; }
         .modal-content { background: white; width: 90%; max-height: 90vh; overflow-y: auto; padding: 20px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);}
         
-        /* ================= K+ Style Slip (ใบเสร็จ) ================= */
+        /* ================= สลิปสไตล์ K+ (อัปเกรดใหม่) ================= */
         .kplus-slip {
-            background: linear-gradient(180deg, #e4f5f4 0%, #ffffff 100%);
-            border-radius: 12px; padding: 20px; margin-bottom: 15px;
+            background: linear-gradient(180deg, #dcf3f1 0%, #f0fcfb 30%, #ffffff 100%);
+            border-radius: 0px; /* สลิปมักจะเหลี่ยมๆ */
+            padding: 25px 20px; margin-bottom: 15px;
             font-family: 'Sarabun', sans-serif; position: relative; overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08); border: 1px solid #d0ebe9;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); border: 1px solid #c8e9e6;
         }
-        /* ลายน้ำพื้นหลังจางๆ */
+        /* ลายน้ำพื้นหลัง */
         .kplus-slip::before {
-            content: "\f0fd"; font-family: "Font Awesome 5 Free"; font-weight: 900;
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            font-size: 160px; color: rgba(0, 165, 150, 0.04); z-index: 0;
+            content: "\f1ad"; font-family: "Font Awesome 5 Free"; font-weight: 900;
+            position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%);
+            font-size: 250px; color: rgba(0, 165, 150, 0.03); z-index: 0; pointer-events: none;
         }
-        .k-header { display: flex; justify-content: space-between; align-items: flex-start; position: relative; z-index: 1; border-bottom: 1px solid #cce5e3; padding-bottom: 12px; margin-bottom: 18px;}
-        .k-title-wrap { display: flex; gap: 10px; }
-        .k-status-bar { width: 5px; background: var(--success); border-radius: 3px; }
-        .k-title { font-size: 20px; font-weight: bold; color: #222; line-height: 1.3;}
-        .k-datetime { font-size: 13px; color: #666; margin-top: 2px;}
-        .k-logo { font-size: 24px; font-weight: 800; color: var(--success); font-style: italic; }
         
-        .k-parties { position: relative; z-index: 1; margin-bottom: 20px; }
-        .k-party { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
-        .k-avatar { width: 48px; height: 48px; border-radius: 50%; color: white; display: flex; justify-content: center; align-items: center; font-size: 22px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); z-index: 2;}
-        .k-party-name { font-size: 16px; font-weight: bold; color: #222; }
-        .k-party-sub { font-size: 13px; color: #666; }
-        .k-arrow { position: absolute; left: 24px; top: 38px; color: #aaa; font-size: 18px; z-index: 1;}
+        .k-header { display: flex; justify-content: space-between; align-items: flex-start; position: relative; z-index: 1; border-bottom: 1px solid #bce0dd; padding-bottom: 12px; margin-bottom: 20px;}
+        .k-title-wrap { display: flex; gap: 12px; }
+        .k-status-bar { width: 5px; background: var(--success); border-radius: 3px; }
+        .k-title { font-size: 20px; font-weight: bold; color: #111; line-height: 1.3;}
+        .k-datetime { font-size: 14px; color: #555; margin-top: 4px;}
+        .k-logo { font-size: 26px; font-weight: 900; color: #005a51; font-style: italic; letter-spacing: -1px;}
+        .k-logo span { color: var(--success); }
+        
+        .k-parties { position: relative; z-index: 1; margin-bottom: 25px; padding-left: 15px;}
+        .k-party { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; position: relative;}
+        
+        /* ไอคอนโปรไฟล์ */
+        .k-avatar { width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); z-index: 2; background: white; border: 2px solid white;}
+        .k-avatar.sender { color: var(--success); border-color: var(--success);}
+        .k-avatar.receiver { color: #ff3b30; border-color: #ff3b30;}
+        
+        .k-party-info { display: flex; flex-direction: column; }
+        .k-party-name { font-size: 16px; font-weight: bold; color: #111; }
+        .k-party-sub { font-size: 14px; color: #555; }
+        
+        /* ลูกศรชี้ลง */
+        .k-arrow-container { position: absolute; left: 16px; top: 48px; height: 25px; border-left: 2px solid #999; z-index: 1;}
+        .k-arrow-container::after { content: "\f063"; font-family: "Font Awesome 5 Free"; font-weight: 900; position: absolute; bottom: -12px; left: -7px; font-size: 12px; color: #999;}
         
         .k-details { position: relative; z-index: 1; margin-bottom: 15px; }
-        .k-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px dashed #d0ebe9; font-size: 14px; align-items: center;}
-        .k-label { color: #555; }
-        .k-value { font-weight: bold; color: #222; max-width: 60%; text-align: right; }
+        .k-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed #bce0dd; font-size: 15px; align-items: center;}
+        .k-label { color: #444; }
+        .k-value { font-weight: bold; color: #111; max-width: 65%; text-align: right; }
         
-        /* คอนเทนเนอร์รูปถ่ายบนสลิป (ภาพใหญ่ขึ้น) */
-        .k-image-container { text-align: center; margin: 15px 0; position: relative; z-index: 1;}
-        .k-image-container img { max-width: 100%; max-height: 250px; border-radius: 10px; border: 3px solid #fff; box-shadow: 0 3px 10px rgba(0,0,0,0.12); object-fit: contain; }
+        /* คอนเทนเนอร์รูปถ่ายบนสลิปให้ใหญ่และชัดเจน */
+        .k-image-container { text-align: center; margin: 20px 0; position: relative; z-index: 1;}
+        .k-image-container img { max-width: 100%; max-height: 280px; border-radius: 12px; border: 4px solid #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.1); object-fit: contain; }
         
-        .k-footer { display: flex; justify-content: space-between; align-items: flex-end; position: relative; z-index: 1; margin-top: 15px;}
-        .k-qr-box { background: white; padding: 6px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid #eee; display: flex; flex-direction: column; align-items: center; gap: 4px;}
-        .k-qr-box span { font-size: 10px; color: #888;}
-        .k-watermark { font-size: 11px; color: #999;}
+        .k-footer { display: flex; justify-content: space-between; align-items: flex-end; position: relative; z-index: 1; margin-top: 20px;}
+        .k-qr-box { background: white; padding: 8px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border: 1px solid #eee; display: flex; flex-direction: column; align-items: center; gap: 5px;}
+        .k-qr-box span { font-size: 11px; color: #666; font-weight: bold;}
+        .k-watermark { font-size: 12px; color: #777;}
 
-        /* QR Scanner Reader Box */
+        /* Scanner */
         #reader { width: 100%; border-radius: 12px; overflow: hidden; border: none; }
 
-        /* ================= Desktop UI (PC) ================= */
         @media (min-width: 768px) {
             body { background: #f0f2f5; }
-            .app-container { max-width: 1000px; height: 90vh; flex-direction: row; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,74,173,0.15); background: white; }
+            .app-container { max-width: 1000px; height: 90vh; flex-direction: row; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); background: white; }
             header { display: none; }
             .sidebar-header { display: block; border-bottom: 1px solid #eee; margin-bottom: 20px;}
             
-            .bottom-nav { position: relative; flex-direction: column; width: 250px; height: 100%; justify-content: flex-start; padding: 0; border-radius: 0; border-right: 1px solid #eee; background: #fafbfc; box-shadow: none; align-items: flex-start;}
+            .bottom-nav { position: relative; flex-direction: column; width: 220px; height: 100%; justify-content: flex-start; padding: 0; border-radius: 0; border-right: 1px solid #eee; background: #fafbfc; box-shadow: none; align-items: flex-start;}
             .nav-item { width: 100%; flex-direction: row; padding: 15px 20px; justify-content: flex-start; gap: 15px; font-size: 18px; border-left: 4px solid transparent; border-radius: 0;}
             .nav-item span { font-size: 15px; margin-top: 0; }
-            .nav-item.active { background: #e6f2ff; border-left: 4px solid var(--primary); transform: none; }
+            .nav-item.active { background: #e6f2ff; border-left: 4px solid #004aad; transform: none; }
             
             .main-content { flex: 1; }
             .page { padding: 30px; padding-bottom: 30px; }
@@ -182,29 +179,29 @@
 </head>
 <body>
     <div class="app-container">
-        <!-- Header Mobile -->
+        <!-- Header -->
         <header>
             <div class="app-logo"><i class="fas fa-heartbeat"></i> <div><span>IPD3</span> Return</div></div>
         </header>
 
-        <!-- Sidebar Navigation (PC/Mobile) -->
+        <!-- Sidebar Navigation -->
         <nav class="bottom-nav">
             <div class="sidebar-header">
                 <div class="app-logo"><i class="fas fa-heartbeat"></i> <div><span>IPD3</span> Return</div></div>
             </div>
             <button onclick="switchPage('home-page')" class="nav-item active" id="nav-home"><i class="fas fa-home"></i><span>หน้าแรก</span></button>
-            <button onclick="switchPage('dashboard-page')" class="nav-item" id="nav-list"><i class="fas fa-clipboard-list"></i><span>รายการต่างๆ</span></button>
+            <button onclick="switchPage('dashboard-page')" class="nav-item" id="nav-list"><i class="fas fa-clipboard-list"></i><span>รายการค้าง</span></button>
+            <button onclick="switchPage('history-page')" class="nav-item" id="nav-history"><i class="fas fa-history"></i><span>ประวัติ(คืนแล้ว)</span></button>
             <button onclick="switchPage('borrow-page')" class="nav-item" id="nav-borrow"><i class="fas fa-plus-circle"></i><span>บันทึกใหม่</span></button>
-            <button onclick="switchPage('report-page')" class="nav-item" id="nav-report"><i class="fas fa-chart-bar"></i><span>ส่งออกรายงาน</span></button>
         </nav>
 
         <div class="main-content">
             <!-- 1. หน้าแรก -->
             <main id="home-page" class="page active">
-                <h3 style="color: var(--primary); margin-bottom: 20px;">เลือกทำรายการ</h3>
+                <h3 style="color: #004aad; margin-bottom: 20px;">เลือกทำรายการ</h3>
                 
-                <button onclick="openQrScanner()" class="glass-btn btn-outline" style="margin-bottom: 20px; border-style: dashed;">
-                    <i class="fas fa-qrcode"></i> สแกน QR Code คืนของ
+                <button onclick="openQrScanner()" class="glass-btn btn-outline" style="margin-bottom: 20px;">
+                    <i class="fas fa-qrcode"></i> สแกน QR Code เพื่อคืนของ
                 </button>
 
                 <div class="home-grid">
@@ -218,37 +215,47 @@
                         <h3>ไปยืมเขามา (ยืมมา)</h3>
                         <p>บันทึกเมื่อเราไปยืมของแผนกอื่น</p>
                     </div>
-                    <div class="menu-card" onclick="switchPage('dashboard-page')">
-                        <i class="fas fa-tasks" style="color: #666;"></i>
-                        <h3 style="color:#666;">จัดการรายการ</h3>
-                        <p>ตรวจสอบของค้าง และประวัติ</p>
+                    <div class="menu-card card-history" onclick="switchPage('history-page')">
+                        <i class="fas fa-history"></i>
+                        <h3>ประวัติคืนแล้ว</h3>
+                        <p>ดูรายการที่ทำการคืนสำเร็จ</p>
                     </div>
                 </div>
             </main>
 
-            <!-- 2. หน้ารายการ -->
+            <!-- 2. หน้ารายการค้าง (Active) -->
             <main id="dashboard-page" class="page">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                    <h3 style="color: var(--primary);">รายการยืม-คืน</h3>
+                    <h3 style="color: #004aad;">รายการค้างส่งคืน</h3>
                     <div style="display: flex; gap: 8px;">
                         <button onclick="openQrScanner()" class="glass-btn btn-outline" style="width: auto; padding: 8px 12px; font-size: 13px;"><i class="fas fa-qrcode"></i> สแกน</button>
                         <button onclick="fetchData()" class="glass-btn" style="width: auto; padding: 8px 12px; font-size: 13px;"><i class="fas fa-sync-alt"></i> รีเฟรช</button>
                     </div>
                 </div>
                 
-                <!-- เปลี่ยนเป็น 3 แท็บ เพิ่ม "คืนแล้ว" -->
                 <div class="tab-container">
-                    <button id="tab-lent" class="tab-btn active" onclick="filterList('ถูกยืม', 'ยืมอยู่')">ถูกยืม(ค้าง)</button>
-                    <button id="tab-borrowed" class="tab-btn" onclick="filterList('ยืมมา', 'ยืมอยู่')">ยืมมา(ค้าง)</button>
-                    <button id="tab-returned" class="tab-btn" onclick="filterList('ทั้งหมด', 'คืนแล้ว')">คืนแล้ว(ประวัติ)</button>
+                    <button id="tab-lent" class="tab-btn active" onclick="filterList('ถูกยืม', 'ยืมอยู่', 'dashboard-page')">รายการที่ถูกยืมไป</button>
+                    <button id="tab-borrowed" class="tab-btn" onclick="filterList('ยืมมา', 'ยืมอยู่', 'dashboard-page')">รายการที่เรายืมมา</button>
                 </div>
 
                 <div id="borrow-list">
-                    <div style="text-align: center; padding: 40px; color: var(--secondary);"><i class="fas fa-spinner fa-spin fa-2x"></i></div>
+                    <div style="text-align: center; padding: 40px; color: #0096ff;"><i class="fas fa-spinner fa-spin fa-2x"></i></div>
                 </div>
             </main>
 
-            <!-- 3. หน้าฟอร์มบันทึกใหม่ -->
+            <!-- 3. หน้าประวัติ (History) -->
+            <main id="history-page" class="page">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h3 style="color: var(--success);">ประวัติ (คืนแล้ว)</h3>
+                    <button onclick="fetchData()" class="glass-btn" style="background:var(--success); width: auto; padding: 8px 12px; font-size: 13px;"><i class="fas fa-sync-alt"></i> รีเฟรช</button>
+                </div>
+                
+                <div id="history-list">
+                    <div style="text-align: center; padding: 40px; color: var(--success);"><i class="fas fa-spinner fa-spin fa-2x"></i></div>
+                </div>
+            </main>
+
+            <!-- 4. หน้าฟอร์มบันทึกใหม่ -->
             <main id="borrow-page" class="page">
                 <div class="toggle-container">
                     <div id="toggle-lent" class="toggle-btn active-lent" onclick="switchTxType('ถูกยืม')">ถูกยืมไป</div>
@@ -299,7 +306,7 @@
                     <span class="input-label" id="label-borrower">ชื่อผู้ยืม (แผนกอื่น):</span>
                     <input type="text" id="b-other-person" placeholder="ระบุชื่อผู้ติดต่อ" required class="glass-input">
 
-                    <span class="input-label">ภาพหลักฐาน (แสดงในใบเสร็จ):</span>
+                    <span class="input-label">ภาพหลักฐาน (จะแสดงในใบเสร็จ):</span>
                     <div class="file-upload-wrapper">
                         <label class="file-upload-btn">
                             <i class="fas fa-camera"></i> กดเพื่อถ่ายภาพ / เลือกรูป
@@ -308,29 +315,8 @@
                         <img id="b-img-preview" class="image-preview">
                     </div>
                     
-                    <button type="submit" class="btn-primary glass-btn"><i class="fas fa-save"></i> บันทึกข้อมูล</button>
+                    <button type="submit" class="btn-primary glass-btn"><i class="fas fa-save"></i> บันทึกรายการใหม่</button>
                 </form>
-            </main>
-
-            <!-- 4. หน้าออกรายงาน (PC Feature) -->
-            <main id="report-page" class="page">
-                <h3 style="color: var(--primary); margin-bottom: 20px;"><i class="fas fa-file-excel"></i> ส่งออกรายงาน (CSV)</h3>
-                <div style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #eee;">
-                    <span class="input-label">เลือกประเภทรายการ:</span>
-                    <select id="rep-type" class="glass-input">
-                        <option value="ทั้งหมด">ทั้งหมด</option>
-                        <option value="ถูกยืม">เฉพาะถูกยืม</option>
-                        <option value="ยืมมา">เฉพาะยืมมา</option>
-                    </select>
-                    
-                    <span class="input-label">ช่วงวันที่ยืม:</span>
-                    <div style="display: flex; gap: 10px;">
-                        <div style="flex:1;"><small>จากวันที่</small><input type="date" id="rep-start" class="glass-input"></div>
-                        <div style="flex:1;"><small>ถึงวันที่</small><input type="date" id="rep-end" class="glass-input"></div>
-                    </div>
-                    
-                    <button onclick="exportReport()" class="btn-primary glass-btn" style="margin-top: 10px;"><i class="fas fa-download"></i> ดาวน์โหลด CSV</button>
-                </div>
             </main>
         </div>
     </div>
@@ -338,21 +324,22 @@
     <!-- Modal สแกน QR -->
     <div id="qr-modal" class="modal hidden">
         <div class="modal-content" style="background: white;">
-            <h3 style="color: var(--primary); margin-bottom: 15px; text-align: center;"><i class="fas fa-qrcode"></i> สแกน QR คืนของ</h3>
+            <h3 style="color: #004aad; margin-bottom: 15px; text-align: center;"><i class="fas fa-qrcode"></i> สแกน QR คืนของ</h3>
             <div id="reader"></div>
             <button onclick="closeQrScanner()" class="glass-btn" style="background: #e2e8f0; color:#333; margin-top: 15px;">ยกเลิก</button>
         </div>
     </div>
 
-    <!-- Modal คืนของ / แก้ไข (ปลดล็อค required ภายในแล้ว) -->
+    <!-- Modal คืนของ / แก้ไข (ปลด Required แล้ว) -->
     <div id="action-modal" class="modal hidden">
         <div class="modal-content">
-            <h3 id="modal-title" style="color: var(--primary); margin-bottom: 15px;"></h3>
+            <h3 id="modal-title" style="color: #004aad; margin-bottom: 15px;"></h3>
             <form id="action-form">
                 <input type="hidden" id="m-action-type">
                 <input type="hidden" id="m-id">
                 <input type="hidden" id="m-tx-type">
                 
+                <!-- ส่วนคืนของ -->
                 <div id="return-fields">
                     <span class="input-label">วันที่และเวลาคืน:</span>
                     <div style="display: flex; gap: 10px;">
@@ -362,12 +349,12 @@
                     
                     <span class="input-label" id="label-r-receiver">ผู้รับคืน (จนท. IPD3):</span>
                     <select id="r-staff-dropdown" class="glass-input">
-                        <option value="" disabled selected>เลือกชื่อ...</option>
+                        <option value="" selected>เลือกชื่อ...</option>
                         <option value="ปิยะนาท">ปิยะนาท</option><option value="ภูวนัย">ภูวนัย</option><option value="สุวนันท์">สุวนันท์</option><option value="สุรีภรณ์">สุรีภรณ์</option><option value="พรพิมล">พรพิมล</option><option value="ปราณี">ปราณี</option>
                     </select>
 
                     <span class="input-label" id="label-r-sender">ชื่อผู้ส่งคืน (แผนกอื่น):</span>
-                    <input type="text" id="r-other-person" placeholder="ระบุชื่อผู้ติดต่อ" class="glass-input">
+                    <input type="text" id="r-other-person" placeholder="ระบุชื่อผู้ติดต่อ (ไม่บังคับ)" class="glass-input">
                     
                     <div class="file-upload-wrapper">
                         <label class="file-upload-btn"><i class="fas fa-camera"></i> ถ่ายภาพตอนคืน <input type="file" id="r-image" accept="image/*" capture="environment"></label>
@@ -375,13 +362,13 @@
                     </div>
                 </div>
 
-                <!-- นำ required ออกจากฝั่ง edit-fields เพื่อไม่ให้ block การ submit ตอนคืนของ -->
+                <!-- ส่วนแก้ไข (ซ่อนไว้ และเอา required ออกเพื่อไม่ให้บั๊ก) -->
                 <div id="edit-fields" style="display: none;">
-                    <span class="input-label">สิ่งที่ยืม:</span><input type="text" id="e-item" placeholder="สิ่งที่ยืม" class="glass-input">
-                    <span class="input-label">จำนวน:</span><input type="text" id="e-qty" placeholder="จำนวน" class="glass-input">
+                    <span class="input-label">สิ่งที่ยืม:</span><input type="text" id="e-item" class="glass-input">
+                    <span class="input-label">จำนวน:</span><input type="text" id="e-qty" class="glass-input">
                     <span class="input-label">กำหนดคืน:</span><input type="date" id="e-due" class="glass-input">
-                    <span class="input-label">ผู้ให้ยืม:</span><input type="text" id="e-lender" placeholder="ผู้ให้ยืม" class="glass-input">
-                    <span class="input-label">ผู้ยืม:</span><input type="text" id="e-borrower" placeholder="ผู้ยืม" class="glass-input">
+                    <span class="input-label">ผู้ให้ยืม:</span><input type="text" id="e-lender" class="glass-input">
+                    <span class="input-label">ผู้ยืม:</span><input type="text" id="e-borrower" class="glass-input">
                 </div>
                 
                 <div style="display: flex; gap: 10px; margin-top: 10px;">
@@ -392,76 +379,73 @@
         </div>
     </div>
 
-    <!-- Modal ใบเสร็จ สไตล์ K+ -->
+    <!-- Modal ใบเสร็จ (K+ Style) -->
     <div id="receipt-modal" class="modal hidden">
-        <div class="modal-content" style="background: transparent; box-shadow: none; padding: 10px;">
-            <div id="slip-capture-area" class="kplus-slip">
+        <div class="modal-content" style="background: transparent; box-shadow: none; padding: 10px; display: flex; flex-direction: column; align-items: center;">
+            <div id="slip-capture-area" class="kplus-slip" style="width: 100%; max-width: 400px;">
                 
-                <!-- ส่วนหัวใบเสร็จ -->
                 <div class="k-header">
                     <div class="k-title-wrap">
                         <div class="k-status-bar"></div>
                         <div>
-                            <div class="k-title" id="slip-type-title">บันทึกสำเร็จ</div>
+                            <div class="k-title" id="slip-type-title">ทำรายการสำเร็จ</div>
                             <div class="k-datetime" id="slip-time-text"></div>
                         </div>
                     </div>
-                    <div class="k-logo">IPD3+</div>
+                    <div class="k-logo">I<span>P</span>D3+</div>
                 </div>
                 
-                <!-- ส่วนผู้ให้ยืม-ผู้ยืม (กลมๆ มีลูกศรชี้) -->
                 <div class="k-parties">
                     <div class="k-party">
-                        <div class="k-avatar" style="background: var(--success);"><i class="fas fa-hospital-user"></i></div>
-                        <div>
-                            <div class="k-party-name" id="slip-sender-name">ผู้ให้ยืม</div>
-                            <div class="k-party-sub" id="slip-sender-dept">หน่วยงาน</div>
+                        <div class="k-avatar sender"><i class="fas fa-hospital-user"></i></div>
+                        <div class="k-party-info">
+                            <span class="k-party-name" id="slip-sender-name">ผู้ให้ยืม</span>
+                            <span class="k-party-sub" id="slip-sender-dept">หน่วยงาน</span>
                         </div>
                     </div>
-                    <div class="k-arrow"><i class="fas fa-arrow-down"></i></div>
-                    <div class="k-party">
-                        <div class="k-avatar" style="background: #ff9500;"><i class="fas fa-user-tag"></i></div>
-                        <div>
-                            <div class="k-party-name" id="slip-receiver-name">ผู้ยืม</div>
-                            <div class="k-party-sub" id="slip-receiver-dept">หน่วยงาน</div>
+                    
+                    <div class="k-arrow-container"></div>
+                    
+                    <div class="k-party" style="margin-bottom: 0;">
+                        <div class="k-avatar receiver"><i class="fas fa-user-tag"></i></div>
+                        <div class="k-party-info">
+                            <span class="k-party-name" id="slip-receiver-name">ผู้ยืม</span>
+                            <span class="k-party-sub" id="slip-receiver-dept">หน่วยงาน</span>
                         </div>
                     </div>
                 </div>
                 
-                <!-- รายละเอียดอุปกรณ์ -->
                 <div class="k-details">
                     <div class="k-row">
-                        <span class="k-label">รหัสรายการ:</span>
-                        <span class="k-value" id="slip-id">-</span>
+                        <span class="k-label">รหัสอ้างอิง:</span>
+                        <span class="k-value" style="font-size: 13px;" id="slip-id">-</span>
                     </div>
                     <div class="k-row">
-                        <span class="k-label">อุปกรณ์:</span>
-                        <span class="k-value" style="font-size: 16px; color: var(--primary);" id="slip-item">-</span>
+                        <span class="k-label">รายการ:</span>
+                        <span class="k-value" style="font-size: 16px; color: #004aad;" id="slip-item">-</span>
                     </div>
                     <div class="k-row" id="slip-qty-row">
                         <span class="k-label">จำนวน:</span>
-                        <span class="k-value" style="color: var(--danger);" id="slip-qty">-</span>
+                        <span class="k-value" style="color: var(--danger); font-size: 16px;" id="slip-qty">-</span>
                     </div>
                 </div>
                 
-                <!-- รูปภาพที่แนบ (ขยายใหญ่ขึ้น) -->
+                <!-- กล่องรูปภาพในสลิป (ขนาดใหญ่ขึ้น) -->
                 <div class="k-image-container" id="slip-image-container" style="display: none;">
-                    <img id="slip-preview-img" src="" alt="Attached Proof">
+                    <img id="slip-preview-img" src="" alt="หลักฐานแนบ">
                 </div>
                 
-                <!-- ส่วนท้าย QR Code -->
                 <div class="k-footer">
-                    <span class="k-watermark">สแกนตรวจสอบสถานะ</span>
+                    <span class="k-watermark">สแกนเพื่อจัดการรายการ</span>
                     <div class="k-qr-box" id="slip-qr-box">
                         <div id="slip-qrcode"></div>
-                        <span>สแกนคืนของ</span>
                     </div>
                 </div>
             </div>
             
-            <div style="display: flex; gap: 10px;">
+            <div style="display: flex; gap: 10px; width: 100%; max-width: 400px;">
                 <button onclick="downloadSlip()" class="glass-btn btn-primary" style="flex: 1.5;"><i class="fas fa-download"></i> บันทึกภาพสลิป</button>
-                <button onclick="closeReceipt()" class="glass-btn" style="background: white; color: var(--primary); border: 1px solid var(--primary); flex: 1;">ปิด</button>
+                <button onclick="closeReceipt()" class="glass-btn" style="background: white; color: #004aad; border: 1px solid #004aad; flex: 1;">ปิดหน้าต่าง</button>
             </div>
         </div>
     </div>
@@ -488,12 +472,23 @@
             document.getElementById(pageId).classList.add('active');
             
             if(pageId === 'home-page') document.getElementById('nav-home').classList.add('active');
+            
             if(pageId === 'dashboard-page') { 
                 document.getElementById('nav-list').classList.add('active'); 
                 if(globalData.length === 0) fetchData(); 
+                else filterList('ถูกยืม', 'ยืมอยู่', 'dashboard-page');
             }
-            if(pageId === 'borrow-page') { document.getElementById('nav-borrow').classList.add('active'); setNow('b-date', 'b-time'); }
-            if(pageId === 'report-page') { document.getElementById('nav-report').classList.add('active'); setNow('rep-start', ''); setNow('rep-end', ''); }
+            
+            if(pageId === 'history-page') { 
+                document.getElementById('nav-history').classList.add('active'); 
+                if(globalData.length === 0) fetchData(); 
+                else filterList('ทั้งหมด', 'คืนแล้ว', 'history-page');
+            }
+            
+            if(pageId === 'borrow-page') { 
+                document.getElementById('nav-borrow').classList.add('active'); 
+                setNow('b-date', 'b-time'); 
+            }
         }
 
         function openBorrowForm(type) { switchPage('borrow-page'); switchTxType(type); }
@@ -543,7 +538,7 @@
         setupImagePreview('b-image', 'b-img-preview');
         setupImagePreview('r-image', 'r-img-preview');
 
-        // ================== บันทึกการยืม ==================
+        // ================== บันทึกข้อมูลใหม่ ==================
         document.getElementById('borrow-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = e.target.querySelector('button[type="submit"]');
@@ -569,52 +564,67 @@
                 const res = await fetch(API_URL, { method: 'POST', body: JSON.stringify(payload) });
                 const json = await res.json();
                 
-                globalData.push({
+                const newData = {
                     ID: json.id, TransactionType: txType, BorrowDate: payload.borrowDate, BorrowTime: payload.borrowTime,
                     Item: payload.item, Qty: payload.qty, DueDate: payload.dueDate, Lender: payload.lender, Dept: payload.dept, Borrower: payload.borrower, Status: 'ยืมอยู่'
-                });
+                };
+                globalData.push(newData);
 
-                // Generate Slip K+ Style
-                generateSlip(txType === 'ถูกยืม' ? 'บันทึกการยืม(ถูกยืม)' : 'บันทึกการยืม(ยืมมา)', { ...payload, id: json.id }, currentImageBase64);
+                // ออกสลิปใหม่ (สร้าง Object สมบูรณ์ส่งไป)
+                generateSlip('borrow', newData, currentImageBase64);
                 
                 document.getElementById('borrow-form').reset();
                 document.getElementById('b-img-preview').style.display = 'none';
-                currentImageBase64 = ''; switchTxType(txType);
-                setNow('b-date', 'b-time');
+                currentImageBase64 = ''; switchTxType(txType); setNow('b-date', 'b-time');
             } catch (err) { alert('ผิดพลาด'); } 
-            finally { btn.innerHTML = '<i class="fas fa-save"></i> บันทึกข้อมูล'; btn.disabled = false; }
+            finally { btn.innerHTML = '<i class="fas fa-save"></i> บันทึกรายการใหม่'; btn.disabled = false; }
         });
 
         // ================== โหลดข้อมูล ==================
         async function fetchData() {
             if(API_URL === 'YOUR_WEB_APP_URL_HERE') return;
-            document.getElementById('borrow-list').innerHTML = '<div style="text-align: center; padding: 40px; color: var(--secondary);"><i class="fas fa-spinner fa-spin fa-2x"></i></div>';
+            
+            document.getElementById('borrow-list').innerHTML = '<div style="text-align: center; padding: 40px; color: #0096ff;"><i class="fas fa-spinner fa-spin fa-2x"></i></div>';
+            document.getElementById('history-list').innerHTML = '<div style="text-align: center; padding: 40px; color: var(--success);"><i class="fas fa-spinner fa-spin fa-2x"></i></div>';
+            
             try {
                 const res = await fetch(API_URL);
                 globalData = await res.json();
-                filterList(currentTab, currentTab === 'ทั้งหมด' ? 'คืนแล้ว' : 'ยืมอยู่');
-            } catch (err) { document.getElementById('borrow-list').innerHTML = '<p>เกิดข้อผิดพลาด</p>'; }
+                
+                // ถ้ารีเฟรชจากหน้าไหน ก็ให้โหลดหน้านั้น
+                if (document.getElementById('dashboard-page').classList.contains('active')) {
+                    filterList(currentTab, 'ยืมอยู่', 'dashboard-page');
+                } else if (document.getElementById('history-page').classList.contains('active')) {
+                    filterList('ทั้งหมด', 'คืนแล้ว', 'history-page');
+                }
+            } catch (err) { 
+                document.getElementById('borrow-list').innerHTML = '<p>เกิดข้อผิดพลาด</p>'; 
+            }
         }
 
-        // ================== แยก 3 แท็บ (ถูกยืม, ยืมมา, คืนแล้ว) ==================
-        function filterList(type, status = 'ยืมอยู่') {
+        // ================== จัดการ List แยก 2 หน้า ==================
+        function filterList(type, status, containerId) {
             currentTab = type;
-            document.getElementById('tab-lent').classList.remove('active'); 
-            document.getElementById('tab-borrowed').classList.remove('active');
-            document.getElementById('tab-returned').classList.remove('active');
-            
-            if(status === 'คืนแล้ว') { document.getElementById('tab-returned').classList.add('active'); } 
-            else if(type === 'ถูกยืม') { document.getElementById('tab-lent').classList.add('active'); } 
-            else { document.getElementById('tab-borrowed').classList.add('active'); }
+            let listBox = document.getElementById('borrow-list');
 
-            const listBox = document.getElementById('borrow-list');
+            if(containerId === 'history-page') {
+                listBox = document.getElementById('history-list');
+            } else {
+                // จัดการแท็บในหน้า Dashboard
+                document.getElementById('tab-lent').classList.remove('active'); 
+                document.getElementById('tab-borrowed').classList.remove('active');
+                if(type === 'ถูกยืม') document.getElementById('tab-lent').classList.add('active'); 
+                else document.getElementById('tab-borrowed').classList.add('active');
+            }
+
             listBox.innerHTML = '';
             
             let active = [];
             if(status === 'คืนแล้ว') {
                 active = globalData.filter(i => i.Status === 'คืนแล้ว');
             } else {
-                active = globalData.filter(i => i.Status === 'ยืมอยู่' && i.TransactionType === type);
+                // ตรวจจับเผื่อบางแถวไม่มี TransactionType
+                active = globalData.filter(i => i.Status === 'ยืมอยู่' && (i.TransactionType === type || (!i.TransactionType && type === 'ถูกยืม')));
             }
             
             if(active.length === 0) { listBox.innerHTML = `<div style="text-align:center; padding: 30px; color:#999;">ไม่มีรายการ</div>`; return; }
@@ -625,17 +635,18 @@
             active.forEach(item => {
                 const card = document.createElement('div');
                 card.className = `item-card`;
+                const safeTxType = item.TransactionType || 'ถูกยืม';
                 
-                // ถ้ารายการคืนแล้ว (ประวัติ) ไม่ต้องมีปุ่ม Action
                 if(status === 'คืนแล้ว') {
+                    // รูปแบบ Card สำหรับประวัติ
                     card.innerHTML = `
-                        <div class="item-header">
+                        <div class="item-header" style="border-bottom-color: #d1fae5;">
                             <div class="item-title" style="color:var(--success);"><i class="fas fa-check-circle"></i> ${item.Item}</div>
                             <div class="qty-badge" style="background:#d1fae5; color:#065f46;">${item.Qty}</div>
                         </div>
                         <div class="item-body">
                             <div class="item-details-list">
-                                <div class="item-detail"><i class="fas fa-tags"></i> ประเภท: ${item.TransactionType} | แผนก: ${item.Dept}</div>
+                                <div class="item-detail"><i class="fas fa-tag"></i> ประเภท: ${safeTxType} | แผนก: ${item.Dept}</div>
                                 <div class="item-detail"><i class="fas fa-history"></i> ยืมเมื่อ: ${item.BorrowDate} | คืน: ${item.ReturnDate}</div>
                                 <div class="item-detail"><i class="fas fa-user-check"></i> ผู้รับคืน: ${item.Receiver}</div>
                                 <div class="item-detail" style="color:var(--success); font-weight:bold;"><i class="fas fa-comment-dots"></i> ${item.Notes}</div>
@@ -643,7 +654,7 @@
                         </div>
                     `;
                 } else {
-                    // รายการค้าง (ยืมอยู่)
+                    // รูปแบบ Card สำหรับรายการค้าง
                     const today = new Date(); today.setHours(0,0,0,0);
                     const due = new Date(item.DueDate); due.setHours(0,0,0,0);
                     const isOverdue = today > due;
@@ -666,13 +677,15 @@
                             <div class="qr-small" id="qr-list-${item.ID}"></div>
                         </div>
                         <div class="action-row">
-                            <button onclick="openActionModal('return', '${item.ID}', '${item.Item}', '${type}')" class="btn-sm btn-return"><i class="fas fa-undo"></i> คืนของ</button>
+                            <button onclick="openActionModal('return', '${item.ID}', '${item.Item}', '${safeTxType}')" class="btn-sm btn-return"><i class="fas fa-undo"></i> คืนของ</button>
                             <button onclick="openActionModal('edit', '${item.ID}', '${item.Item}', '${item.Qty}', '${item.DueDate}', '${item.Borrower}', '${item.Lender}')" class="btn-sm btn-edit"><i class="fas fa-pen"></i> แก้ไข</button>
                         </div>
                     `;
                 }
                 listBox.appendChild(card);
+                
                 if(status === 'ยืมอยู่') {
+                    // สร้าง QR สำหรับรายการค้าง
                     new QRCode(document.getElementById(`qr-list-${item.ID}`), { text: item.ID, width: 50, height: 50 });
                 }
             });
@@ -687,7 +700,8 @@
             if(action === 'return') {
                 document.getElementById('m-tx-type').value = arg1;
                 document.getElementById('modal-title').innerText = `คืน: ${item}`;
-                document.getElementById('return-fields').style.display = 'block'; document.getElementById('edit-fields').style.display = 'none';
+                document.getElementById('return-fields').style.display = 'block'; 
+                document.getElementById('edit-fields').style.display = 'none';
                 setNow('r-date', 'r-time');
                 
                 if(arg1 === 'ถูกยืม') {
@@ -699,7 +713,8 @@
                 }
             } else if(action === 'edit') {
                 document.getElementById('modal-title').innerText = `แก้ไข: ${item}`;
-                document.getElementById('return-fields').style.display = 'none'; document.getElementById('edit-fields').style.display = 'block';
+                document.getElementById('return-fields').style.display = 'none'; 
+                document.getElementById('edit-fields').style.display = 'block';
                 document.getElementById('e-item').value = item; document.getElementById('e-qty').value = arg1;
                 document.getElementById('e-due').value = arg2; document.getElementById('e-borrower').value = arg3; document.getElementById('e-lender').value = arg4;
             }
@@ -707,17 +722,21 @@
         }
         function closeActionModal() { document.getElementById('action-modal').classList.add('hidden'); }
 
-        // ปลดล็อคบัค Return กดไม่ได้ โดยไม่ต้องพึ่ง HTML required ในการตรวจสอบตอน Submit
+        // ================== บันทึกการคืน / แก้ไข ==================
         document.getElementById('action-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const action = document.getElementById('m-action-type').value;
             const id = document.getElementById('m-id').value;
             const btn = document.getElementById('m-submit-btn'); btn.disabled = true;
 
+            // ดึงข้อมูลเดิมทั้งหมดมาเตรียมไว้เพื่อออกสลิปได้ครบถ้วน
+            const originalItem = globalData.find(i => i.ID === id) || {};
+
             if(action === 'return') {
                 const txType = document.getElementById('m-tx-type').value;
-                const staff = document.getElementById('r-staff-dropdown').value || 'ไม่ได้ระบุ';
-                const other = document.getElementById('r-other-person').value || 'ไม่ได้ระบุ';
+                const staff = document.getElementById('r-staff-dropdown').value || '-';
+                const other = document.getElementById('r-other-person').value || '-';
+                
                 let receiver = txType === 'ถูกยืม' ? staff : other;
                 let sender = txType === 'ถูกยืม' ? other : staff;
 
@@ -726,33 +745,37 @@
                 try {
                     await fetch(API_URL, { method: 'POST', body: JSON.stringify(payload) });
                     closeActionModal();
-                    generateSlip(txType === 'ถูกยืม' ? 'รับคืน(ถูกยืม)' : 'ส่งคืน(ยืมมา)', { ...payload, id: id, item: document.getElementById('modal-title').innerText.replace('คืน: ',''), sender: sender, txType: txType }, currentImageBase64);
                     
-                    const index = globalData.findIndex(i => i.ID === id);
-                    if(index !== -1) {
-                        globalData[index].Status = 'คืนแล้ว';
-                        globalData[index].ReturnDate = payload.returnDate;
-                        globalData[index].Receiver = payload.receiver;
-                        globalData[index].Notes = payload.notes;
+                    // อัปเดตข้อมูล Local
+                    if(originalItem.ID) {
+                        originalItem.Status = 'คืนแล้ว';
+                        originalItem.ReturnDate = payload.returnDate;
+                        originalItem.ReturnTime = payload.returnTime;
+                        originalItem.Receiver = payload.receiver;
+                        originalItem.Notes = payload.notes;
                     }
-                    filterList(currentTab, currentTab === 'ทั้งหมด' ? 'คืนแล้ว' : 'ยืมอยู่'); 
+                    
+                    // รวมข้อมูลเพื่อทำสลิป
+                    const slipData = { ...originalItem, sender: sender, receiver: receiver };
+                    generateSlip('return', slipData, currentImageBase64);
+                    
+                    filterList(currentTab, 'ยืมอยู่', 'dashboard-page'); 
                 } catch(e) { alert('ผิดพลาดในการคืน'); }
             } else {
                 const payload = { action: 'edit', id: id, item: document.getElementById('e-item').value, qty: document.getElementById('e-qty').value, dueDate: document.getElementById('e-due').value, lender: document.getElementById('e-lender').value, borrower: document.getElementById('e-borrower').value };
                 try { 
                     await fetch(API_URL, { method: 'POST', body: JSON.stringify(payload) }); 
                     closeActionModal(); 
-                    const index = globalData.findIndex(i => i.ID === id);
-                    if(index !== -1) {
-                        globalData[index].Item = payload.item; globalData[index].Qty = payload.qty; globalData[index].DueDate = payload.dueDate; globalData[index].Lender = payload.lender; globalData[index].Borrower = payload.borrower;
+                    if(originalItem.ID) {
+                        originalItem.Item = payload.item; originalItem.Qty = payload.qty; originalItem.DueDate = payload.dueDate; originalItem.Lender = payload.lender; originalItem.Borrower = payload.borrower;
                     }
-                    filterList(currentTab, 'ยืมอยู่'); 
+                    filterList(currentTab, 'ยืมอยู่', 'dashboard-page'); 
                 } catch(e) { alert('ผิดพลาดในการแก้ไข'); }
             }
             btn.disabled = false;
         });
 
-        // ================== อัปเกรด QR Scanner ==================
+        // ================== QR Scanner (สแกนปุ๊บเด้งคืนของปั๊บ) ==================
         function openQrScanner() {
             document.getElementById('qr-modal').classList.remove('hidden');
             html5QrCode = new Html5Qrcode("reader");
@@ -760,39 +783,37 @@
                 { facingMode: "environment" },
                 { fps: 10, qrbox: { width: 250, height: 250 } },
                 async (decodedText) => {
-                    // เมื่อสแกนติด สั่งปิดกล้องทันที
+                    // เมื่อสแกนติด -> หยุดกล้องทันที
                     html5QrCode.stop().then(async () => {
                         closeQrScanner();
                         
-                        // ถ้ายอมสแกนจากหน้าแรกโดยไม่ได้เปิดดูรายการค้าง ให้โหลดข้อมูลก่อน
                         if(globalData.length === 0) {
                             try {
                                 const res = await fetch(API_URL);
                                 globalData = await res.json();
-                            } catch (e) { alert("เกิดข้อผิดพลาดในการโหลดข้อมูล"); return; }
+                            } catch (e) { alert("เกิดข้อผิดพลาด"); return; }
                         }
                         
-                        // ค้นหาข้อมูล
                         const item = globalData.find(i => String(i.ID).trim() === String(decodedText).trim());
                         if(item) {
                             if(item.Status === 'คืนแล้ว') {
-                                alert('รายการนี้ถูกคืนเรียบร้อยแล้ว (ตรวจสอบได้ในแท็บประวัติ)');
-                                if (!document.getElementById('dashboard-page').classList.contains('active')) switchPage('dashboard-page');
-                                filterList('ทั้งหมด', 'คืนแล้ว');
+                                alert('รายการนี้ถูกคืนเรียบร้อยแล้ว (ดูได้ในเมนูประวัติ)');
+                                switchPage('history-page');
                             } else {
-                                // เปลี่ยนหน้าและเปิดฟอร์มคืนของเด้งขึ้นมาเลย
-                                if (!document.getElementById('dashboard-page').classList.contains('active')) switchPage('dashboard-page');
-                                filterList(item.TransactionType, 'ยืมอยู่');
-                                openActionModal('return', item.ID, item.Item, item.TransactionType);
+                                // เปลี่ยนหน้า และ เด้งป๊อปอัปคืนของทันที
+                                switchPage('dashboard-page');
+                                const safeTxType = item.TransactionType || 'ถูกยืม';
+                                filterList(safeTxType, 'ยืมอยู่', 'dashboard-page');
+                                openActionModal('return', item.ID, item.Item, safeTxType);
                             }
                         } else {
-                            alert('ไม่พบรหัสการยืมนี้ในระบบ');
+                            alert('ไม่พบรหัสนี้ หรือ ของคืนไปแล้ว');
                         }
                     }).catch(err => console.log(err));
                 },
-                (errorMessage) => { /* กำลังพยายามสแกน */ }
+                (errorMessage) => { /* ignore */ }
             ).catch((err) => {
-                alert("กรุณาอนุญาตให้ระบบใช้งานกล้องถ่ายรูป");
+                alert("ไม่สามารถเปิดกล้องได้");
                 closeQrScanner();
             });
         }
@@ -801,62 +822,59 @@
             if(html5QrCode) { html5QrCode.stop().catch(err => console.log(err)); }
         }
 
-        // ================== K+ Style Slip ==================
-        function generateSlip(type, data, imgBase64) {
+        // ================== สลิป K+ Style สุดเนียน ==================
+        function generateSlip(actionType, data, imgBase64) {
             setNow('', 'slip-time-text');
             
-            // ตั้งค่าข้อความหัวสลิป ตามสไตล์ K+ (เน้นคำในวงเล็บ)
+            const isLent = (data.TransactionType === 'ถูกยืม' || data.txType === 'ถูกยืม');
+            
             let titleHTML = '';
             let s_name = '', s_dept = '', r_name = '', r_dept = '';
-            let isLent = data.txType === 'ถูกยืม';
-            let isBorrowPhase = type.includes('ยืม');
 
-            if (isBorrowPhase) {
+            // 1. ถ้าเป็นการ "ยืม"
+            if (actionType === 'borrow') {
                 if (isLent) {
-                    titleHTML = `ใบบันทึกการยืม<br><span style="color:var(--primary); font-size:18px;">(ถูกยืมไป)</span>`;
-                    s_name = data.lender; s_dept = 'IPD3';
-                    r_name = data.borrower; r_dept = data.dept;
+                    titleHTML = `ใบบันทึกการยืม<br><span style="color:#004aad; font-size:18px;">(ถูกยืมไป)</span>`;
+                    s_name = data.Lender; s_dept = 'IPD3';
+                    r_name = data.Borrower; r_dept = data.Dept;
                 } else {
-                    titleHTML = `ใบบันทึกการยืม<br><span style="color:var(--warning); font-size:18px;">(ยืมมา)</span>`;
-                    s_name = data.lender; s_dept = data.dept;
-                    r_name = data.borrower; r_dept = 'IPD3';
+                    titleHTML = `ใบบันทึกการยืม<br><span style="color:#0096ff; font-size:18px;">(ยืมมา)</span>`;
+                    s_name = data.Lender; s_dept = data.Dept;
+                    r_name = data.Borrower; r_dept = 'IPD3';
                 }
-            } else {
-                // Return Phase
+                
+                document.getElementById('slip-qty-row').style.display = 'flex';
+                document.getElementById('slip-qr-box').style.display = 'flex';
+                if(data.ID) new QRCode(document.getElementById("slip-qrcode"), { text: data.ID, width: 80, height: 80 });
+            } 
+            // 2. ถ้าเป็นการ "คืน"
+            else if (actionType === 'return') {
                 if (isLent) {
                     titleHTML = `บันทึกรับคืนสำเร็จ<br><span style="color:var(--success); font-size:18px;">(รับคืนเข้า IPD3)</span>`;
-                    s_name = data.sender; s_dept = 'แผนกอื่น';
+                    s_name = data.sender; s_dept = data.Dept;
                     r_name = data.receiver; r_dept = 'IPD3';
                 } else {
                     titleHTML = `บันทึกส่งคืนสำเร็จ<br><span style="color:var(--warning); font-size:18px;">(ส่งคืนแผนกอื่น)</span>`;
                     s_name = data.sender; s_dept = 'IPD3';
-                    r_name = data.receiver; r_dept = 'แผนกอื่น';
+                    r_name = data.receiver; r_dept = data.Dept;
                 }
-            }
-
-            document.getElementById('slip-type-title').innerHTML = titleHTML;
-            document.getElementById('slip-sender-name').innerText = s_name;
-            document.getElementById('slip-sender-dept').innerText = s_dept;
-            document.getElementById('slip-receiver-name').innerText = r_name;
-            document.getElementById('slip-receiver-dept').innerText = r_dept;
-
-            document.getElementById('slip-id').innerText = data.id || '-';
-            document.getElementById('slip-item').innerText = data.item || '-';
-            
-            const qrBox = document.getElementById('slip-qr-box');
-            document.getElementById("slip-qrcode").innerHTML = ""; 
-            
-            if (isBorrowPhase) {
-                document.getElementById('slip-qty-row').style.display = 'flex';
-                document.getElementById('slip-qty').innerText = data.qty;
-                qrBox.style.display = 'flex';
-                if(data.id) new QRCode(document.getElementById("slip-qrcode"), { text: data.id, width: 80, height: 80 });
-            } else {
+                
                 document.getElementById('slip-qty-row').style.display = 'none';
-                qrBox.style.display = 'none';
+                document.getElementById('slip-qr-box').style.display = 'none';
             }
 
-            // จัดการรูปภาพที่แนบ ให้แสดงผลในสลิปใหญ่ขึ้น
+            // ใส่ข้อมูลลงในหน้า HTML
+            document.getElementById('slip-type-title').innerHTML = titleHTML;
+            document.getElementById('slip-sender-name').innerText = s_name || '-';
+            document.getElementById('slip-sender-dept').innerText = s_dept || '-';
+            document.getElementById('slip-receiver-name').innerText = r_name || '-';
+            document.getElementById('slip-receiver-dept').innerText = r_dept || '-';
+
+            document.getElementById('slip-id').innerText = data.ID || '-';
+            document.getElementById('slip-item').innerText = data.Item || '-';
+            document.getElementById('slip-qty').innerText = data.Qty || '-';
+
+            // จัดการรูปภาพ ให้ใหญ่และชัด
             const imgContainer = document.getElementById('slip-image-container');
             const imgEl = document.getElementById('slip-preview-img');
             
@@ -878,34 +896,6 @@
             } catch (err) { alert("บันทึกภาพไม่สำเร็จ"); }
         }
         function closeReceipt() { document.getElementById('receipt-modal').classList.add('hidden'); }
-
-        // ================== Export CSV ==================
-        function exportReport() {
-            if(globalData.length === 0) { alert('กรุณาโหลดข้อมูลในหน้า "รายการต่างๆ" ก่อน'); return; }
-            const type = document.getElementById('rep-type').value;
-            const start = document.getElementById('rep-start').value;
-            const end = document.getElementById('rep-end').value;
-
-            let filtered = globalData;
-            if(type !== 'ทั้งหมด') filtered = filtered.filter(i => i.TransactionType === type);
-            if(start) filtered = filtered.filter(i => i.BorrowDate >= start);
-            if(end) filtered = filtered.filter(i => i.BorrowDate <= end);
-            if(filtered.length === 0) { alert('ไม่พบข้อมูลในช่วงที่เลือก'); return; }
-
-            let csvContent = "data:text/csv;charset=utf-8,\uFEFF";
-            csvContent += "ID,ประเภท,วันที่ยืม,เวลา,รายการ,จำนวน,กำหนดคืน,ผู้ให้ยืม,แผนก,ผู้ยืม,สถานะ,วันที่คืน,หมายเหตุ\n";
-            filtered.forEach(row => {
-                let r = [row.ID, row.TransactionType, row.BorrowDate, row.BorrowTime, row.Item, row.Qty, row.DueDate, row.Lender, row.Dept, row.Borrower, row.Status, row.ReturnDate, row.Notes];
-                csvContent += r.join(",") + "\n";
-            });
-
-            const encodedUri = encodeURI(csvContent);
-            const link = document.createElement("a");
-            link.setAttribute("href", encodedUri);
-            link.setAttribute("download", `IPD3_Report_${start||'all'}_to_${end||'all'}.csv`);
-            document.body.appendChild(link);
-            link.click();
-        }
     </script>
 </body>
 </html>
