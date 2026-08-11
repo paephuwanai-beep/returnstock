@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IPD3 Return System</title>
+    <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://unpkg.com/html5-qrcode"></script>
@@ -17,9 +19,7 @@
             --success: #10b981;    
             --danger: #ef4444;     
             --warning: #f59e0b;    
-            --orange-main: #ea580c;
-            --orange-light: #fb923c;
-            --kplus-green: #00a596;
+            --orange-main: #f97316;
             --bg-gradient: linear-gradient(135deg, #f0f7ff 0%, #e0f2fe 100%);
             --glass-bg: rgba(255, 255, 255, 0.85);
             --glass-border: rgba(255, 255, 255, 0.6);
@@ -32,6 +32,7 @@
         .glass { background: var(--glass-bg); backdrop-filter: blur(16px); border: 1px solid var(--glass-border); }
 
         header { padding: 15px 20px; text-align: center; z-index: 2; position: relative; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); background: white;}
+        
         .app-logo { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px; font-weight: 800; font-size: 24px; font-style: italic; line-height: 1;}
         .app-logo i { color: var(--primary); font-size: 26px;}
         .app-logo .ipd3 { background: linear-gradient(90deg, #004aad, #0096ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -67,7 +68,7 @@
         .glass-btn { width: 100%; padding: 14px; border-radius: 12px; border: none; cursor: pointer; font-weight: bold; color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.1); font-size: 15px; transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 8px; }
         .glass-btn:active { transform: scale(0.98); }
         .btn-primary { background: linear-gradient(135deg, var(--primary), var(--secondary)); }
-        .btn-orange { background: linear-gradient(135deg, var(--orange-main), var(--orange-light)) !important; }
+        .btn-orange { background: linear-gradient(135deg, var(--orange-main), #f59e0b) !important; }
         .btn-outline { background: white; color: var(--primary); border: 2px dashed var(--primary); box-shadow: none;}
 
         .file-upload-wrapper { position: relative; width: 100%; margin-bottom: 15px; }
@@ -124,50 +125,44 @@
         .hidden { display: none !important; }
         .modal-content { background: white; width: 100%; max-width: 450px; max-height: 90vh; overflow-y: auto; padding: 20px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.2);}
         
-        /* ================= ใบเสร็จสไตล์ K+ (ดีไซน์ใหม่เหมือนเป๊ะ) ================= */
-        .kplus-slip { border-radius: 12px; padding: 25px; margin-bottom: 15px; font-family: 'Sarabun', sans-serif; position: relative; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border: 1px solid #eee; width: 100%; }
-        
-        .slip-theme-blue { background: linear-gradient(180deg, #dcf3f1 0%, #ffffff 100%); border-color: #b2dfdb; }
-        .slip-theme-orange { background: linear-gradient(180deg, #ffedd5 0%, #ffffff 100%); border-color: #fed7aa; }
+        /* ================= ใบเสร็จปรับใหม่ (ภาพไม่ตัด รองรับตั้ง/นอน) ================= */
+        .kplus-slip { border-radius: 12px; padding: 20px; margin-bottom: 15px; font-family: 'Sarabun', sans-serif; position: relative; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border: 1px solid #eee; width: 100%; }
+        .slip-theme-blue { background: linear-gradient(180deg, #e0f2fe 0%, #f0f9ff 30%, #ffffff 100%); border-color: #bae6fd; }
+        .slip-theme-orange { background: linear-gradient(180deg, #ffedd5 0%, #fff7ed 30%, #ffffff 100%); border-color: #fed7aa; }
 
         .kplus-slip::before { content: "\f1ad"; font-family: "Font Awesome 5 Free"; font-weight: 900; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 250px; color: rgba(0,0,0, 0.02); z-index: 0; pointer-events: none; }
         
-        /* Header สไตล์ชิดซ้าย */
-        .k-header { position: relative; z-index: 1; border-left: 4px solid var(--kplus-green); padding-left: 10px; margin-bottom: 25px; text-align: left; display: flex; justify-content: space-between; align-items: flex-start;}
-        .slip-theme-orange .k-header { border-left-color: var(--orange-main); }
-        
-        .k-title { font-size: 22px; font-weight: bold; color: #1e293b; line-height: 1.2;}
+        .k-header { display: flex; justify-content: space-between; align-items: flex-start; position: relative; z-index: 1; border-bottom: 2px dashed rgba(0,0,0,0.08); padding-bottom: 15px; margin-bottom: 20px;}
+        .k-title-wrap { flex: 1; }
+        .k-title { font-size: 20px; font-weight: bold; color: #1e293b; line-height: 1.3;}
         .k-datetime { font-size: 13px; color: #64748b; margin-top: 4px;}
-        .k-logo { font-size: 28px; font-weight: 900; font-style: italic; letter-spacing: -1px; color: #0f172a;}
-        .k-logo span { color: var(--kplus-green); }
-        .slip-theme-orange .k-logo span { color: var(--orange-main); }
-
-        /* กล่องบัญชี/คน */
-        .k-parties { position: relative; z-index: 1; margin-bottom: 20px;}
-        .k-party { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; position: relative;}
-        .k-avatar { width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); z-index: 2; background: white; border: 2px solid white; color: #64748b;}
-        .k-party-info { display: flex; flex-direction: column; text-align: left;}
-        .k-party-name { font-size: 16px; font-weight: bold; color: #1e293b; }
-        .k-party-sub { font-size: 13px; color: #64748b; }
-        .k-arrow-container { position: absolute; left: 24px; top: 46px; height: 28px; border-left: 2px solid #cbd5e1; z-index: 1;}
-        .k-arrow-container::after { content: "\f063"; font-family: "Font Awesome 5 Free"; font-weight: 900; position: absolute; bottom: -12px; left: -7px; font-size: 13px; color: #94a3b8;}
         
-        /* เส้นประแบบธนาคาร */
-        .k-divider { border: 0; border-top: 1px dashed #cbd5e1; margin: 15px 0; position: relative; z-index: 1;}
+        .slip-qr-top { background: white; padding: 6px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; display: flex; justify-content: center; align-items: center; margin-left: 10px;}
 
-        .k-details { position: relative; z-index: 1; margin-bottom: 15px; padding-right: 90px; /* เว้นที่ให้ QR */ min-height: 100px;}
-        .k-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 14px; align-items: flex-start; border-bottom: 1px dashed rgba(0,0,0,0.05);}
-        .k-row:last-child { border-bottom: none;}
-        .k-label { color: #475569; white-space: nowrap;}
+        .k-item-highlight { text-align: center; margin-bottom: 20px; position: relative; z-index: 1;}
+        .k-item-highlight .label { font-size: 13px; color: #64748b; margin-bottom: 2px;}
+        .k-item-highlight .name { font-size: 26px; font-weight: 800; color: var(--primary); line-height: 1.2; word-break: break-word;}
+        .slip-theme-orange .k-item-highlight .name { color: var(--orange-main); }
+        .k-item-highlight .qty { font-size: 18px; font-weight: bold; color: var(--danger); margin-top: 5px;}
+
+        .k-parties { position: relative; z-index: 1; margin-bottom: 15px; background: rgba(255,255,255,0.6); padding: 12px; border-radius: 12px;}
+        .k-party { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; font-size: 14px;}
+        .k-party:last-child { margin-bottom: 0;}
+        .k-party-label { color: #64748b; }
+        .k-party-name { font-weight: bold; color: #1e293b; text-align: right;}
+        
+        .k-details { position: relative; z-index: 1; margin-bottom: 15px; }
+        .k-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px; align-items: flex-start;}
+        .k-label { color: #64748b; white-space: nowrap;}
         .k-value { font-weight: bold; color: #1e293b; text-align: right;}
         
-        /* ตำแหน่ง QR Code ลอยอยู่มุมขวาล่างของ Details */
-        .k-qr-box { position: absolute; right: 0; bottom: 0; background: white; padding: 5px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border: 1px solid #e2e8f0;}
+        /* แก้ไขภาพให้ยาวแค่ไหนก็ไม่ตัด */
+        .k-image-container { text-align: center; margin: 15px 0; position: relative; z-index: 1; background: #f8fafc; border-radius: 10px; padding: 5px;}
+        .k-image-container img { width: 100%; height: auto; max-height: 350px; border-radius: 8px; border: 1px solid #e2e8f0; object-fit: contain; background: #fff; display: block;}
         
-        /* ภาพหลักฐานใหญ่ ไม่ตัด */
-        .k-image-container { text-align: center; margin: 15px 0 0 0; position: relative; z-index: 1; background: #fff; border-radius: 12px; padding: 5px; border: 1px solid #e2e8f0; box-shadow: 0 2px 10px rgba(0,0,0,0.03);}
-        .k-image-container img { max-width: 100%; width: 100%; height: auto; max-height: 350px; border-radius: 8px; object-fit: contain; display: block;}
-        
+        .k-footer { text-align: center; position: relative; z-index: 1; margin-top: 15px;}
+        .k-watermark { font-size: 11px; color: #94a3b8; font-weight: bold;}
+
         #reader { width: 100%; min-height: 250px; background: #000; border-radius: 12px; overflow: hidden; border: none; }
         .qr-upload-btn { display: block; padding: 12px; background: #f1f5f9; color: var(--primary); border-radius: 10px; font-weight: bold; cursor: pointer; text-align: center; width: 100%; border: 2px dashed #cbd5e1; margin-top: 15px; transition: 0.3s; }
 
@@ -197,6 +192,7 @@
     </div>
 
     <div class="app-container">
+        <!-- Datalist สำหรับจำค่าให้พิมพ์ง่ายขึ้น -->
         <datalist id="ipd3-staff-list"></datalist>
         <datalist id="other-staff-list"></datalist>
         <datalist id="item-list"></datalist>
@@ -382,13 +378,15 @@
     <!-- Modal สแกน QR -->
     <div id="qr-modal" class="modal hidden">
         <div class="modal-content" style="width: 95%; max-width: 400px; padding: 15px;">
-            <h3 style="color: #1e293b; margin-bottom: 15px; text-align: center;"><i class="fas fa-qrcode"></i> สแกน QR คืนของ</h3>
+            <h3 style="color: #1e293b; margin-bottom: 15px; text-align: center;"><i class="fas fa-qrcode"></i> สแกน QR เพื่อทำรายการ</h3>
             <div id="reader"></div>
+            
             <label class="qr-upload-btn" style="display:block;">
-                <i class="fas fa-image"></i> เลือกรูปภาพ QR Code จากเครื่อง
+                <i class="fas fa-image"></i> อัปโหลดรูปภาพที่มี QR Code
                 <input type="file" id="qr-upload-file" accept="image/*" style="display:none;" onchange="scanQRFromFile(event)">
             </label>
-            <button onclick="closeQrScanner()" class="glass-btn" style="background: #f1f5f9; color:#475569; margin-top: 10px;">ปิดกล้อง</button>
+
+            <button onclick="closeQrScanner()" class="glass-btn" style="background: #f1f5f9; color:#475569; margin-top: 10px;">ปิดหน้าต่าง</button>
         </div>
     </div>
 
@@ -429,61 +427,56 @@
         </div>
     </div>
 
-    <!-- Modal ใบเสร็จ (K+ Style สุดเนี้ยบ) -->
+    <!-- Modal ใบเสร็จ -->
     <div id="receipt-modal" class="modal hidden">
         <div class="modal-content" style="background: transparent; box-shadow: none; padding: 10px; display: flex; flex-direction: column; align-items: center;">
             <div id="slip-capture-area" class="kplus-slip slip-theme-blue" style="width: 100%; max-width: 420px;">
                 
                 <div class="k-header">
-                    <div>
-                        <div class="k-title" id="slip-type-title">บันทึกสำเร็จ</div>
+                    <div class="k-title-wrap">
+                        <div class="k-title" id="slip-type-title" style="font-size: 20px;">บันทึกสำเร็จ</div>
                         <div class="k-datetime" id="slip-time-text"></div>
                     </div>
-                    <div class="k-logo">I<span>P</span>D3+</div>
-                </div>
-                
-                <div class="k-parties">
-                    <div class="k-party">
-                        <div class="k-avatar sender" id="slip-icon-sender"><i class="fas fa-hospital-user"></i></div>
-                        <div class="k-party-info">
-                            <span class="k-party-name" id="slip-sender-name">ผู้ให้ยืม</span>
-                            <span class="k-party-sub" id="slip-sender-sub"></span>
-                        </div>
-                    </div>
-                    <div class="k-arrow-container"></div>
-                    <div class="k-party" style="margin-bottom: 0;">
-                        <div class="k-avatar receiver" id="slip-icon-receiver"><i class="fas fa-user-tag"></i></div>
-                        <div class="k-party-info">
-                            <span class="k-party-name" id="slip-receiver-name">ผู้ยืม</span>
-                            <span class="k-party-sub" id="slip-receiver-sub"></span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="k-divider"></div>
-
-                <div class="k-details">
-                    <div class="k-row"><span class="k-label">รหัสรายการ:</span><span class="k-value" style="font-size: 13px; color:#64748b;" id="slip-id">-</span></div>
-                    <div class="k-row"><span class="k-label">อุปกรณ์:</span><span class="k-value" style="font-size: 18px; color: #1e293b;" id="slip-item">-</span></div>
-                    <div class="k-row" id="slip-qty-row"><span class="k-label">จำนวน:</span><span class="k-value" style="color: var(--danger); font-size: 16px;" id="slip-qty">-</span></div>
-                    
-                    <div class="k-row" id="slip-borrow-date-row"><span class="k-label">วันที่ยืม:</span><span class="k-value" id="slip-borrow-date-val">-</span></div>
-                    <div class="k-row" id="slip-return-date-row" style="display:none;"><span class="k-label">วันที่คืน:</span><span class="k-value" id="slip-return-date-val">-</span></div>
-                    
-                    <div class="k-row" id="slip-notes-row" style="display:none; flex-direction:column; align-items:flex-start;">
-                        <span class="k-label">หมายเหตุ:</span><span class="k-value" style="text-align:left; font-weight:normal; color:#ef4444; width:100%; margin-top:4px;" id="slip-notes">-</span>
-                    </div>
-
-                    <!-- QR Code ตรงมุมขวาของ Detail -->
-                    <div class="k-qr-box" id="slip-qr-box" style="display:none;">
+                    <div class="slip-qr-top" id="slip-qr-box">
                         <div id="slip-qrcode"></div>
                     </div>
                 </div>
                 
-                <!-- ภาพหลักฐาน -->
+                <div class="k-item-highlight">
+                    <div class="label">รายการอุปกรณ์</div>
+                    <div class="name" id="slip-item">-</div>
+                    <div class="qty" id="slip-qty-row">จำนวน <span id="slip-qty"></span></div>
+                </div>
+
+                <div class="k-parties">
+                    <div class="k-party">
+                        <span class="k-party-label" id="slip-person1-label">ชื่อผู้ให้ยืม:</span>
+                        <span class="k-party-name" id="slip-person1">-</span>
+                    </div>
+                    <div class="k-party">
+                        <span class="k-party-label" id="slip-person2-label">ชื่อผู้ยืม:</span>
+                        <span class="k-party-name" id="slip-person2">-</span>
+                    </div>
+                    <div class="k-party" id="slip-dept-row">
+                        <span class="k-party-label" id="slip-dept-label">แผนก:</span>
+                        <span class="k-party-name" id="slip-dept">-</span>
+                    </div>
+                </div>
+                
+                <div class="k-details">
+                    <div class="k-row"><span class="k-label">รหัสอ้างอิง:</span><span class="k-value" style="font-size: 11px; color:#94a3b8;" id="slip-id">-</span></div>
+                    <div class="k-row" id="slip-borrow-date-row"><span class="k-label">วันที่ยืม:</span><span class="k-value" id="slip-borrow-date-val">-</span></div>
+                    <div class="k-row" id="slip-return-date-row" style="display:none;"><span class="k-label">วันที่คืน:</span><span class="k-value" id="slip-return-date-val">-</span></div>
+                    <div class="k-row" id="slip-notes-row" style="display:none; flex-direction:column; align-items:flex-start;">
+                        <span class="k-label">หมายเหตุ:</span><span class="k-value" style="text-align:left; font-weight:normal; color:#ef4444; width:100%; margin-top:2px;" id="slip-notes">-</span>
+                    </div>
+                </div>
+                
                 <div class="k-image-container" id="slip-image-container" style="display: none;">
                     <img id="slip-preview-img" src="" alt="หลักฐานแนบ">
                 </div>
+                
+                <div class="k-footer"><span class="k-watermark">IPD3 Return System | ยืมแล้วคืน</span></div>
             </div>
             
             <div style="display: flex; gap: 10px; width: 100%; max-width: 420px;">
@@ -495,13 +488,32 @@
 
     <script>
         // ===============================================
-        const API_URL = 'https://script.google.com/macros/s/AKfycbwpSgqCTOyi3kEP_Q4Ivw0sRuE5NB6vW_IX0zUvJv2vkltGInSAKfczFhmEq3noi841/exec'; // <--- ใส่ URL ตรงนี้
+        const API_URL = 'https://script.google.com/macros/s/AKfycbw_YFCltdFstQfyR2OxIcGq8W64slNenN4zbBHJkKsh9oQtDwHX99y9dQd8mFsnDiOF/exec'; // <--- ใส่ URL ตรงนี้
         // ===============================================
 
         let globalData = [];
         let currentTab = 'ถูกยืม';
         let currentImageBase64 = ''; 
         let html5QrCode;
+
+        async function apiCall(payload) {
+            if(API_URL.includes('/edit') || API_URL === 'YOUR_WEB_APP_URL_HERE') {
+                throw new Error("URL ของ Apps Script ไม่ถูกต้อง กรุณาเปลี่ยนเป็น URL ที่ลงท้ายด้วย /exec");
+            }
+            try {
+                const res = await fetch(API_URL, { method: 'POST', body: JSON.stringify(payload) });
+                const text = await res.text();
+                try {
+                    const json = JSON.parse(text);
+                    if (json.status === 'error') throw new Error(json.message);
+                    return json;
+                } catch (e) {
+                    throw new Error("การตั้งค่าสิทธิ์ Apps Script ผิดพลาด กรุณา Deploy ใหม่และตั้ง Who has access: Anyone");
+                }
+            } catch (err) {
+                throw err;
+            }
+        }
 
         // ระบบ Memory รายชื่อ
         let memoryStaffIpd3 = JSON.parse(localStorage.getItem('mem_ipd3')) || ["ปิยะนาท", "ภูวนัย", "สุวนันท์", "สุรีภรณ์", "พรพิมล", "ปราณี"];
@@ -611,15 +623,13 @@
                 img.src = event.target.result;
                 img.onload = function() {
                     const canvas = document.createElement('canvas');
-                    // ปรับความกว้างสูงสุดเหลือ 400px (เพื่อไม่ให้เกิน 50,000 ตัวอักษรของ Google Sheets)
-                    const MAX_WIDTH = 400; 
+                    const MAX_WIDTH = 500; 
                     let width = img.width; let height = img.height;
                     if (width > MAX_WIDTH) { height = Math.round((height * MAX_WIDTH) / width); width = MAX_WIDTH; }
                     canvas.width = width; canvas.height = height;
                     const ctx = canvas.getContext('2d');
                     ctx.drawImage(img, 0, 0, width, height);
-                    // ลดคุณภาพภาพเหลือ 40%
-                    callback(canvas.toDataURL('image/jpeg', 0.4));
+                    callback(canvas.toDataURL('image/jpeg', 0.5));
                 }
             }
         }
@@ -670,8 +680,7 @@
             };
 
             try {
-                const res = await fetch(API_URL, { method: 'POST', body: JSON.stringify(payload) });
-                const json = await res.json();
+                const json = await apiCall(payload);
                 
                 let slipItemData;
                 if(actionCmd === 'borrow') {
@@ -687,7 +696,7 @@
                 
                 generateSlip('borrow', slipItemData, currentImageBase64 || slipItemData.BorrowImage);
                 resetBorrowForm();
-            } catch (err) { alert('เกิดข้อผิดพลาดในการติดต่อฐานข้อมูล'); } 
+            } catch (err) { alert('❌ เกิดข้อผิดพลาด\n' + err.message); } 
             finally { showLoading(false); }
         });
 
@@ -733,7 +742,7 @@
             }
 
             const btn = document.getElementById('btn-submit-borrow');
-            btn.innerHTML = '<i class="fas fa-save"></i> บันทึกการแก้ไข (พร้อมออกใบเสร็จ)';
+            btn.innerHTML = '<i class="fas fa-save"></i> บันทึกการแก้ไข';
             document.getElementById('btn-cancel-edit').style.display = 'block';
             document.getElementById('tx-toggle-box').style.display = 'none';
         }
@@ -744,7 +753,7 @@
             document.getElementById('b-img-preview').style.display = 'none';
             currentImageBase64 = ''; 
             const btn = document.getElementById('btn-submit-borrow');
-            btn.innerHTML = '<i class="fas fa-save"></i> บันทึกรายการ';
+            btn.innerHTML = '<i class="fas fa-save"></i> บันทึกรายการใหม่';
             document.getElementById('btn-cancel-edit').style.display = 'none';
             document.getElementById('tx-toggle-box').style.display = 'flex';
             setNow('b-date', 'b-time');
@@ -755,11 +764,15 @@
             if(API_URL === 'YOUR_WEB_APP_URL_HERE') return;
             document.getElementById('borrow-list').innerHTML = '<div style="text-align: center; padding: 40px; color: var(--primary);"><i class="fas fa-spinner fa-spin fa-2x"></i></div>';
             try {
+                if(API_URL.includes('/edit')) throw new Error('URL ของ Apps Script ผิด กรุณาใช้ URL ที่ลงท้ายด้วย /exec');
                 const res = await fetch(API_URL);
-                globalData = await res.json();
+                const text = await res.text();
+                try { globalData = JSON.parse(text); } catch(e) { throw new Error('สิทธิ์ Apps Script ผิดพลาด กรุณาตั้งค่า Who has access: Anyone'); }
+                if(globalData.status === 'error') throw new Error(globalData.message);
+                
                 if (document.getElementById('dashboard-page').classList.contains('active')) filterList(currentTab, 'ยืมอยู่');
                 if (document.getElementById('history-page').classList.contains('active')) buildHistoryTable();
-            } catch (err) { document.getElementById('borrow-list').innerHTML = '<p>เกิดข้อผิดพลาด</p>'; }
+            } catch (err) { alert('❌ โหลดข้อมูลไม่สำเร็จ\n' + err.message); document.getElementById('borrow-list').innerHTML = '<p>เกิดข้อผิดพลาด</p>'; }
         }
 
         // ================== List (Card) ==================
@@ -785,7 +798,7 @@
                 const isOverdue = today > due;
                 if(isOverdue) card.classList.add('overdue-row');
                 
-                // ใช้รูปภาพแทน QR Code ในกล่อง Thumbnail (ถ้าไม่มีใช้ Icon)
+                // ใช้รูปภาพแทน QR Code
                 let imageThumbnail = item.BorrowImage 
                     ? `<img src="${item.BorrowImage}" alt="Item">` 
                     : `<i class="fas fa-box-open"></i>`;
@@ -814,7 +827,6 @@
             });
         }
 
-        // ================== History Table ==================
         function buildHistoryTable() {
             const tbody = document.getElementById('history-table-body');
             tbody.innerHTML = '';
@@ -843,11 +855,11 @@
             if(confirm(`คุณต้องการลบรายการ "${itemName}" ใช่หรือไม่?\n(การลบจะไม่สามารถกู้คืนได้)`)) {
                 showLoading(true);
                 try {
-                    await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'delete', id: id }) });
+                    await apiCall({ action: 'delete', id: id });
                     globalData = globalData.filter(i => i.ID !== id);
                     if(document.getElementById('history-page').classList.contains('active')) buildHistoryTable();
                     else filterList(currentTab, 'ยืมอยู่');
-                } catch(e) { alert('เกิดข้อผิดพลาดในการลบ'); }
+                } catch(e) { alert('❌ ' + e.message); }
                 finally { showLoading(false); }
             }
         }
@@ -892,7 +904,7 @@
             const payload = { action: 'return', id: id, returnDate: document.getElementById('r-date').value, returnTime: document.getElementById('r-time').value, receiver: receiver, notes: fullNotes, returnImage: currentImageBase64 };
             
             try {
-                await fetch(API_URL, { method: 'POST', body: JSON.stringify(payload) });
+                await apiCall(payload);
                 closeActionModal();
                 
                 if(originalItem.ID) {
@@ -907,21 +919,20 @@
                 const slipData = { ...originalItem, sender: sender, receiver: receiver, customNotes: notesText };
                 generateSlip('return', slipData, currentImageBase64 || originalItem.BorrowImage);
                 filterList(currentTab, 'ยืมอยู่'); 
-            } catch(e) { alert('ผิดพลาดในการคืน'); }
+            } catch(e) { alert('❌ ' + e.message); }
             finally { showLoading(false); }
         });
 
-        // ================== QR Scanner (สแกนออโต้ + อัปโหลดรูป) ==================
+        // ================== QR Scanner (สแกนปุ๊บ เด้งคืนปั๊บ) ==================
         function openQrScanner() {
             document.getElementById('qr-modal').classList.remove('hidden');
-            
             setTimeout(() => {
                 if(!html5QrCode) html5QrCode = new Html5Qrcode("reader");
                 const config = { fps: 10, qrbox: { width: 250, height: 250 } };
                 
                 html5QrCode.start({ facingMode: "environment" }, config, onScanSuccess)
                 .catch(err => {
-                    alert("กล้องมีปัญหา หรือถูกบล็อกสิทธิ์ กรุณาเลือกรูปภาพที่มี QR Code แทน");
+                    alert("ไม่สามารถเปิดกล้องได้ กรุณาใช้กล้องหลัง หรืออัปโหลดรูปแทน");
                 });
             }, 300);
         }
@@ -966,7 +977,7 @@
                     switchPage('dashboard-page'); filterList(safeTxType, 'ยืมอยู่');
                     openActionModal('return', item.ID, item.Item, safeTxType);
                 }
-            } else { alert('ไม่พบรหัสนี้ในระบบ'); }
+            } else { alert('ไม่พบรหัสนี้ในระบบ กรุณาตรวจสอบให้แน่ใจว่าเป็น QR ของระบบนี้'); }
         }
 
         // ================== สลิป V2 (แก้ QR บนสุด + ชื่อใหญ่สุด) ==================
@@ -984,7 +995,7 @@
             slipContainer.className = 'kplus-slip ' + (isLent ? 'slip-theme-orange' : 'slip-theme-blue');
             
             // สร้าง QR ด้านบนสุด
-            qrBox.style.display = 'block';
+            qrBox.style.display = 'flex';
             if(data.ID || data.id) new QRCode(document.getElementById("slip-qrcode"), { text: (data.ID || data.id), width: 65, height: 65 });
 
             if (actionType === 'borrow') {
@@ -1052,15 +1063,21 @@
             try {
                 const slipArea = document.getElementById('slip-capture-area');
                 const canvas = await html2canvas(slipArea, { scale: 3, backgroundColor: '#ffffff', useCORS: true });
-                const imgData = canvas.toDataURL('image/jpeg', 0.9);
                 
-                const link = document.createElement('a'); 
-                link.download = `IPD3_Slip_${new Date().getTime()}.jpg`;
-                link.href = imgData; 
+                canvas.toBlob(function(blob) {
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a'); 
+                    link.download = `IPD3_Slip_${new Date().getTime()}.jpg`;
+                    link.href = url;
+                    
+                    document.body.appendChild(link);
+                    link.click();
+                    setTimeout(() => {
+                        document.body.removeChild(link);
+                        URL.revokeObjectURL(url);
+                    }, 100);
+                }, 'image/jpeg', 0.9);
                 
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
             } catch (err) { alert("บันทึกภาพไม่สำเร็จ"); }
         }
         function closeReceipt() { document.getElementById('receipt-modal').classList.add('hidden'); }
