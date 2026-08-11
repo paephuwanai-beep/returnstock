@@ -103,7 +103,6 @@
         .item-thumbnail img { width: 100%; height: 100%; object-fit: cover; }
         .item-thumbnail i { font-size: 24px; color: #cbd5e1; }
         
-        /* Theme specifically for Cards */
         .type-lent { border-color: #ffedd5; }
         .type-lent .item-title { color: var(--orange-main); }
         .type-lent .qty-badge { background: #fff7ed; color: var(--orange-main); }
@@ -155,47 +154,71 @@
         .alert-title { font-size: 20px; font-weight: bold; color: #1e293b; margin-bottom: 10px;}
         .alert-msg { font-size: 15px; color: #64748b; margin-bottom: 20px; line-height: 1.5; word-break: break-word;}
 
-        /* Error Box in Dashboard */
-        .error-box { text-align: center; padding: 30px 15px; background: #fef2f2; border-radius: 16px; border: 1px solid #fecaca; margin: 15px 0;}
-        .error-box i { color: var(--danger); font-size: 40px; margin-bottom: 10px; }
-        .error-box h4 { color: #991b1b; margin-bottom: 5px; font-size: 18px;}
-        .error-box p { color: #b91c1c; font-size: 14px; margin-bottom: 0; word-break: break-word;}
-
-        /* ================= ใบเสร็จ K+ Style ================= */
-        .kplus-slip { border-radius: 12px; padding: 20px; margin-bottom: 15px; font-family: 'Sarabun', sans-serif; position: relative; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border: 1px solid #eee; width: 100%; }
-        .slip-theme-blue { background: linear-gradient(180deg, #e0f2fe 0%, #f0f9ff 30%, #ffffff 100%); border-color: #bae6fd; }
-        .slip-theme-orange { background: linear-gradient(180deg, #ffedd5 0%, #fff7ed 30%, #ffffff 100%); border-color: #fed7aa; }
+        /* ================= ใบเสร็จ K+ Style (9:16 สัดส่วนมือถือ) ================= */
+        .kplus-slip { 
+            border-radius: 12px; 
+            padding: 20px; 
+            margin-bottom: 15px; 
+            font-family: 'Sarabun', sans-serif; 
+            position: relative; 
+            overflow: hidden; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+            border: 1px solid #eee; 
+            width: 100%; 
+            max-width: 400px;
+            aspect-ratio: 9 / 16; /* บังคับสัดส่วนให้เป็น 9:16 */
+            display: flex;
+            flex-direction: column;
+        }
+        .slip-theme-blue { background: linear-gradient(180deg, #e0f2fe 0%, #f0f9ff 25%, #ffffff 100%); border-color: #bae6fd; }
+        .slip-theme-orange { background: linear-gradient(180deg, #ffedd5 0%, #fff7ed 25%, #ffffff 100%); border-color: #fed7aa; }
         .kplus-slip::before { content: "\f1ad"; font-family: "Font Awesome 5 Free"; font-weight: 900; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 250px; color: rgba(0,0,0, 0.02); z-index: 0; pointer-events: none; }
         
-        .k-header { display: flex; justify-content: space-between; align-items: flex-start; position: relative; z-index: 1; border-bottom: 2px dashed rgba(0,0,0,0.08); padding-bottom: 15px; margin-bottom: 20px;}
+        .k-header { display: flex; justify-content: space-between; align-items: flex-start; position: relative; z-index: 1; border-bottom: 2px dashed rgba(0,0,0,0.08); padding-bottom: 10px; margin-bottom: 15px;}
         .k-title-wrap { flex: 1; }
-        .k-title { font-size: 20px; font-weight: bold; color: #1e293b; line-height: 1.3;}
-        .k-datetime { font-size: 13px; color: #64748b; margin-top: 4px;}
-        .slip-qr-top { background: white; padding: 6px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; display: flex; justify-content: center; align-items: center; margin-left: 10px;}
+        .k-title { font-size: 18px; font-weight: bold; color: #1e293b; line-height: 1.3;}
+        .k-datetime { font-size: 12px; color: #64748b; margin-top: 4px;}
+        .slip-qr-top { background: white; padding: 4px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; display: flex; justify-content: center; align-items: center; margin-left: 10px;}
 
-        .k-item-highlight { text-align: center; margin-bottom: 20px; position: relative; z-index: 1;}
-        .k-item-highlight .label { font-size: 13px; color: #64748b; margin-bottom: 2px;}
-        .k-item-highlight .name { font-size: 26px; font-weight: 800; color: var(--primary); line-height: 1.2; word-break: break-word;}
+        .k-item-highlight { text-align: center; margin-bottom: 15px; position: relative; z-index: 1;}
+        .k-item-highlight .label { font-size: 12px; color: #64748b; margin-bottom: 2px;}
+        .k-item-highlight .name { font-size: 22px; font-weight: 800; color: var(--primary); line-height: 1.2; word-break: break-word;}
         .slip-theme-orange .k-item-highlight .name { color: var(--orange-main); }
-        .k-item-highlight .qty { font-size: 18px; font-weight: bold; color: var(--danger); margin-top: 5px;}
-        .k-item-highlight .qty-sub { font-size: 13px; font-weight: normal; color: #64748b; margin-top: 2px;}
+        .k-item-highlight .qty { font-size: 16px; font-weight: bold; color: var(--danger); margin-top: 5px;}
+        .k-item-highlight .qty-sub { font-size: 12px; font-weight: normal; color: #64748b; margin-top: 2px;}
 
-        .k-parties { position: relative; z-index: 1; margin-bottom: 15px; background: rgba(255,255,255,0.6); padding: 12px; border-radius: 12px;}
-        .k-party { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; font-size: 14px;}
+        .k-parties { position: relative; z-index: 1; margin-bottom: 10px; background: rgba(255,255,255,0.6); padding: 10px; border-radius: 12px;}
+        .k-party { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; font-size: 13px;}
         .k-party:last-child { margin-bottom: 0;}
         .k-party-label { color: #64748b; }
         .k-party-name { font-weight: bold; color: #1e293b; text-align: right;}
         
-        .k-details { position: relative; z-index: 1; margin-bottom: 15px; }
-        .k-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px; align-items: flex-start;}
+        .k-details { position: relative; z-index: 1; margin-bottom: 10px; }
+        .k-row { display: flex; justify-content: space-between; padding: 4px 0; font-size: 12px; align-items: flex-start;}
         .k-label { color: #64748b; white-space: nowrap;}
         .k-value { font-weight: bold; color: #1e293b; text-align: right;}
         
-        .k-image-container { text-align: center; margin: 15px 0; position: relative; z-index: 1; background: #f8fafc; border-radius: 10px; padding: 5px;}
-        .k-image-container img { width: 100%; height: auto; max-height: 350px; border-radius: 8px; border: 1px solid #e2e8f0; object-fit: contain; background: #fff; display: block;}
+        /* กรอบภาพใบเสร็จ ที่ยืดหยุ่นและไม่ตัดภาพ 100% */
+        .k-image-container { 
+            flex: 1; /* สำคัญ: ยืดขยายเติมพื้นที่ที่เหลือในกรอบ 9:16 */
+            display: flex; justify-content: center; align-items: center; 
+            margin: 10px 0 0 0; position: relative; z-index: 1; 
+            background: #f8fafc; border-radius: 10px; padding: 5px; 
+            border: 1px dashed #cbd5e1; min-height: 0; 
+        }
+        .k-image-container img { 
+            max-width: 100%; max-height: 100%; width: auto; height: auto; 
+            border-radius: 6px; object-fit: contain; /* สำคัญ: ไม่ตัดภาพเด็ดขาด */
+            display: block; 
+        }
         
-        .k-footer { text-align: center; position: relative; z-index: 1; margin-top: 15px;}
-        .k-watermark { font-size: 11px; color: #94a3b8; font-weight: bold;}
+        /* โลโก้แอปที่อยู่ด้านล่างสุดของใบเสร็จ */
+        .k-footer { 
+            margin-top: auto; padding-top: 15px; 
+            border-top: 1px dashed rgba(0,0,0,0.05); 
+            display: flex; justify-content: center; align-items: center; 
+            position: relative; z-index: 1;
+        }
 
         #reader { width: 100%; min-height: 250px; background: #000; border-radius: 12px; overflow: hidden; border: none; }
         .qr-upload-btn { display: block; padding: 12px; background: #f1f5f9; color: var(--primary); border-radius: 10px; font-weight: bold; cursor: pointer; text-align: center; width: 100%; border: 2px dashed #cbd5e1; margin-top: 15px; transition: 0.3s; }
@@ -224,7 +247,7 @@
         <p style="color: #64748b;">กรุณารอสักครู่</p>
     </div>
 
-    <!-- Custom Alert -->
+    <!-- Custom Alert Modal -->
     <div id="custom-alert" class="modal hidden" style="z-index: 99999;">
         <div class="modal-content alert-box">
             <div id="custom-alert-icon" class="alert-icon"><i class="fas fa-info-circle"></i></div>
@@ -234,7 +257,7 @@
         </div>
     </div>
 
-    <!-- Custom Confirm -->
+    <!-- Custom Confirm Modal -->
     <div id="custom-confirm" class="modal hidden" style="z-index: 99999;">
         <div class="modal-content alert-box">
             <div class="alert-icon" style="color: var(--warning);"><i class="fas fa-question-circle"></i></div>
@@ -248,6 +271,7 @@
     </div>
 
     <div class="app-container">
+        <!-- Datalist -->
         <datalist id="ipd3-staff-list"></datalist>
         <datalist id="other-staff-list"></datalist>
         <datalist id="item-list"></datalist>
@@ -316,8 +340,8 @@
                     </div>
                 </div>
                 <div class="tab-container">
-                    <button id="tab-lent" class="tab-btn active-orange" onclick="filterList('ถูกยืม', 'ยืมอยู่')">ที่ถูกยืมไป</button>
-                    <button id="tab-borrowed" class="tab-btn" onclick="filterList('ยืมมา', 'ยืมอยู่')">ที่เรายืมมา</button>
+                    <button id="tab-lent" class="tab-btn active-orange" onclick="filterList('ถูกยืม', 'ยืมอยู่', 'dashboard-page')">ที่ถูกยืมไป</button>
+                    <button id="tab-borrowed" class="tab-btn" onclick="filterList('ยืมมา', 'ยืมอยู่', 'dashboard-page')">ที่เรายืมมา</button>
                 </div>
                 <div id="borrow-list"><div style="text-align: center; padding: 40px; color: var(--primary);"><i class="fas fa-spinner fa-spin fa-2x"></i></div></div>
             </main>
@@ -487,14 +511,14 @@
         </div>
     </div>
 
-    <!-- Modal ใบเสร็จ -->
+    <!-- Modal ใบเสร็จ (Slip 9:16) -->
     <div id="receipt-modal" class="modal hidden">
         <div class="modal-content" style="background: transparent; box-shadow: none; padding: 10px; display: flex; flex-direction: column; align-items: center;">
-            <div id="slip-capture-area" class="kplus-slip slip-theme-blue" style="width: 100%; max-width: 420px;">
+            <div id="slip-capture-area" class="kplus-slip slip-theme-blue">
                 
                 <div class="k-header">
                     <div class="k-title-wrap">
-                        <div class="k-title" id="slip-type-title" style="font-size: 19px;">บันทึกสำเร็จ</div>
+                        <div class="k-title" id="slip-type-title">บันทึกสำเร็จ</div>
                         <div class="k-datetime" id="slip-time-text"></div>
                     </div>
                     <div class="slip-qr-top" id="slip-qr-box">
@@ -525,7 +549,7 @@
                 </div>
                 
                 <div class="k-details">
-                    <div class="k-row"><span class="k-label">รหัสอ้างอิง:</span><span class="k-value" style="font-size: 11px; color:#94a3b8;" id="slip-id">-</span></div>
+                    <div class="k-row"><span class="k-label">รหัสอ้างอิง:</span><span class="k-value" style="font-size: 10px; color:#94a3b8;" id="slip-id">-</span></div>
                     <div class="k-row" id="slip-borrow-date-row"><span class="k-label">วันที่ยืม:</span><span class="k-value" id="slip-borrow-date-val">-</span></div>
                     <div class="k-row" id="slip-return-date-row" style="display:none;"><span class="k-label">วันที่คืน:</span><span class="k-value" id="slip-return-date-val">-</span></div>
                     <div class="k-row" id="slip-notes-row" style="display:none; flex-direction:column; align-items:flex-start;">
@@ -533,15 +557,23 @@
                     </div>
                 </div>
                 
+                <!-- คอนเทนเนอร์ภาพแบบไม่ตัด (Contain) -->
                 <div class="k-image-container" id="slip-image-container" style="display: none;">
                     <img id="slip-preview-img" src="" alt="หลักฐานแนบ">
                 </div>
                 
-                <div class="k-footer"><span class="k-watermark">IPD3 Return System | ยืมแล้วคืน</span></div>
+                <div class="k-footer">
+                    <div class="app-logo" style="font-size: 16px; margin:0;">
+                        <i class="fas fa-infinity"></i> 
+                        <span class="ipd3">IPD3</span> 
+                        <span class="return">Return</span> 
+                        <span class="tagline" style="font-size: 9px; padding: 2px 6px;">ยืมแล้วคืน</span>
+                    </div>
+                </div>
             </div>
             
-            <div style="display: flex; gap: 10px; width: 100%; max-width: 420px;">
-                <button onclick="downloadSlip()" class="glass-btn btn-primary" style="flex: 1.5;"><i class="fas fa-download"></i> บันทึกใบเสร็จ</button>
+            <div style="display: flex; gap: 10px; width: 100%; max-width: 400px;">
+                <button onclick="downloadSlip()" class="glass-btn btn-primary" style="flex: 1.5;"><i class="fas fa-download"></i> บันทึกสลิป</button>
                 <button onclick="closeReceipt()" class="glass-btn" style="background: white; color: #1e293b; border: 1px solid #cbd5e1; flex: 1;">ปิดหน้าต่าง</button>
             </div>
         </div>
@@ -600,7 +632,7 @@
                     const json = JSON.parse(text);
                     if (json.status === 'error') throw new Error(json.message);
                     return json;
-                } catch (e) { throw new Error("การรับส่งข้อมูลผิดพลาด หรือรูปภาพอาจมีขนาดใหญ่เกินไป"); }
+                } catch (e) { throw new Error("การรับส่งข้อมูลผิดพลาด กรุณา Deploy ใหม่"); }
             } catch (err) { throw err; }
         }
 
@@ -732,7 +764,7 @@
         setupImagePreview('b-image', 'b-img-preview');
         setupImagePreview('r-image', 'r-img-preview');
 
-        // ฟังก์ชันดูสลิปย้อนหลัง
+        // ฟังก์ชันดูรูปภาพย้อนหลังเปลี่ยนเป็นสร้างสลิปแทน
         function viewImage(id) {
             const item = globalData.find(i => i.ID === id);
             if(!item) return;
@@ -850,7 +882,7 @@
             }
 
             const btn = document.getElementById('btn-submit-borrow');
-            btn.innerHTML = '<i class="fas fa-save"></i> บันทึกการแก้ไข (พร้อมสร้างสลิป)';
+            btn.innerHTML = '<i class="fas fa-save"></i> บันทึกการแก้ไข';
             document.getElementById('btn-cancel-edit').style.display = 'block';
             document.getElementById('tx-toggle-box').style.display = 'none';
         }
@@ -886,10 +918,10 @@
                 if (document.getElementById('history-page').classList.contains('active')) buildHistoryTable();
             } catch (err) { 
                 document.getElementById('borrow-list').innerHTML = `
-                    <div class="error-box">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <h4>เกิดข้อผิดพลาดในการโหลดข้อมูล</h4>
-                        <p>${err.message}</p>
+                    <div style="text-align: center; padding: 30px 15px; background: #fef2f2; border-radius: 16px; border: 1px solid #fecaca; margin: 15px 0;">
+                        <i class="fas fa-exclamation-triangle" style="color: var(--danger); font-size: 40px; margin-bottom: 10px;"></i>
+                        <h4 style="color: #991b1b; margin-bottom: 5px; font-size: 18px;">เกิดข้อผิดพลาดในการโหลดข้อมูล</h4>
+                        <p style="color: #b91c1c; font-size: 14px; margin-bottom: 0;">${err.message}</p>
                     </div>`; 
             }
         }
@@ -1164,7 +1196,7 @@
             } else { showAlert(`ไม่พบรหัส "${decodedText}" ในระบบ`, 'error'); }
         }
 
-        // ================== สลิป V2 ==================
+        // ================== สลิป V2 (9:16) ==================
         function generateSlip(actionType, data, imgBase64) {
             setNow('', 'slip-time-text');
             
@@ -1178,15 +1210,15 @@
             slipContainer.className = 'kplus-slip ' + (isLent ? 'slip-theme-orange' : 'slip-theme-blue');
             
             qrBox.style.display = 'flex';
-            if(data.ID || data.id) new QRCode(document.getElementById("slip-qrcode"), { text: (data.ID || data.id), width: 70, height: 70 });
+            if(data.ID || data.id) new QRCode(document.getElementById("slip-qrcode"), { text: (data.ID || data.id), width: 65, height: 65 });
 
             if (actionType === 'borrow') {
                 if (isLent) {
-                    titleHTML = `บันทึกการยืมรายการ<br><span style="color:var(--orange-main); font-size:16px;">(รายการที่ถูกยืมไป)</span>`;
+                    titleHTML = `บันทึกการยืมรายการ<br><span style="color:var(--orange-main); font-size:15px;">(รายการที่ถูกยืมไป)</span>`;
                     s_name = data.Lender; s_dept = 'IPD3';
                     r_name = data.Borrower; r_dept = data.Dept;
                 } else {
-                    titleHTML = `บันทึกการยืมรายการ<br><span style="color:var(--primary); font-size:16px;">(รายการที่ยืมมา)</span>`;
+                    titleHTML = `บันทึกการยืมรายการ<br><span style="color:var(--primary); font-size:15px;">(รายการที่ยืมมา)</span>`;
                     s_name = data.Lender; s_dept = data.Dept;
                     r_name = data.Borrower; r_dept = 'IPD3';
                 }
@@ -1201,23 +1233,15 @@
             } 
             else if (actionType === 'return') {
                 if (isLent) {
-                    titleHTML = `บันทึกการคืนรายการ<br><span style="color:var(--orange-main); font-size:16px;">(รายการที่ถูกยืมไป)</span>`;
+                    titleHTML = `บันทึกการคืนรายการ<br><span style="color:var(--orange-main); font-size:15px;">(รายการที่ถูกยืมไป)</span>`;
                     s_name = data.sender; s_dept = data.Dept;
                     r_name = data.receiver; r_dept = 'IPD3';
                 } else {
-                    titleHTML = `บันทึกการคืนรายการ<br><span style="color:var(--primary); font-size:16px;">(รายการที่ยืมมา)</span>`;
+                    titleHTML = `บันทึกการคืนรายการ<br><span style="color:var(--primary); font-size:15px;">(รายการที่ยืมมา)</span>`;
                     s_name = data.sender; s_dept = 'IPD3';
                     r_name = data.receiver; r_dept = data.Dept;
                 }
-                
-                document.getElementById('slip-qty-row').style.display = 'block';
-                document.getElementById('slip-qty').innerText = data.returnedQtyStr || data.Qty || '-';
-                
-                if(data.isPartial) {
-                    document.getElementById('slip-qty-sub-row').style.display = 'block';
-                    document.getElementById('slip-qty-sub-row').innerText = `(ค้างยืมอีก ${data.remainingQtyStr})`;
-                } else { document.getElementById('slip-qty-sub-row').style.display = 'none'; }
-
+                document.getElementById('slip-qty-row').style.display = 'none';
                 qrBox.style.display = 'none'; 
                 
                 document.getElementById('slip-borrow-date-row').style.display = 'flex';
@@ -1245,7 +1269,7 @@
 
             const imgContainer = document.getElementById('slip-image-container');
             const imgEl = document.getElementById('slip-preview-img');
-            if (imgBase64) { imgEl.src = imgBase64; imgContainer.style.display = 'block'; } 
+            if (imgBase64) { imgEl.src = imgBase64; imgContainer.style.display = 'flex'; } 
             else { imgContainer.style.display = 'none'; }
 
             document.getElementById('receipt-modal').classList.remove('hidden');
