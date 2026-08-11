@@ -64,19 +64,15 @@
         .file-upload-btn { width: 100%; padding: 14px; border-radius: 12px; font-weight: bold; text-align: center; cursor: pointer; display: block; transition: 0.3s; }
         .image-preview { width: 100%; max-height: 180px; object-fit: contain; margin-top: 10px; display: none; border-radius: 8px; border: 1px solid #e2e8f0; background: #fff;}
 
-        /* Theme Blue (ยืมมา) */
         .theme-blue .input-label { color: var(--primary); }
         .theme-blue .glass-input { border: 1px solid #cce0ff; }
         .theme-blue .glass-input:focus { border: 1px solid var(--secondary); box-shadow: 0 0 0 3px rgba(0, 150, 255, 0.15); background: white;}
         .theme-blue .file-upload-btn { background: #f0f7ff; border: 2px dashed var(--secondary); color: var(--primary); }
-        .theme-blue .file-upload-btn:active { background: #e0f2fe; }
 
-        /* Theme Orange (ถูกยืมไป) */
         .theme-orange .input-label { color: var(--brown-dark); }
         .theme-orange .glass-input { border: 1px solid #fed7aa; }
         .theme-orange .glass-input:focus { border: 1px solid var(--orange-main); box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.15); background: white;}
         .theme-orange .file-upload-btn { background: #fff7ed; border: 2px dashed var(--orange-main); color: var(--orange-main); }
-        .theme-orange .file-upload-btn:active { background: #ffedd5; }
         /* ========================================================== */
 
         .toggle-container { display: flex; background: #f1f5f9; border-radius: 12px; margin-bottom: 20px; padding: 5px; }
@@ -222,7 +218,7 @@
         <p style="color: #64748b;">กรุณารอสักครู่</p>
     </div>
 
-    <!-- Custom Alert Modal -->
+    <!-- Custom Alert -->
     <div id="custom-alert" class="modal hidden" style="z-index: 99999;">
         <div class="modal-content alert-box">
             <div id="custom-alert-icon" class="alert-icon"><i class="fas fa-info-circle"></i></div>
@@ -232,7 +228,7 @@
         </div>
     </div>
 
-    <!-- Custom Confirm Modal -->
+    <!-- Custom Confirm -->
     <div id="custom-confirm" class="modal hidden" style="z-index: 99999;">
         <div class="modal-content alert-box">
             <div class="alert-icon" style="color: var(--warning);"><i class="fas fa-question-circle"></i></div>
@@ -242,25 +238,6 @@
                 <button onclick="resolveConfirm(false)" class="glass-btn" style="background: #f1f5f9; color: #475569; flex: 1;">ยกเลิก</button>
                 <button onclick="resolveConfirm(true)" class="glass-btn btn-primary" style="flex: 1;">ตกลง</button>
             </div>
-        </div>
-    </div>
-
-    <!-- Modal ดูรูปภาพ -->
-    <div id="image-viewer-modal" class="modal hidden">
-        <div class="modal-content" style="max-width: 400px; text-align: center;">
-            <h3 style="color: var(--primary); margin-bottom: 15px;"><i class="fas fa-images"></i> รูปภาพหลักฐาน</h3>
-            
-            <div id="viewer-borrow-box" style="margin-bottom: 15px; display: none;">
-                <span class="input-label" style="text-align: left;"><i class="fas fa-camera"></i> ภาพตอนบันทึกยืม:</span>
-                <img id="viewer-borrow-img" style="width: 100%; border-radius: 8px; border: 1px solid #e2e8f0; object-fit: contain; background: #f8fafc; max-height: 300px;">
-            </div>
-            
-            <div id="viewer-return-box" style="margin-bottom: 15px; display: none;">
-                <span class="input-label" style="text-align: left; color: var(--success);"><i class="fas fa-camera"></i> ภาพตอนคืน:</span>
-                <img id="viewer-return-img" style="width: 100%; border-radius: 8px; border: 1px solid #e2e8f0; object-fit: contain; background: #f8fafc; max-height: 300px;">
-            </div>
-            
-            <button onclick="closeImageViewer()" class="glass-btn" style="background: #f1f5f9; color:#475569;">ปิดหน้าต่าง</button>
         </div>
     </div>
 
@@ -301,7 +278,7 @@
             <main id="home-page" class="page active">
                 <h3 style="color: #1e293b; margin-bottom: 20px;">เลือกทำรายการ</h3>
                 <button onclick="openQrScanner()" class="glass-btn btn-outline" style="margin-bottom: 20px;">
-                    <i class="fas fa-qrcode"></i> สแกน QR Code เพื่อคืนของ
+                    <i class="fas fa-qrcode"></i> สแกน QR Code คืนของ
                 </button>
 
                 <div class="home-grid">
@@ -318,7 +295,7 @@
                     <div class="menu-card card-history" onclick="switchPage('history-page')">
                         <i class="fas fa-history"></i>
                         <h3>ประวัติคืนแล้ว</h3>
-                        <p>ดูประวัติ / ยกเลิกการคืน</p>
+                        <p>จัดการประวัติ / ยกเลิกการคืน</p>
                     </div>
                 </div>
             </main>
@@ -329,7 +306,7 @@
                     <h3 style="color: #1e293b;">รายการค้างส่งคืน</h3>
                     <div style="display: flex; gap: 8px;">
                         <button onclick="openQrScanner()" class="glass-btn btn-outline" style="width: auto; padding: 8px 12px; font-size: 13px;"><i class="fas fa-qrcode"></i> สแกน</button>
-                        <button onclick="fetchData()" class="glass-btn" style="width: auto; padding: 8px 12px; font-size: 13px; background:var(--primary);"><i class="fas fa-sync-alt"></i> รีเฟรช</button>
+                        <button onclick="fetchData()" class="glass-btn btn-primary" style="width: auto; padding: 8px 12px; font-size: 13px;"><i class="fas fa-sync-alt"></i> รีเฟรช</button>
                     </div>
                 </div>
                 <div class="tab-container">
@@ -418,7 +395,7 @@
                         <img id="b-img-preview" class="image-preview">
                     </div>
                     
-                    <button type="submit" id="btn-submit-borrow" class="btn-orange glass-btn"><i class="fas fa-save"></i> บันทึกรายการใหม่</button>
+                    <button type="submit" id="btn-submit-borrow" class="btn-orange glass-btn"><i class="fas fa-save"></i> บันทึกรายการ</button>
                     <button type="button" id="btn-cancel-edit" onclick="resetBorrowForm()" class="glass-btn" style="background:#f1f5f9; color:#475569; margin-top:10px; display:none;">ยกเลิกการแก้ไข</button>
                 </form>
             </main>
@@ -484,7 +461,7 @@
                 <span class="input-label" id="label-r-receiver">ชื่อผู้รับคืน (จนท. IPD3):</span>
                 <input type="text" id="r-staff-dropdown" list="ipd3-staff-list" class="glass-input" placeholder="ระบุชื่อ..." autocomplete="off">
 
-                <span class="input-label" id="label-r-sender">ชื่อผู้ส่งคืน (แผนกอื่น):</span>
+                <span class="input-label" id="label-r-sender">ชื่อผู้มาส่งคืน (แผนกอื่น):</span>
                 <input type="text" id="r-other-person" list="other-staff-list" class="glass-input" placeholder="ระบุชื่อ (ไม่บังคับ)..." autocomplete="off">
                 
                 <span class="input-label">หมายเหตุการคืน (ถ้ามี):</span>
@@ -504,7 +481,7 @@
         </div>
     </div>
 
-    <!-- Modal ใบเสร็จ -->
+    <!-- Modal ใบเสร็จ สลิป -->
     <div id="receipt-modal" class="modal hidden">
         <div class="modal-content" style="background: transparent; box-shadow: none; padding: 10px; display: flex; flex-direction: column; align-items: center;">
             <div id="slip-capture-area" class="kplus-slip slip-theme-blue" style="width: 100%; max-width: 420px;">
@@ -749,34 +726,32 @@
         setupImagePreview('b-image', 'b-img-preview');
         setupImagePreview('r-image', 'r-img-preview');
 
-        // ฟังก์ชันดูรูปภาพย้อนหลัง
+        // ดูสลิปใบเสร็จ แทนการดูรูปภาพเปล่าๆ
         function viewImage(id) {
             const item = globalData.find(i => i.ID === id);
             if(!item) return;
-            const borrowImg = item.BorrowImage;
-            const returnImg = item.ReturnImage;
 
-            if(!borrowImg && !returnImg) {
-                showAlert('รายการนี้ไม่มีการแนบรูปภาพไว้', 'info');
-                return;
+            if(item.Status === 'คืนแล้ว') {
+                let sender = '-';
+                let customNotes = '-';
+                if(item.Notes) {
+                    const parts = item.Notes.split('|');
+                    if(parts.length > 0) sender = parts[0].replace('ผู้ส่งคืน:', '').trim();
+                    if(parts.length > 1) customNotes = parts[1].replace('หมายเหตุ:', '').trim();
+                }
+                const slipData = { 
+                    ...item, 
+                    sender: sender, 
+                    receiver: item.Receiver, 
+                    customNotes: customNotes,
+                    returnedQtyStr: item.Qty,
+                    isPartial: false 
+                };
+                generateSlip('return', slipData, item.ReturnImage || item.BorrowImage);
+            } else {
+                generateSlip('borrow', item, item.BorrowImage);
             }
-
-            const borrowBox = document.getElementById('viewer-borrow-box');
-            const returnBox = document.getElementById('viewer-return-box');
-
-            if(borrowImg) {
-                document.getElementById('viewer-borrow-img').src = borrowImg;
-                borrowBox.style.display = 'block';
-            } else { borrowBox.style.display = 'none'; }
-
-            if(returnImg) {
-                document.getElementById('viewer-return-img').src = returnImg;
-                returnBox.style.display = 'block';
-            } else { returnBox.style.display = 'none'; }
-
-            document.getElementById('image-viewer-modal').classList.remove('hidden');
         }
-        function closeImageViewer() { document.getElementById('image-viewer-modal').classList.add('hidden'); }
 
         // ================== บันทึกข้อมูล (New / Edit) ==================
         document.getElementById('borrow-form').addEventListener('submit', async (e) => {
@@ -869,7 +844,7 @@
             }
 
             const btn = document.getElementById('btn-submit-borrow');
-            btn.innerHTML = '<i class="fas fa-save"></i> บันทึกการแก้ไข';
+            btn.innerHTML = '<i class="fas fa-save"></i> บันทึกการแก้ไข (พร้อมสร้างสลิป)';
             document.getElementById('btn-cancel-edit').style.display = 'block';
             document.getElementById('tx-toggle-box').style.display = 'none';
         }
@@ -900,7 +875,7 @@
             } catch (err) { document.getElementById('borrow-list').innerHTML = '<p>เกิดข้อผิดพลาดในการโหลดข้อมูล</p>'; }
         }
 
-        // ================== List (Card) จัดการธีมสีส้มทั้งหมด ==================
+        // ================== List (Card) ==================
         function filterList(type, status) {
             currentTab = type;
             document.getElementById('tab-lent').classList.remove('active-orange'); 
@@ -925,9 +900,6 @@
                 const isOverdue = today > due;
                 if(isOverdue) cardClass += ' overdue-row';
                 
-                const card = document.createElement('div'); 
-                card.className = cardClass;
-                
                 let imageThumbnail = item.BorrowImage 
                     ? `<img src="${item.BorrowImage}" alt="Item" style="cursor:pointer;" onclick="viewImage('${item.ID}')">` 
                     : `<i class="fas fa-box-open" style="cursor:pointer;" onclick="viewImage('${item.ID}')"></i>`;
@@ -949,7 +921,7 @@
                     <div class="action-row">
                         <button onclick="openActionModal('return', '${item.ID}', '${item.Item}', '${safeTxType}', '${item.Qty}')" class="btn-sm btn-return"><i class="fas fa-undo"></i> คืน</button>
                         <button onclick="editItemFull('${item.ID}')" class="btn-sm btn-edit"><i class="fas fa-pen"></i> แก้ไข</button>
-                        <button onclick="viewImage('${item.ID}')" class="btn-sm btn-view-img"><i class="fas fa-image"></i> รูป</button>
+                        <button onclick="viewImage('${item.ID}')" class="btn-sm btn-view-img"><i class="fas fa-file-invoice"></i> สลิป</button>
                         <button onclick="deleteItem('${item.ID}', '${item.Item}')" class="btn-sm btn-delete"><i class="fas fa-trash"></i></button>
                     </div>
                 `;
@@ -963,7 +935,7 @@
             tbody.innerHTML = '';
             const returned = globalData.filter(i => i.Status === 'คืนแล้ว');
             if(returned.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; padding: 20px; color: #94a3b8;">ไม่มีประวัติ</td></tr>`; return;
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; padding: 20px; color: #94a3b8;">ไม่มีประวัติ</td></tr>`; return;
             }
             returned.sort((a,b) => new Date(b.ReturnDate) - new Date(a.ReturnDate));
             
@@ -979,7 +951,7 @@
                         <div style="display:flex; flex-direction:column; gap:4px;">
                             <button onclick="undoReturn('${item.ID}', '${item.Item}')" class="glass-btn" style="padding:4px; font-size:11px; background:#fef08a; color:#b45309; box-shadow:none;"><i class="fas fa-undo-alt"></i> ยกเลิกคืน</button>
                             <div style="display:flex; gap:4px;">
-                                <button onclick="viewImage('${item.ID}')" class="glass-btn" style="padding:4px; font-size:11px; flex:1; background:#f1f5f9; color:#475569; box-shadow:none;"><i class="fas fa-image"></i></button>
+                                <button onclick="viewImage('${item.ID}')" class="glass-btn" style="padding:4px; font-size:11px; flex:1; background:#f1f5f9; color:#475569; box-shadow:none;"><i class="fas fa-file-invoice"></i></button>
                                 <button onclick="editItemFull('${item.ID}')" class="glass-btn" style="padding:4px; font-size:11px; flex:1; background:#e0f2fe; color:#0369a1; box-shadow:none;"><i class="fas fa-pen"></i></button>
                                 <button onclick="deleteItem('${item.ID}', '${item.Item}')" class="glass-btn" style="padding:4px; font-size:11px; flex:1; background:#fee2e2; color:#ef4444; box-shadow:none;"><i class="fas fa-trash"></i></button>
                             </div>
@@ -1043,7 +1015,6 @@
 
             title.innerText = `คืน: ${item}`;
 
-            // เปลี่ยนธีมฟอร์มใน Pop-up
             if(arg1 === 'ถูกยืม') {
                 form.className = 'theme-orange';
                 title.style.color = 'var(--orange-main)';
@@ -1131,8 +1102,8 @@
             document.getElementById('qr-modal').classList.remove('hidden');
             setTimeout(() => {
                 if(!html5QrCode) html5QrCode = new Html5QrcodeScanner("reader", { fps: 10, qrbox: { width: 250, height: 250 } }, false);
-                html5QrCode.render((decodedText) => {
-                    html5QrCode.clear();
+                html5QrCode.render(async (decodedText) => {
+                    await html5QrCode.clear();
                     closeQrScanner();
                     processQRCode(decodedText);
                 }, (err) => { });
@@ -1150,11 +1121,11 @@
 
         function closeQrScanner() { 
             document.getElementById('qr-modal').classList.add('hidden'); 
-            if(html5QrCode) { html5QrCode.clear(); }
+            if(html5QrCode && html5QrCode.isScanning) { html5QrCode.stop().then(()=>{ html5QrCode.clear(); }).catch(e=>{}); }
         }
 
         async function processQRCode(decodedText) {
-            showLoading(true, "ตรวจสอบรหัส QR...");
+            showLoading(true, "ตรวจสอบข้อมูล...");
             if(globalData.length === 0) {
                 try { const res = await fetchWithTimeout(API_URL); const text = await res.text(); globalData = JSON.parse(text); } catch(e){}
             }
@@ -1163,13 +1134,13 @@
             const item = globalData.find(i => String(i.ID).trim() === String(decodedText).trim());
             if(item) {
                 if(item.Status === 'คืนแล้ว') {
-                    showAlert('รายการนี้ถูกคืนเรียบร้อยแล้ว (ดูได้ในประวัติ)', 'info'); switchPage('history-page');
+                    showAlert('รายการนี้ถูกคืนเรียบร้อยแล้ว (ดูได้ในเมนูประวัติ)', 'info'); switchPage('history-page');
                 } else {
                     const safeTxType = item.TransactionType || 'ถูกยืม';
                     switchPage('dashboard-page'); filterList(safeTxType, 'ยืมอยู่');
                     openActionModal('return', item.ID, item.Item, safeTxType, item.Qty);
                 }
-            } else { showAlert('ไม่พบรหัสนี้ในระบบ กรุณาตรวจสอบให้แน่ใจว่าเป็น QR Code ของระบบนี้', 'error'); }
+            } else { showAlert(`ไม่พบรหัส "${decodedText}" ในระบบ`, 'error'); }
         }
 
         // ================== สลิป V2 ==================
