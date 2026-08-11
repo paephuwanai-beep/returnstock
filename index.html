@@ -77,7 +77,6 @@
         .theme-orange .glass-input { border: 1px solid #fed7aa; }
         .theme-orange .glass-input:focus { border: 1px solid var(--orange-main); box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.15); background: white;}
         .theme-orange .file-upload-btn { background: #fff7ed; border: 2px dashed var(--orange-main); color: var(--orange-main); }
-        /* ========================================================== */
 
         .toggle-container { display: flex; background: #f1f5f9; border-radius: 12px; margin-bottom: 20px; padding: 5px; }
         .toggle-btn { flex: 1; padding: 10px; text-align: center; font-weight: bold; cursor: pointer; border-radius: 10px; color: #64748b; transition: 0.3s; }
@@ -107,7 +106,6 @@
         .item-thumbnail img { width: 100%; height: 100%; object-fit: cover; }
         .item-thumbnail i { font-size: 24px; color: #cbd5e1; }
         
-        /* Theme specifically for Cards */
         .type-lent { border-color: #ffedd5; }
         .type-lent .item-title { color: var(--orange-main); }
         .type-lent .qty-badge { background: #fff7ed; color: var(--orange-main); }
@@ -159,22 +157,8 @@
         .alert-title { font-size: 20px; font-weight: bold; color: #1e293b; margin-bottom: 10px;}
         .alert-msg { font-size: 15px; color: #64748b; margin-bottom: 20px; line-height: 1.5; word-break: break-word;}
 
-        /* ================= ใบเสร็จ K+ Style (9:16 สัดส่วนมือถือ) ================= */
-        .kplus-slip { 
-            border-radius: 12px; 
-            padding: 20px; 
-            margin-bottom: 15px; 
-            font-family: 'Sarabun', sans-serif; 
-            position: relative; 
-            overflow: hidden; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
-            border: 1px solid #eee; 
-            width: 100%; 
-            max-width: 400px;
-            aspect-ratio: 9 / 16; /* บังคับสัดส่วนให้เป็น 9:16 */
-            display: flex;
-            flex-direction: column;
-        }
+        /* ================= ใบเสร็จ K+ Style ================= */
+        .kplus-slip { border-radius: 12px; padding: 20px; margin-bottom: 15px; font-family: 'Sarabun', sans-serif; position: relative; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border: 1px solid #eee; width: 100%; max-width: 400px; aspect-ratio: 9 / 16; display: flex; flex-direction: column; }
         .slip-theme-blue { background: linear-gradient(180deg, #e0f2fe 0%, #f0f9ff 25%, #ffffff 100%); border-color: #bae6fd; }
         .slip-theme-orange { background: linear-gradient(180deg, #ffedd5 0%, #fff7ed 25%, #ffffff 100%); border-color: #fed7aa; }
         .kplus-slip::before { content: "\f1ad"; font-family: "Font Awesome 5 Free"; font-weight: 900; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 250px; color: rgba(0,0,0, 0.02); z-index: 0; pointer-events: none; }
@@ -190,7 +174,10 @@
         .k-item-highlight .name { font-size: 22px; font-weight: 800; color: var(--primary); line-height: 1.2; word-break: break-word;}
         .slip-theme-orange .k-item-highlight .name { color: var(--orange-main); }
         .k-item-highlight .qty { font-size: 16px; font-weight: bold; color: var(--danger); margin-top: 5px;}
-        .k-item-highlight .qty-sub { font-size: 12px; font-weight: normal; color: #64748b; margin-top: 2px;}
+
+        .return-qty-box { background: rgba(255,255,255,0.8); border: 1px dashed #cbd5e1; border-radius: 8px; padding: 10px; margin-top: 10px; display: none; }
+        .return-qty-row { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px;}
+        .return-qty-row:last-child { margin-bottom: 0; }
 
         .k-parties { position: relative; z-index: 1; margin-bottom: 10px; background: rgba(255,255,255,0.6); padding: 10px; border-radius: 12px;}
         .k-party { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; font-size: 13px;}
@@ -203,26 +190,10 @@
         .k-label { color: #64748b; white-space: nowrap;}
         .k-value { font-weight: bold; color: #1e293b; text-align: right;}
         
-        /* กรอบภาพใบเสร็จ ที่ยืดหยุ่นและไม่ตัดภาพ 100% */
-        .k-image-container { 
-            flex: 1; 
-            display: flex; justify-content: center; align-items: center; 
-            margin: 10px 0 0 0; position: relative; z-index: 1; 
-            background: #f8fafc; border-radius: 10px; padding: 5px; 
-            border: 1px dashed #cbd5e1; min-height: 0; 
-        }
-        .k-image-container img { 
-            max-width: 100%; max-height: 100%; width: auto; height: auto; 
-            border-radius: 6px; object-fit: contain; 
-            display: block; 
-        }
+        .k-image-container { flex: 1; display: flex; justify-content: center; align-items: center; margin: 10px 0 0 0; position: relative; z-index: 1; background: #f8fafc; border-radius: 10px; padding: 5px; border: 1px dashed #cbd5e1; min-height: 0; }
+        .k-image-container img { max-width: 100%; max-height: 100%; width: auto; height: auto; border-radius: 6px; object-fit: contain; display: block; }
         
-        .k-footer { 
-            margin-top: auto; padding-top: 15px; 
-            border-top: 1px dashed rgba(0,0,0,0.05); 
-            display: flex; justify-content: center; align-items: center; 
-            position: relative; z-index: 1;
-        }
+        .k-footer { margin-top: auto; padding-top: 15px; border-top: 1px dashed rgba(0,0,0,0.05); display: flex; justify-content: center; align-items: center; position: relative; z-index: 1;}
 
         #reader { width: 100%; min-height: 250px; background: #000; border-radius: 12px; overflow: hidden; border: none; }
         .qr-upload-btn { display: block; padding: 12px; background: #f1f5f9; color: var(--primary); border-radius: 10px; font-weight: bold; cursor: pointer; text-align: center; width: 100%; border: 2px dashed #cbd5e1; margin-top: 15px; transition: 0.3s; }
@@ -244,14 +215,12 @@
     </style>
 </head>
 <body>
-    <!-- Overlay Loading -->
     <div id="loading-overlay" class="loading-overlay hidden">
         <i class="fas fa-circle-notch spinner"></i>
         <h3 id="loading-title" style="color: var(--primary);">กำลังดำเนินการ...</h3>
         <p style="color: #64748b;">(อาจใช้เวลาโหลดข้อมูลจาก Cloud สักครู่)</p>
     </div>
 
-    <!-- Custom Alert Modal -->
     <div id="custom-alert" class="modal hidden" style="z-index: 99999;">
         <div class="modal-content alert-box">
             <div id="custom-alert-icon" class="alert-icon"><i class="fas fa-info-circle"></i></div>
@@ -261,7 +230,6 @@
         </div>
     </div>
 
-    <!-- Custom Confirm Modal -->
     <div id="custom-confirm" class="modal hidden" style="z-index: 99999;">
         <div class="modal-content alert-box">
             <div class="alert-icon" style="color: var(--warning);"><i class="fas fa-question-circle"></i></div>
@@ -300,13 +268,11 @@
     </div>
 
     <div class="app-container">
-        <!-- Datalist -->
         <datalist id="ipd3-staff-list"></datalist>
         <datalist id="other-staff-list"></datalist>
         <datalist id="item-list"></datalist>
         <datalist id="unit-list"></datalist>
 
-        <!-- Header -->
         <header>
             <div class="app-logo">
                 <i class="fas fa-infinity"></i> 
@@ -314,11 +280,9 @@
                 <span class="return">Return</span> 
                 <span class="tagline">ยืมแล้วคืน</span>
             </div>
-            <!-- ปุ่มตั้งค่ามุมขวาบน -->
             <button class="settings-btn" onclick="openSettings()"><i class="fas fa-cog"></i></button>
         </header>
 
-        <!-- Sidebar / Bottom Nav -->
         <nav class="bottom-nav">
             <div class="sidebar-header">
                 <div class="app-logo" style="flex-direction: column; gap: 4px; position:relative;">
@@ -336,7 +300,7 @@
         </nav>
 
         <div class="main-content">
-            <!-- 1. หน้าแรก -->
+            <!-- หน้าแรก -->
             <main id="home-page" class="page active">
                 <h3 style="color: #1e293b; margin-bottom: 20px;">เลือกทำรายการ</h3>
                 <button onclick="openQrScanner()" class="glass-btn btn-outline" style="margin-bottom: 20px;">
@@ -362,7 +326,7 @@
                 </div>
             </main>
 
-            <!-- 2. หน้ารายการค้าง -->
+            <!-- หน้ารายการค้าง -->
             <main id="dashboard-page" class="page">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                     <h3 style="color: #1e293b;">รายการค้างส่งคืน</h3>
@@ -378,7 +342,7 @@
                 <div id="borrow-list"><div style="text-align: center; padding: 40px; color: var(--primary);"><i class="fas fa-spinner fa-spin fa-2x"></i></div></div>
             </main>
 
-            <!-- 3. หน้าประวัติ -->
+            <!-- หน้าประวัติ -->
             <main id="history-page" class="page">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                     <h3 style="color: var(--success);">ประวัติ (คืนแล้ว)</h3>
@@ -402,7 +366,7 @@
                 </div>
             </main>
 
-            <!-- 4. หน้าฟอร์มบันทึก / แก้ไข (แก้ไขการเรียงลำดับ Label ให้ตรงความจริง) -->
+            <!-- หน้าฟอร์มบันทึก / แก้ไข -->
             <main id="borrow-page" class="page">
                 <div class="toggle-container" id="tx-toggle-box">
                     <div id="toggle-lent" class="toggle-btn active-lent" onclick="switchTxType('ถูกยืม')">ถูกยืมไป</div>
@@ -435,7 +399,7 @@
                     <span class="input-label">กำหนดส่งคืน:</span>
                     <input type="date" id="b-due" required class="glass-input">
                     
-                    <!-- ส่วนระบุบุคคล ยึดตาม ฝั่ง IPD3 เสมอ จะได้ไม่งง -->
+                    <!-- ส่วนระบุบุคคล -->
                     <div style="background: rgba(255,255,255,0.7); border-radius:12px; padding: 10px; margin-bottom: 15px; border: 1px dashed #cbd5e1;">
                         <span class="input-label" id="label-dept">แผนกที่ยืมของไป:</span>
                         <select id="b-dept-select" required class="glass-input" onchange="toggleDeptOther('b')">
@@ -444,7 +408,6 @@
                         </select>
                         <input type="text" id="b-dept-other" placeholder="ระบุชื่อหน่วยงาน..." class="glass-input" style="display: none;">
 
-                        <!-- ล็อคให้เป็นชื่อนี้เสมอ จะได้ไม่สลับไปมาตอนกรอก -->
                         <span class="input-label" id="label-ipd3-staff">เจ้าหน้าที่ IPD3 (ผู้ให้ยืม):</span>
                         <input type="text" id="b-staff-ipd3" list="ipd3-staff-list" class="glass-input" required placeholder="ระบุชื่อ..." autocomplete="off">
                         
@@ -466,7 +429,7 @@
                 </form>
             </main>
 
-            <!-- 5. หน้าออกรายงาน -->
+            <!-- หน้าออกรายงาน -->
             <main id="report-page" class="page">
                 <h3 style="color: var(--primary); margin-bottom: 20px;"><i class="fas fa-file-excel"></i> ส่งออกรายงาน (CSV)</h3>
                 <div style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0;">
@@ -487,7 +450,7 @@
         </div>
     </div>
 
-    <!-- Modal สแกน QR -->
+    <!-- Modal สแกน QR (รื้อกลับไปใช้เวอร์ชันที่สแกนติดง่ายๆ) -->
     <div id="qr-modal" class="modal hidden">
         <div class="modal-content" style="width: 95%; max-width: 400px; padding: 15px;">
             <h3 style="color: #1e293b; margin-bottom: 15px; text-align: center;"><i class="fas fa-qrcode"></i> สแกน QR เพื่อทำรายการ</h3>
@@ -547,7 +510,7 @@
         </div>
     </div>
 
-    <!-- Modal ใบเสร็จ (Slip 9:16 โชว์โลโก้ล่างสุด) -->
+    <!-- Modal ใบเสร็จ -->
     <div id="receipt-modal" class="modal hidden">
         <div class="modal-content" style="background: transparent; box-shadow: none; padding: 10px; display: flex; flex-direction: column; align-items: center;">
             <div id="slip-capture-area" class="kplus-slip slip-theme-blue">
@@ -565,10 +528,8 @@
                 <div class="k-item-highlight">
                     <div class="label">รายการอุปกรณ์</div>
                     <div class="name" id="slip-item">-</div>
-                    <!-- ซ่อนตอนคืนของ เพื่อไปใช้ตารางสรุปแทน -->
                     <div class="qty" id="slip-qty-row">จำนวน <span id="slip-qty"></span></div>
                     
-                    <!-- กล่องสรุปการคืนของ -->
                     <div id="slip-return-qty-box" style="display: none; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px; padding: 10px; margin-top: 15px;">
                         <div style="display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 13px;">
                             <span style="color: #64748b;">จำนวนยืมทั้งหมด:</span>
@@ -611,7 +572,6 @@
                     </div>
                 </div>
                 
-                <!-- คอนเทนเนอร์ภาพแบบยืดสุดกรอบ (9:16) -->
                 <div class="k-image-container" id="slip-image-container" style="display: none;">
                     <img id="slip-preview-img" src="" alt="หลักฐานแนบ">
                 </div>
@@ -673,7 +633,7 @@
             if(confirmResolve) { confirmResolve(result); confirmResolve = null; }
         }
 
-        // ตั้งค่า Time out เป็น 30 วินาที เพื่อให้บันทึกรูปใหญ่ๆ ทัน
+        // เพิ่ม Timeout เป็น 30 วิ ป้องกัน Error ตัดจบไวไป
         const fetchWithTimeout = async (resource, options = {}) => {
             const { timeout = 30000 } = options;
             const controller = new AbortController();
@@ -695,7 +655,6 @@
             } catch (err) { throw new Error("การรับส่งข้อมูลล่าช้าหรือผิดพลาด (กรุณาลองอีกครั้ง)"); }
         }
 
-        // ================== ระบบ Settings อัปเดตขึ้น Cloud เรียลไทม์ ==================
         function updateDatalists() {
             const populate = (id, arr) => {
                 const el = document.getElementById(id); el.innerHTML = '';
@@ -749,8 +708,6 @@
                 fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'save_settings', settings: globalSettings }) }).catch(e=>{});
             }
         }
-
-        // ==============================================================================
 
         function formatThaiDate(dStr) {
             if(!dStr) return '-';
@@ -808,7 +765,6 @@
             
             toggleLent.classList.remove('active-lent'); toggleBorrow.classList.remove('active-borrow');
             
-            // ล็อคให้ช่องบนเป็นของ IPD3 เสมอ ช่องล่างเป็นของแผนกอื่นเสมอ เพื่อกันสับสน
             if(type === 'ถูกยืม') {
                 toggleLent.classList.add('active-lent');
                 bForm.className = 'theme-orange';
@@ -884,7 +840,8 @@
                     sender: sender, 
                     receiver: item.Receiver, 
                     customNotes: customNotes,
-                    returnedQtyStr: item.Qty,
+                    returnedQtyStr: item.Qty, 
+                    originalQtyStr: item.Qty, 
                     isPartial: false 
                 };
                 generateSlip('return', slipData, item.ReturnImage || item.BorrowImage);
@@ -893,7 +850,7 @@
             }
         }
 
-        // ================== บันทึกข้อมูล (New / Edit) ==================
+        // ================== บันทึกยืม/แก้ไข ==================
         document.getElementById('borrow-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const editId = document.getElementById('b-edit-id').value;
@@ -906,15 +863,15 @@
             const dept = document.getElementById('b-dept-select').value === 'อื่นๆ' ? document.getElementById('b-dept-other').value : document.getElementById('b-dept-select').value;
             const qty = document.getElementById('b-qty').value + ' ' + unitVal;
             
-            // อ่านค่าจาก Input ที่แก้ไขให้ไม่งง
+            // อ่านค่าจาก Input ที่ตรงกับหน้าจอ
             const ipd3Staff = document.getElementById('b-staff-ipd3').value;
             const otherStaff = document.getElementById('b-staff-other').value;
             
-            // ถ้าถูกยืม (IPD3=ผู้ให้ยืม) ถ้าไปยืมมา (IPD3=ผู้ยืม)
+            checkAndSyncSettings(ipd3Staff, otherStaff, itemVal, unitVal);
+
+            // แมปลอจิกให้ถูกต้อง: ถูกยืม=เราให้เขายืม, ยืมมา=เขาให้เรายืม
             let lender = txType === 'ถูกยืม' ? ipd3Staff : otherStaff;
             let borrower = txType === 'ถูกยืม' ? otherStaff : ipd3Staff;
-
-            checkAndSyncSettings(ipd3Staff, otherStaff, itemVal, unitVal);
 
             const payload = {
                 action: actionCmd, id: editId, txType: txType, category: document.getElementById('b-category').value,
@@ -988,7 +945,7 @@
             }
 
             const btn = document.getElementById('btn-submit-borrow');
-            btn.innerHTML = '<i class="fas fa-save"></i> บันทึกการแก้ไข (พร้อมสร้างสลิป)';
+            btn.innerHTML = '<i class="fas fa-save"></i> บันทึกการแก้ไข';
             document.getElementById('btn-cancel-edit').style.display = 'block';
             document.getElementById('tx-toggle-box').style.display = 'none';
         }
@@ -1005,7 +962,7 @@
             setNow('b-date', 'b-time');
         }
 
-        // ================== โหลดข้อมูลแบบรวดเร็ว (Cache) ==================
+        // ================== โหลดข้อมูล ==================
         async function fetchData(showUI = false) {
             if(API_URL === 'YOUR_WEB_APP_URL_HERE') return;
             if(showUI) showLoading(true, "กำลังซิงค์ข้อมูลจาก Cloud...");
@@ -1180,7 +1137,6 @@
             const title = document.getElementById('modal-title');
             const btn = document.getElementById('r-submit-btn');
 
-            // ล็อคหน้าจอคืนของให้ตรงกัน
             if(arg1 === 'ถูกยืม') {
                 form.className = 'theme-orange';
                 title.style.color = 'var(--orange-main)';
@@ -1264,17 +1220,26 @@
             finally { showLoading(false); }
         });
 
-        // ================== QR Scanner ==================
+        // ================== QR Scanner (สแกนปุ๊บ ติดปั๊บ) ==================
         function openQrScanner() {
             document.getElementById('qr-modal').classList.remove('hidden');
             setTimeout(() => {
-                if(!html5QrCode) html5QrCode = new Html5QrcodeScanner("reader", { fps: 10, qrbox: { width: 250, height: 250 } }, false);
-                html5QrCode.render(async (decodedText) => {
-                    await html5QrCode.clear();
-                    closeQrScanner();
-                    processQRCode(decodedText);
-                }, (err) => { });
+                if(!html5QrCode) html5QrCode = new Html5Qrcode("reader");
+                const config = { fps: 10, qrbox: { width: 250, height: 250 } };
+                
+                html5QrCode.start({ facingMode: "environment" }, config, onScanSuccess)
+                .catch(err => {
+                    showAlert("ไม่สามารถเปิดกล้องได้ กรุณาใช้กล้องหลัง หรืออัปโหลดรูปแทน", "error");
+                });
             }, 300);
+        }
+
+        async function onScanSuccess(decodedText) {
+            if(html5QrCode) {
+                try { await html5QrCode.stop(); html5QrCode.clear(); } catch(e){}
+            }
+            closeQrScanner();
+            processQRCode(decodedText);
         }
 
         function scanQRFromFile(event) {
@@ -1289,7 +1254,7 @@
 
         function closeQrScanner() { 
             document.getElementById('qr-modal').classList.add('hidden'); 
-            if(html5QrCode && html5QrCode.isScanning) { html5QrCode.stop().then(()=>{ html5QrCode.clear(); }).catch(e=>{}); }
+            if(html5QrCode) { try { html5QrCode.stop().then(() => html5QrCode.clear()); } catch(e){} }
         }
 
         async function processQRCode(decodedText) {
@@ -1325,7 +1290,7 @@
             setNow('', 'slip-time-text');
             
             const isLent = (data.TransactionType === 'ถูกยืม' || data.txType === 'ถูกยืม');
-            let titleHTML = ''; let s_name = '', s_dept = '', r_name = '', r_dept = '';
+            let titleHTML = ''; 
 
             const slipContainer = document.getElementById('slip-capture-area');
             const qrBox = document.getElementById('slip-qr-box');
@@ -1337,35 +1302,39 @@
             if(data.ID || data.id) new QRCode(document.getElementById("slip-qrcode"), { text: (data.ID || data.id), width: 65, height: 65 });
 
             if (actionType === 'borrow') {
-                if (isLent) {
-                    titleHTML = `บันทึกการยืมรายการ<br><span style="color:var(--orange-main); font-size:15px;">(รายการที่ถูกยืมไป)</span>`;
-                    s_name = data.Lender; s_dept = 'IPD3';
-                    r_name = data.Borrower; r_dept = data.Dept;
-                } else {
-                    titleHTML = `บันทึกการยืมรายการ<br><span style="color:var(--primary); font-size:15px;">(รายการที่เรายืมมา)</span>`;
-                    s_name = data.Lender; s_dept = data.Dept;
-                    r_name = data.Borrower; r_dept = 'IPD3';
-                }
-                document.getElementById('slip-qty-row').style.display = 'block';
                 document.getElementById('slip-return-qty-box').style.display = 'none';
+                document.getElementById('slip-qty-row').style.display = 'flex';
                 document.getElementById('slip-qty').innerText = data.Qty || '-';
                 
+                if (isLent) {
+                    titleHTML = `บันทึกการยืมรายการ<br><span style="color:var(--orange-main); font-size:15px;">(รายการที่ถูกยืมไป)</span>`;
+                    document.getElementById('slip-person1-label').innerText = 'ชื่อผู้ให้ยืม:';
+                    document.getElementById('slip-person1').innerText = data.Lender;
+                    document.getElementById('slip-dept1').innerText = '(แผนก: IPD3)';
+                    document.getElementById('slip-dept1').style.color = 'var(--orange-main)';
+                    
+                    document.getElementById('slip-person2-label').innerText = 'ชื่อผู้ยืม:';
+                    document.getElementById('slip-person2').innerText = data.Borrower;
+                    document.getElementById('slip-dept2').innerText = '(แผนก: ' + data.Dept + ')';
+                    document.getElementById('slip-dept2').style.color = '#64748b';
+                } else {
+                    titleHTML = `บันทึกการยืมรายการ<br><span style="color:var(--primary); font-size:15px;">(รายการที่ยืมมา)</span>`;
+                    document.getElementById('slip-person1-label').innerText = 'ชื่อผู้ให้ยืม:';
+                    document.getElementById('slip-person1').innerText = data.Lender;
+                    document.getElementById('slip-dept1').innerText = '(แผนก: ' + data.Dept + ')';
+                    document.getElementById('slip-dept1').style.color = '#64748b';
+                    
+                    document.getElementById('slip-person2-label').innerText = 'ชื่อผู้ยืม:';
+                    document.getElementById('slip-person2').innerText = data.Borrower;
+                    document.getElementById('slip-dept2').innerText = '(แผนก: IPD3)';
+                    document.getElementById('slip-dept2').style.color = 'var(--primary)';
+                }
                 document.getElementById('slip-borrow-date-row').style.display = 'flex';
                 document.getElementById('slip-borrow-date-val').innerText = formatThaiDate(data.BorrowDate || data.borrowDate);
                 document.getElementById('slip-return-date-row').style.display = 'none';
                 document.getElementById('slip-notes-row').style.display = 'none';
             } 
             else if (actionType === 'return') {
-                if (isLent) {
-                    titleHTML = `บันทึกการคืนรายการ<br><span style="color:var(--orange-main); font-size:15px;">(รายการที่ถูกยืมไป)</span>`;
-                    s_name = data.sender; s_dept = data.Dept;
-                    r_name = data.receiver; r_dept = 'IPD3';
-                } else {
-                    titleHTML = `บันทึกการคืนรายการ<br><span style="color:var(--primary); font-size:15px;">(รายการที่เรายืมมา)</span>`;
-                    s_name = data.sender; s_dept = 'IPD3';
-                    r_name = data.receiver; r_dept = data.Dept;
-                }
-                
                 document.getElementById('slip-qty-row').style.display = 'none';
                 document.getElementById('slip-return-qty-box').style.display = 'block';
                 
@@ -1374,6 +1343,30 @@
                 document.getElementById('slip-sum-remain').innerText = data.remainingQtyStr || '0';
 
                 qrBox.style.display = 'none'; 
+                
+                if (isLent) {
+                    titleHTML = `บันทึกการคืนรายการ<br><span style="color:var(--orange-main); font-size:15px;">(รายการที่ถูกยืมไป)</span>`;
+                    document.getElementById('slip-person1-label').innerText = 'ชื่อผู้ส่งคืน:';
+                    document.getElementById('slip-person1').innerText = data.sender || '-';
+                    document.getElementById('slip-dept1').innerText = '(แผนก: ' + data.Dept + ')';
+                    document.getElementById('slip-dept1').style.color = '#64748b';
+
+                    document.getElementById('slip-person2-label').innerText = 'ชื่อผู้รับคืน:';
+                    document.getElementById('slip-person2').innerText = data.receiver || '-';
+                    document.getElementById('slip-dept2').innerText = '(แผนก: IPD3)';
+                    document.getElementById('slip-dept2').style.color = 'var(--orange-main)';
+                } else {
+                    titleHTML = `บันทึกการคืนรายการ<br><span style="color:var(--primary); font-size:15px;">(รายการที่ยืมมา)</span>`;
+                    document.getElementById('slip-person1-label').innerText = 'ชื่อผู้ส่งคืน:';
+                    document.getElementById('slip-person1').innerText = data.sender || '-';
+                    document.getElementById('slip-dept1').innerText = '(แผนก: IPD3)';
+                    document.getElementById('slip-dept1').style.color = 'var(--primary)';
+
+                    document.getElementById('slip-person2-label').innerText = 'ชื่อผู้รับคืน:';
+                    document.getElementById('slip-person2').innerText = data.receiver || '-';
+                    document.getElementById('slip-dept2').innerText = '(แผนก: ' + data.Dept + ')';
+                    document.getElementById('slip-dept2').style.color = '#64748b';
+                }
                 
                 document.getElementById('slip-borrow-date-row').style.display = 'flex';
                 document.getElementById('slip-borrow-date-val').innerText = formatThaiDate(data.BorrowDate);
@@ -1389,42 +1382,6 @@
             document.getElementById('slip-type-title').innerHTML = titleHTML;
             document.getElementById('slip-id').innerText = data.ID || data.id || '-';
             document.getElementById('slip-item').innerText = data.Item || '-';
-
-            // แสดงแผนกให้ถูกต้อง
-            if(actionType === 'borrow') {
-                 document.getElementById('slip-person1-label').innerText = 'ชื่อผู้ให้ยืม:';
-                 document.getElementById('slip-person2-label').innerText = 'ชื่อผู้ยืม:';
-                 
-                 if(isLent) {
-                     document.getElementById('slip-dept1').innerText = '(แผนก: IPD3)';
-                     document.getElementById('slip-dept1').style.color = 'var(--orange-main)';
-                     document.getElementById('slip-dept2').innerText = '(แผนก: ' + r_dept + ')';
-                     document.getElementById('slip-dept2').style.color = '#64748b';
-                 } else {
-                     document.getElementById('slip-dept1').innerText = '(แผนก: ' + s_dept + ')';
-                     document.getElementById('slip-dept1').style.color = '#64748b';
-                     document.getElementById('slip-dept2').innerText = '(แผนก: IPD3)';
-                     document.getElementById('slip-dept2').style.color = 'var(--primary)';
-                 }
-            } else { // Return
-                 document.getElementById('slip-person1-label').innerText = 'ชื่อผู้ส่งคืน:';
-                 document.getElementById('slip-person2-label').innerText = 'ชื่อผู้รับคืน:';
-                 
-                 if(isLent) {
-                     document.getElementById('slip-dept1').innerText = '(แผนก: ' + s_dept + ')';
-                     document.getElementById('slip-dept1').style.color = '#64748b';
-                     document.getElementById('slip-dept2').innerText = '(แผนก: IPD3)';
-                     document.getElementById('slip-dept2').style.color = 'var(--orange-main)';
-                 } else {
-                     document.getElementById('slip-dept1').innerText = '(แผนก: IPD3)';
-                     document.getElementById('slip-dept1').style.color = 'var(--primary)';
-                     document.getElementById('slip-dept2').innerText = '(แผนก: ' + r_dept + ')';
-                     document.getElementById('slip-dept2').style.color = '#64748b';
-                 }
-            }
-
-            document.getElementById('slip-person1').innerText = s_name;
-            document.getElementById('slip-person2').innerText = r_name;
 
             const imgContainer = document.getElementById('slip-image-container');
             const imgEl = document.getElementById('slip-preview-img');
