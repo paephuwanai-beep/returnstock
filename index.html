@@ -495,7 +495,7 @@
 
     <script>
         // ===============================================
-        const API_URL = 'https://script.google.com/macros/s/AKfycbyUL30P42uAmFOloAeJsgio0hxGXc0WFl4AbPR7lTCok1rgasDdHspPSgMb-kNafdo/exec'; // <--- ใส่ URL ตรงนี้
+        const API_URL = 'https://script.google.com/macros/s/AKfycbwpSgqCTOyi3kEP_Q4Ivw0sRuE5NB6vW_IX0zUvJv2vkltGInSAKfczFhmEq3noi841/exec'; // <--- ใส่ URL ตรงนี้
         // ===============================================
 
         let globalData = [];
@@ -611,13 +611,15 @@
                 img.src = event.target.result;
                 img.onload = function() {
                     const canvas = document.createElement('canvas');
-                    const MAX_WIDTH = 800; 
+                    // ปรับความกว้างสูงสุดเหลือ 400px (เพื่อไม่ให้เกิน 50,000 ตัวอักษรของ Google Sheets)
+                    const MAX_WIDTH = 400; 
                     let width = img.width; let height = img.height;
                     if (width > MAX_WIDTH) { height = Math.round((height * MAX_WIDTH) / width); width = MAX_WIDTH; }
                     canvas.width = width; canvas.height = height;
                     const ctx = canvas.getContext('2d');
                     ctx.drawImage(img, 0, 0, width, height);
-                    callback(canvas.toDataURL('image/jpeg', 0.6));
+                    // ลดคุณภาพภาพเหลือ 40%
+                    callback(canvas.toDataURL('image/jpeg', 0.4));
                 }
             }
         }
