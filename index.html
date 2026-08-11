@@ -19,7 +19,8 @@
             --success: #10b981;    
             --danger: #ef4444;     
             --warning: #f59e0b;    
-            --orange-main: #f97316;
+            --orange-main: #ea580c;
+            --orange-light: #fb923c;
             --bg-gradient: linear-gradient(135deg, #f0f7ff 0%, #e0f2fe 100%);
             --glass-bg: rgba(255, 255, 255, 0.85);
             --glass-border: rgba(255, 255, 255, 0.6);
@@ -32,7 +33,6 @@
         .glass { background: var(--glass-bg); backdrop-filter: blur(16px); border: 1px solid var(--glass-border); }
 
         header { padding: 15px 20px; text-align: center; z-index: 2; position: relative; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); background: white;}
-        
         .app-logo { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px; font-weight: 800; font-size: 24px; font-style: italic; line-height: 1;}
         .app-logo i { color: var(--primary); font-size: 26px;}
         .app-logo .ipd3 { background: linear-gradient(90deg, #004aad, #0096ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -68,7 +68,7 @@
         .glass-btn { width: 100%; padding: 14px; border-radius: 12px; border: none; cursor: pointer; font-weight: bold; color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.1); font-size: 15px; transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 8px; }
         .glass-btn:active { transform: scale(0.98); }
         .btn-primary { background: linear-gradient(135deg, var(--primary), var(--secondary)); }
-        .btn-orange { background: linear-gradient(135deg, var(--orange-main), #f59e0b) !important; }
+        .btn-orange { background: linear-gradient(135deg, var(--orange-main), var(--orange-light)) !important; }
         .btn-outline { background: white; color: var(--primary); border: 2px dashed var(--primary); box-shadow: none;}
 
         .file-upload-wrapper { position: relative; width: 100%; margin-bottom: 15px; }
@@ -82,7 +82,6 @@
         .tab-btn.active-orange { background: #fff7ed; color: var(--orange-main); border: 1px solid var(--orange-main); }
         .tab-btn.active-blue { background: #eff6ff; color: var(--primary); border: 1px solid var(--primary); }
 
-        /* Item Cards */
         .item-card { background: white; border-radius: 16px; padding: 15px; margin-bottom: 15px; border: 1px solid #f1f5f9; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
         .item-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; border-bottom: 1px solid #f8fafc; padding-bottom: 10px;}
         .item-title { font-size: 16px; font-weight: bold; color: #1e293b; display: flex; align-items: center; gap: 8px;}
@@ -103,8 +102,9 @@
         .overdue-row { border: 2px solid var(--danger); }
         .overdue-badge { background: #fef2f2; color: var(--danger); padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: bold; animation: pulse 1.5s infinite; }
 
+        /* History Table ใหม่ */
         .table-responsive { width: 100%; overflow-x: auto; border-radius: 12px; background: white; border: 1px solid #e2e8f0;}
-        .history-table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 600px;}
+        .history-table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 650px;}
         .history-table th { background: #f8fafc; color: #475569; padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0; font-weight: bold;}
         .history-table td { padding: 12px; border-bottom: 1px solid #f1f5f9; color: #1e293b;}
         .badge-type { padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: bold;}
@@ -125,7 +125,7 @@
         .hidden { display: none !important; }
         .modal-content { background: white; width: 100%; max-width: 450px; max-height: 90vh; overflow-y: auto; padding: 20px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.2);}
         
-        /* ================= ใบเสร็จปรับใหม่ (ภาพไม่ตัด รองรับตั้ง/นอน) ================= */
+        /* ================= ใบเสร็จ K+ Style ================= */
         .kplus-slip { border-radius: 12px; padding: 20px; margin-bottom: 15px; font-family: 'Sarabun', sans-serif; position: relative; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border: 1px solid #eee; width: 100%; }
         .slip-theme-blue { background: linear-gradient(180deg, #e0f2fe 0%, #f0f9ff 30%, #ffffff 100%); border-color: #bae6fd; }
         .slip-theme-orange { background: linear-gradient(180deg, #ffedd5 0%, #fff7ed 30%, #ffffff 100%); border-color: #fed7aa; }
@@ -156,7 +156,6 @@
         .k-label { color: #64748b; white-space: nowrap;}
         .k-value { font-weight: bold; color: #1e293b; text-align: right;}
         
-        /* แก้ไขภาพให้ยาวแค่ไหนก็ไม่ตัด */
         .k-image-container { text-align: center; margin: 15px 0; position: relative; z-index: 1; background: #f8fafc; border-radius: 10px; padding: 5px;}
         .k-image-container img { width: 100%; height: auto; max-height: 350px; border-radius: 8px; border: 1px solid #e2e8f0; object-fit: contain; background: #fff; display: block;}
         
@@ -188,11 +187,11 @@
     <div id="loading-overlay" class="loading-overlay hidden">
         <i class="fas fa-circle-notch spinner"></i>
         <h3 style="color: var(--primary);">กำลังดำเนินการ...</h3>
-        <p style="color: #64748b;">กรุณารอสักครู่</p>
+        <p style="color: #64748b;">กรุณารอสักครู่ (ไม่เกิน 10 วินาที)</p>
     </div>
 
     <div class="app-container">
-        <!-- Datalist สำหรับจำค่าให้พิมพ์ง่ายขึ้น -->
+        <!-- Datalists สำหรับจำค่าการพิมพ์ -->
         <datalist id="ipd3-staff-list"></datalist>
         <datalist id="other-staff-list"></datalist>
         <datalist id="item-list"></datalist>
@@ -208,7 +207,7 @@
             </div>
         </header>
 
-        <!-- Sidebar Navigation -->
+        <!-- Sidebar / Bottom Nav -->
         <nav class="bottom-nav">
             <div class="sidebar-header">
                 <div class="app-logo" style="flex-direction: column; gap: 4px;">
@@ -229,7 +228,7 @@
             <main id="home-page" class="page active">
                 <h3 style="color: #1e293b; margin-bottom: 20px;">เลือกทำรายการ</h3>
                 <button onclick="openQrScanner()" class="glass-btn btn-outline" style="margin-bottom: 20px;">
-                    <i class="fas fa-qrcode"></i> สแกน QR Code เพื่อคืนของ
+                    <i class="fas fa-qrcode"></i> สแกน QR Code คืนของ
                 </button>
 
                 <div class="home-grid">
@@ -246,7 +245,7 @@
                     <div class="menu-card card-history" onclick="switchPage('history-page')">
                         <i class="fas fa-history"></i>
                         <h3>ประวัติคืนแล้ว</h3>
-                        <p>ดูรายการที่คืนสำเร็จ</p>
+                        <p>จัดการประวัติ / ยกเลิกคืน</p>
                     </div>
                 </div>
             </main>
@@ -279,14 +278,13 @@
                             <tr>
                                 <th>รายการ</th>
                                 <th>ประเภท</th>
-                                <th>วันที่ยืม</th>
-                                <th>วันที่คืน</th>
-                                <th>ผู้รับ/ผู้ส่งคืน</th>
+                                <th>การยืม</th>
+                                <th>การคืน</th>
                                 <th>จัดการ</th>
                             </tr>
                         </thead>
                         <tbody id="history-table-body">
-                            <tr><td colspan="6" style="text-align: center; padding: 20px;"><i class="fas fa-spinner fa-spin"></i> กำลังโหลด...</td></tr>
+                            <tr><td colspan="5" style="text-align: center; padding: 20px;"><i class="fas fa-spinner fa-spin"></i> กำลังโหลด...</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -347,7 +345,7 @@
                         <img id="b-img-preview" class="image-preview">
                     </div>
                     
-                    <button type="submit" id="btn-submit-borrow" class="btn-orange glass-btn"><i class="fas fa-save"></i> บันทึกรายการ</button>
+                    <button type="submit" id="btn-submit-borrow" class="btn-orange glass-btn"><i class="fas fa-save"></i> บันทึกรายการใหม่</button>
                     <button type="button" id="btn-cancel-edit" onclick="resetBorrowForm()" class="glass-btn" style="background:#f1f5f9; color:#475569; margin-top:10px; display:none;">ยกเลิกการแก้ไข</button>
                 </form>
             </main>
@@ -362,13 +360,11 @@
                         <option value="ถูกยืม">เฉพาะที่ถูกยืมไป</option>
                         <option value="ยืมมา">เฉพาะที่ยืมมา</option>
                     </select>
-                    
                     <span class="input-label">ช่วงวันที่ยืม:</span>
                     <div style="display: flex; gap: 10px;">
                         <div style="flex:1;"><small>จากวันที่</small><input type="date" id="rep-start" class="glass-input"></div>
                         <div style="flex:1;"><small>ถึงวันที่</small><input type="date" id="rep-end" class="glass-input"></div>
                     </div>
-                    
                     <button onclick="exportReport()" class="btn-primary glass-btn" style="margin-top: 10px;"><i class="fas fa-download"></i> ดาวน์โหลดไฟล์ CSV</button>
                 </div>
             </main>
@@ -380,12 +376,10 @@
         <div class="modal-content" style="width: 95%; max-width: 400px; padding: 15px;">
             <h3 style="color: #1e293b; margin-bottom: 15px; text-align: center;"><i class="fas fa-qrcode"></i> สแกน QR เพื่อทำรายการ</h3>
             <div id="reader"></div>
-            
             <label class="qr-upload-btn" style="display:block;">
-                <i class="fas fa-image"></i> อัปโหลดรูปภาพที่มี QR Code
+                <i class="fas fa-image"></i> อัปโหลดรูปภาพที่มี QR Code แทน
                 <input type="file" id="qr-upload-file" accept="image/*" style="display:none;" onchange="scanQRFromFile(event)">
             </label>
-
             <button onclick="closeQrScanner()" class="glass-btn" style="background: #f1f5f9; color:#475569; margin-top: 10px;">ปิดหน้าต่าง</button>
         </div>
     </div>
@@ -404,10 +398,10 @@
                     <input type="time" id="r-time" class="glass-input" style="flex: 1;">
                 </div>
                 
-                <span class="input-label" id="label-r-receiver">ผู้รับคืน (จนท. IPD3):</span>
+                <span class="input-label" id="label-r-receiver">ชื่อผู้รับคืน (จนท. IPD3):</span>
                 <input type="text" id="r-staff-dropdown" list="ipd3-staff-list" class="glass-input" placeholder="ระบุชื่อ..." autocomplete="off">
 
-                <span class="input-label" id="label-r-sender">ชื่อผู้ส่งคืน (แผนกอื่น):</span>
+                <span class="input-label" id="label-r-sender">ชื่อผู้มาส่งคืน (แผนกอื่น):</span>
                 <input type="text" id="r-other-person" list="other-staff-list" class="glass-input" placeholder="ระบุชื่อ (ไม่บังคับ)..." autocomplete="off">
                 
                 <span class="input-label">หมายเหตุการคืน (ถ้ามี):</span>
@@ -437,6 +431,7 @@
                         <div class="k-title" id="slip-type-title" style="font-size: 20px;">บันทึกสำเร็จ</div>
                         <div class="k-datetime" id="slip-time-text"></div>
                     </div>
+                    <!-- QR Code ไว้แถวเดียวกับหัวข้อ -->
                     <div class="slip-qr-top" id="slip-qr-box">
                         <div id="slip-qrcode"></div>
                     </div>
@@ -472,6 +467,7 @@
                     </div>
                 </div>
                 
+                <!-- ภาพหลักฐาน (ใหญ่ขึ้น ไม่ตัด) -->
                 <div class="k-image-container" id="slip-image-container" style="display: none;">
                     <img id="slip-preview-img" src="" alt="หลักฐานแนบ">
                 </div>
@@ -488,7 +484,7 @@
 
     <script>
         // ===============================================
-        const API_URL = 'https://script.google.com/macros/s/AKfycbw_YFCltdFstQfyR2OxIcGq8W64slNenN4zbBHJkKsh9oQtDwHX99y9dQd8mFsnDiOF/exec'; // <--- ใส่ URL ตรงนี้
+        const API_URL = 'https://script.google.com/macros/s/AKfycbxPiyeZ7S2RJIW2x_iTRo3mtW_nf5Jmik-P_perqRY6YU70-0Y7H2IM8hfZ0fXoxKmD/exec'; // <--- ใส่ URL ตรงนี้
         // ===============================================
 
         let globalData = [];
@@ -496,23 +492,26 @@
         let currentImageBase64 = ''; 
         let html5QrCode;
 
+        // Fetch API แบบมี Timeout กันค้าง
+        const fetchWithTimeout = async (resource, options = {}) => {
+            const { timeout = 15000 } = options;
+            const controller = new AbortController();
+            const id = setTimeout(() => controller.abort(), timeout);
+            const response = await fetch(resource, { ...options, signal: controller.signal });
+            clearTimeout(id);
+            return response;
+        };
+
         async function apiCall(payload) {
-            if(API_URL.includes('/edit') || API_URL === 'YOUR_WEB_APP_URL_HERE') {
-                throw new Error("URL ของ Apps Script ไม่ถูกต้อง กรุณาเปลี่ยนเป็น URL ที่ลงท้ายด้วย /exec");
-            }
             try {
-                const res = await fetch(API_URL, { method: 'POST', body: JSON.stringify(payload) });
+                const res = await fetchWithTimeout(API_URL, { method: 'POST', body: JSON.stringify(payload), timeout: 15000 });
                 const text = await res.text();
                 try {
                     const json = JSON.parse(text);
                     if (json.status === 'error') throw new Error(json.message);
                     return json;
-                } catch (e) {
-                    throw new Error("การตั้งค่าสิทธิ์ Apps Script ผิดพลาด กรุณา Deploy ใหม่และตั้ง Who has access: Anyone");
-                }
-            } catch (err) {
-                throw err;
-            }
+                } catch (e) { throw new Error("การตั้งค่า Apps Script ผิดพลาด หรือรูปภาพมีขนาดใหญ่เกินไป"); }
+            } catch (err) { throw err; }
         }
 
         // ระบบ Memory รายชื่อ
@@ -526,16 +525,12 @@
                 const el = document.getElementById(id); el.innerHTML = '';
                 arr.forEach(val => { const opt = document.createElement('option'); opt.value = val; el.appendChild(opt); });
             };
-            populate('ipd3-staff-list', memoryStaffIpd3);
-            populate('other-staff-list', memoryStaffOther);
-            populate('item-list', memoryItems);
-            populate('unit-list', memoryUnits);
+            populate('ipd3-staff-list', memoryStaffIpd3); populate('other-staff-list', memoryStaffOther);
+            populate('item-list', memoryItems); populate('unit-list', memoryUnits);
         }
         
         function saveToMemory(key, arr, val) {
-            if(val && !arr.includes(val)) {
-                arr.push(val); localStorage.setItem(key, JSON.stringify(arr)); updateDatalists();
-            }
+            if(val && !arr.includes(val)) { arr.push(val); localStorage.setItem(key, JSON.stringify(arr)); updateDatalists(); }
         }
 
         function formatThaiDate(dStr) {
@@ -577,10 +572,7 @@
                 document.getElementById('nav-borrow').classList.add('active'); 
                 if(!document.getElementById('b-edit-id').value) setNow('b-date', 'b-time'); 
             }
-            if(pageId === 'report-page') { 
-                document.getElementById('nav-report').classList.add('active'); 
-                setNow('rep-start', ''); setNow('rep-end', ''); 
-            }
+            if(pageId === 'report-page') { document.getElementById('nav-report').classList.add('active'); setNow('rep-start', ''); setNow('rep-end', ''); }
         }
 
         function openBorrowForm(type) { resetBorrowForm(); switchPage('borrow-page'); switchTxType(type); }
@@ -614,7 +606,7 @@
             if(select.value === 'อื่นๆ') { other.style.display = 'block'; } else { other.style.display = 'none'; }
         }
 
-        // ระบบบีบอัดรูปภาพ
+        // ระบบบีบอัดรูปภาพให้เล็กลงมาก (ป้องกัน 50,000 char limit)
         function compressImage(file, callback) {
             const reader = new FileReader();
             reader.readAsDataURL(file);
@@ -623,13 +615,13 @@
                 img.src = event.target.result;
                 img.onload = function() {
                     const canvas = document.createElement('canvas');
-                    const MAX_WIDTH = 500; 
+                    const MAX_WIDTH = 300; // บีบความกว้างลงเหลือ 300
                     let width = img.width; let height = img.height;
                     if (width > MAX_WIDTH) { height = Math.round((height * MAX_WIDTH) / width); width = MAX_WIDTH; }
                     canvas.width = width; canvas.height = height;
                     const ctx = canvas.getContext('2d');
                     ctx.drawImage(img, 0, 0, width, height);
-                    callback(canvas.toDataURL('image/jpeg', 0.5));
+                    callback(canvas.toDataURL('image/jpeg', 0.4)); // ลดคุณภาพเหลือ 40%
                 }
             }
         }
@@ -664,10 +656,8 @@
             const staff = document.getElementById('b-staff-dropdown').value;
             const other = document.getElementById('b-other-person').value;
             
-            saveToMemory('mem_ipd3', memoryStaffIpd3, staff);
-            saveToMemory('mem_other', memoryStaffOther, other);
-            saveToMemory('mem_items', memoryItems, itemVal);
-            saveToMemory('mem_units', memoryUnits, unitVal);
+            saveToMemory('mem_ipd3', memoryStaffIpd3, staff); saveToMemory('mem_other', memoryStaffOther, other);
+            saveToMemory('mem_items', memoryItems, itemVal); saveToMemory('mem_units', memoryUnits, unitVal);
 
             let lender = txType === 'ถูกยืม' ? staff : other;
             let borrower = txType === 'ถูกยืม' ? other : staff;
@@ -696,7 +686,7 @@
                 
                 generateSlip('borrow', slipItemData, currentImageBase64 || slipItemData.BorrowImage);
                 resetBorrowForm();
-            } catch (err) { alert('❌ เกิดข้อผิดพลาด\n' + err.message); } 
+            } catch (err) { alert('❌ ' + err.message); } 
             finally { showLoading(false); }
         });
 
@@ -742,7 +732,7 @@
             }
 
             const btn = document.getElementById('btn-submit-borrow');
-            btn.innerHTML = '<i class="fas fa-save"></i> บันทึกการแก้ไข';
+            btn.innerHTML = '<i class="fas fa-save"></i> บันทึกการแก้ไข (พร้อมสร้างสลิป)';
             document.getElementById('btn-cancel-edit').style.display = 'block';
             document.getElementById('tx-toggle-box').style.display = 'none';
         }
@@ -764,15 +754,13 @@
             if(API_URL === 'YOUR_WEB_APP_URL_HERE') return;
             document.getElementById('borrow-list').innerHTML = '<div style="text-align: center; padding: 40px; color: var(--primary);"><i class="fas fa-spinner fa-spin fa-2x"></i></div>';
             try {
-                if(API_URL.includes('/edit')) throw new Error('URL ของ Apps Script ผิด กรุณาใช้ URL ที่ลงท้ายด้วย /exec');
-                const res = await fetch(API_URL);
+                const res = await fetchWithTimeout(API_URL, { timeout: 15000 });
                 const text = await res.text();
-                try { globalData = JSON.parse(text); } catch(e) { throw new Error('สิทธิ์ Apps Script ผิดพลาด กรุณาตั้งค่า Who has access: Anyone'); }
-                if(globalData.status === 'error') throw new Error(globalData.message);
+                globalData = JSON.parse(text);
                 
                 if (document.getElementById('dashboard-page').classList.contains('active')) filterList(currentTab, 'ยืมอยู่');
                 if (document.getElementById('history-page').classList.contains('active')) buildHistoryTable();
-            } catch (err) { alert('❌ โหลดข้อมูลไม่สำเร็จ\n' + err.message); document.getElementById('borrow-list').innerHTML = '<p>เกิดข้อผิดพลาด</p>'; }
+            } catch (err) { document.getElementById('borrow-list').innerHTML = '<p>เกิดข้อผิดพลาดในการโหลด</p>'; }
         }
 
         // ================== List (Card) ==================
@@ -798,10 +786,7 @@
                 const isOverdue = today > due;
                 if(isOverdue) card.classList.add('overdue-row');
                 
-                // ใช้รูปภาพแทน QR Code
-                let imageThumbnail = item.BorrowImage 
-                    ? `<img src="${item.BorrowImage}" alt="Item">` 
-                    : `<i class="fas fa-box-open"></i>`;
+                let imageThumbnail = item.BorrowImage ? `<img src="${item.BorrowImage}" alt="Item">` : `<i class="fas fa-box-open"></i>`;
 
                 card.innerHTML = `
                     <div class="item-header">
@@ -827,12 +812,13 @@
             });
         }
 
+        // ================== History Table ==================
         function buildHistoryTable() {
             const tbody = document.getElementById('history-table-body');
             tbody.innerHTML = '';
             const returned = globalData.filter(i => i.Status === 'คืนแล้ว');
             if(returned.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; padding: 20px; color: #94a3b8;">ไม่มีประวัติ</td></tr>`; return;
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; padding: 20px; color: #94a3b8;">ไม่มีประวัติ</td></tr>`; return;
             }
             returned.sort((a,b) => new Date(b.ReturnDate) - new Date(a.ReturnDate));
             
@@ -842,23 +828,46 @@
                 tr.innerHTML = `
                     <td><strong>${item.Item}</strong><br><small style="color:#64748b">${item.Qty} | ${item.Dept}</small></td>
                     <td><span class="badge-type ${badgeClass}">${item.TransactionType || 'ถูกยืม'}</span></td>
-                    <td>${formatThaiDate(item.BorrowDate)}</td>
-                    <td>${formatThaiDate(item.ReturnDate)}</td>
-                    <td><small>รับ: ${item.Receiver}<br>ส่ง: ${item.Notes.replace('ผู้ส่งคืน: ','').split('|')[0]}</small></td>
-                    <td><button onclick="deleteItem('${item.ID}', '${item.Item}')" class="glass-btn btn-outline" style="padding:6px; font-size:12px; border-color:#ef4444; color:#ef4444; width:auto; box-shadow:none;"><i class="fas fa-trash"></i></button></td>
+                    <td><small><i class="far fa-calendar-check"></i> ${formatThaiDate(item.BorrowDate)}<br>👤 ${item.Lender} -> ${item.Borrower}</small></td>
+                    <td><small><i class="fas fa-undo"></i> ${formatThaiDate(item.ReturnDate)}<br>✅ ${item.Receiver}</small></td>
+                    <td>
+                        <div style="display:flex; flex-direction:column; gap:4px;">
+                            <button onclick="undoReturn('${item.ID}', '${item.Item}')" class="glass-btn" style="padding:4px; font-size:11px; background:#fef08a; color:#b45309; box-shadow:none;"><i class="fas fa-undo-alt"></i> ยกเลิกคืน</button>
+                            <div style="display:flex; gap:4px;">
+                                <button onclick="editItemFull('${item.ID}')" class="glass-btn" style="padding:4px; font-size:11px; flex:1; background:#e0f2fe; color:#0369a1; box-shadow:none;"><i class="fas fa-pen"></i> แก้ไข</button>
+                                <button onclick="deleteItem('${item.ID}', '${item.Item}')" class="glass-btn" style="padding:4px; font-size:11px; flex:1; background:#fee2e2; color:#ef4444; box-shadow:none;"><i class="fas fa-trash"></i> ลบ</button>
+                            </div>
+                        </div>
+                    </td>
                 `;
                 tbody.appendChild(tr);
             });
         }
 
         async function deleteItem(id, itemName) {
-            if(confirm(`คุณต้องการลบรายการ "${itemName}" ใช่หรือไม่?\n(การลบจะไม่สามารถกู้คืนได้)`)) {
+            if(confirm(`คุณต้องการลบรายการ "${itemName}" ใช่หรือไม่?`)) {
                 showLoading(true);
                 try {
                     await apiCall({ action: 'delete', id: id });
                     globalData = globalData.filter(i => i.ID !== id);
                     if(document.getElementById('history-page').classList.contains('active')) buildHistoryTable();
                     else filterList(currentTab, 'ยืมอยู่');
+                } catch(e) { alert('❌ ' + e.message); }
+                finally { showLoading(false); }
+            }
+        }
+
+        async function undoReturn(id, itemName) {
+            if(confirm(`คุณต้องการยกเลิกการคืนรายการ "${itemName}" และดึงกลับไปที่รายการค้าง ใช่หรือไม่?`)) {
+                showLoading(true);
+                try {
+                    await apiCall({ action: 'undo_return', id: id });
+                    const idx = globalData.findIndex(i => i.ID === id);
+                    if(idx !== -1) {
+                        globalData[idx].Status = 'ยืมอยู่'; globalData[idx].ReturnDate = ''; globalData[idx].ReturnTime = ''; globalData[idx].Receiver = ''; globalData[idx].Notes = ''; globalData[idx].ReturnImage = '';
+                    }
+                    buildHistoryTable();
+                    alert('ดึงรายการกลับสำเร็จแล้ว');
                 } catch(e) { alert('❌ ' + e.message); }
                 finally { showLoading(false); }
             }
@@ -873,10 +882,10 @@
             setNow('r-date', 'r-time'); document.getElementById('r-notes').value = '';
             
             if(arg1 === 'ถูกยืม') {
-                document.getElementById('label-r-receiver').innerText = 'ผู้รับคืน (เรา IPD3):';
+                document.getElementById('label-r-receiver').innerText = 'ชื่อผู้รับคืน (เรา IPD3):';
                 document.getElementById('label-r-sender').innerText = 'ชื่อผู้มาส่งคืน (แผนกอื่น):';
             } else {
-                document.getElementById('label-r-receiver').innerText = 'ผู้รับคืน (แผนกอื่น):';
+                document.getElementById('label-r-receiver').innerText = 'ชื่อผู้รับคืน (แผนกอื่น):';
                 document.getElementById('label-r-sender').innerText = 'ชื่อผู้เอาไปส่งคืน (เรา IPD3):';
             }
             document.getElementById('action-modal').classList.remove('hidden');
@@ -923,62 +932,60 @@
             finally { showLoading(false); }
         });
 
-        // ================== QR Scanner (สแกนปุ๊บ เด้งคืนปั๊บ) ==================
+        // ================== QR Scanner (เปิดกล้องชัวร์) ==================
         function openQrScanner() {
             document.getElementById('qr-modal').classList.remove('hidden');
             setTimeout(() => {
-                if(!html5QrCode) html5QrCode = new Html5Qrcode("reader");
-                const config = { fps: 10, qrbox: { width: 250, height: 250 } };
-                
-                html5QrCode.start({ facingMode: "environment" }, config, onScanSuccess)
-                .catch(err => {
-                    alert("ไม่สามารถเปิดกล้องได้ กรุณาใช้กล้องหลัง หรืออัปโหลดรูปแทน");
-                });
+                html5QrCode = new Html5QrcodeScanner("reader", { fps: 10, qrbox: { width: 250, height: 250 } }, false);
+                html5QrCode.render(async (decodedText) => {
+                    await html5QrCode.clear();
+                    closeQrScanner();
+                    
+                    if(globalData.length === 0) {
+                        try { const res = await fetch(API_URL); globalData = await res.json(); } catch(e){}
+                    }
+                    
+                    const item = globalData.find(i => String(i.ID).trim() === String(decodedText).trim());
+                    if(item) {
+                        if(item.Status === 'คืนแล้ว') {
+                            alert('รายการนี้ถูกคืนไปแล้ว (อยู่ในประวัติ)'); switchPage('history-page');
+                        } else {
+                            if(confirm(`พบรายการ: ${item.Item}\nต้องการคืนของหรือไม่?`)) {
+                                const safeTxType = item.TransactionType || 'ถูกยืม';
+                                switchPage('dashboard-page'); filterList(safeTxType, 'ยืมอยู่');
+                                openActionModal('return', item.ID, item.Item, safeTxType);
+                            }
+                        }
+                    } else { alert('ไม่พบรหัสการยืมนี้'); }
+                }, (err) => { });
             }, 300);
-        }
-
-        async function onScanSuccess(decodedText) {
-            if(html5QrCode && html5QrCode.isScanning) {
-                await html5QrCode.stop();
-                html5QrCode.clear();
-            }
-            closeQrScanner();
-            processQRCode(decodedText);
         }
 
         function scanQRFromFile(event) {
             if (event.target.files.length == 0) return;
             const file = event.target.files[0];
-            if (!html5QrCode) html5QrCode = new Html5Qrcode("reader");
-            
-            html5QrCode.scanFile(file, true)
-            .then(decodedText => { event.target.value = ""; onScanSuccess(decodedText); })
-            .catch(err => { event.target.value = ""; alert("ไม่พบ QR Code ในรูปภาพนี้"); });
-        }
-
-        function closeQrScanner() { 
-            document.getElementById('qr-modal').classList.add('hidden'); 
-            if(html5QrCode && html5QrCode.isScanning) { html5QrCode.stop().then(()=>{ html5QrCode.clear(); }).catch(e=>{}); }
+            const readerObj = new Html5Qrcode("reader");
+            readerObj.scanFile(file, true)
+            .then(decodedText => { event.target.value = ""; closeQrScanner(); processQRCode(decodedText); })
+            .catch(err => { event.target.value = ""; alert("ไม่พบ QR Code ในรูป"); });
         }
 
         async function processQRCode(decodedText) {
             showLoading(true);
-            if(globalData.length === 0) {
-                try { const res = await fetch(API_URL); globalData = await res.json(); } catch(e){}
-            }
+            if(globalData.length === 0) { try { const res = await fetch(API_URL); globalData = await res.json(); } catch(e){} }
             showLoading(false);
-            
             const item = globalData.find(i => String(i.ID).trim() === String(decodedText).trim());
             if(item) {
-                if(item.Status === 'คืนแล้ว') {
-                    alert('รายการนี้ถูกคืนเรียบร้อยแล้ว (ดูได้ในประวัติ)'); switchPage('history-page');
-                } else {
+                if(item.Status === 'คืนแล้ว') { alert('รายการนี้ถูกคืนแล้ว'); switchPage('history-page'); } 
+                else {
                     const safeTxType = item.TransactionType || 'ถูกยืม';
                     switchPage('dashboard-page'); filterList(safeTxType, 'ยืมอยู่');
                     openActionModal('return', item.ID, item.Item, safeTxType);
                 }
-            } else { alert('ไม่พบรหัสนี้ในระบบ กรุณาตรวจสอบให้แน่ใจว่าเป็น QR ของระบบนี้'); }
+            } else { alert('ไม่พบรหัสนี้'); }
         }
+
+        function closeQrScanner() { document.getElementById('qr-modal').classList.add('hidden'); if(html5QrCode) html5QrCode.clear(); }
 
         // ================== สลิป V2 (แก้ QR บนสุด + ชื่อใหญ่สุด) ==================
         function generateSlip(actionType, data, imgBase64) {
@@ -991,10 +998,8 @@
             const qrBox = document.getElementById('slip-qr-box');
             document.getElementById("slip-qrcode").innerHTML = ""; 
 
-            // ธีมสีส้ม(ถูกยืม) / ฟ้า(ยืมมา)
             slipContainer.className = 'kplus-slip ' + (isLent ? 'slip-theme-orange' : 'slip-theme-blue');
             
-            // สร้าง QR ด้านบนสุด
             qrBox.style.display = 'flex';
             if(data.ID || data.id) new QRCode(document.getElementById("slip-qrcode"), { text: (data.ID || data.id), width: 65, height: 65 });
 
@@ -1025,7 +1030,7 @@
                     r_name = data.receiver; r_dept = data.Dept;
                 }
                 document.getElementById('slip-qty-row').style.display = 'none';
-                qrBox.style.display = 'none'; // ปิด QR ตอนคืนเสร็จ
+                qrBox.style.display = 'none'; 
                 
                 document.getElementById('slip-borrow-date-row').style.display = 'flex';
                 document.getElementById('slip-borrow-date-val').innerText = formatThaiDate(data.BorrowDate);
@@ -1064,6 +1069,7 @@
                 const slipArea = document.getElementById('slip-capture-area');
                 const canvas = await html2canvas(slipArea, { scale: 3, backgroundColor: '#ffffff', useCORS: true });
                 
+                // สำหรับมือถือให้แปลงเป็น Blob เพื่อช่วยให้โหลดรูปได้ดีขึ้นในบาง Browser
                 canvas.toBlob(function(blob) {
                     const url = URL.createObjectURL(blob);
                     const link = document.createElement('a'); 
@@ -1084,7 +1090,7 @@
 
         // ================== Export CSV ==================
         function exportReport() {
-            if(globalData.length === 0) { alert('กรุณาโหลดข้อมูลก่อน (เข้าเมนูรายการค้าง หรือประวัติ)'); return; }
+            if(globalData.length === 0) { alert('กรุณาโหลดข้อมูลก่อน'); return; }
             const type = document.getElementById('rep-type').value;
             const start = document.getElementById('rep-start').value;
             const end = document.getElementById('rep-end').value;
