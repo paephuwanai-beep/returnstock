@@ -40,9 +40,12 @@
         .app-logo .return { color: #1e293b; }
         .app-logo .tagline { font-size: 11px; font-weight: bold; background: #1e293b; color: #fff; padding: 4px 10px; border-radius: 12px; font-style: normal; white-space: nowrap;}
 
-        /* ปุ่มตั้งค่ามุมขวาบน */
+        /* ปุ่มตั้งค่ามุมขวาบน (มือถือ) */
         .settings-btn { position: absolute; top: 15px; right: 15px; width: 35px; height: 35px; border-radius: 50%; border: none; background: #f1f5f9; color: var(--primary); font-size: 16px; cursor: pointer; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.05);}
         .settings-btn:active { transform: scale(0.9); }
+        
+        /* ปุ่มตั้งค่า Desktop (ซ่อนในมือถือ) */
+        .nav-settings-desktop { display: none; }
 
         .sidebar-header { display: none; padding: 30px 20px; text-align: center; }
         .main-content { display: flex; flex: 1; overflow: hidden; flex-direction: column; }
@@ -210,6 +213,10 @@
             .nav-item { width: 100%; flex-direction: row; padding: 15px 20px; justify-content: flex-start; gap: 15px; font-size: 16px; border-left: 4px solid transparent; border-radius: 0;}
             .nav-item span { font-size: 15px; margin-top: 0; }
             .nav-item.active { background: white; border-left: 4px solid var(--primary); transform: none; box-shadow: 0 2px 10px rgba(0,0,0,0.02);}
+            
+            /* แสดงปุ่มตั้งค่าใน Desktop ที่เมนูด้านซ้ายล่างสุด */
+            .nav-settings-desktop { display: flex; margin-top: auto; border-top: 1px solid #e2e8f0; }
+
             .main-content { flex: 1; }
             .page { padding: 30px; padding-bottom: 30px; }
             .home-grid { grid-template-columns: repeat(3, 1fr); gap: 20px;}
@@ -283,6 +290,7 @@
                 <span class="return">Return</span> 
                 <span class="tagline">ยืมแล้วคืน</span>
             </div>
+            <!-- ปุ่มตั้งค่ามือถือ (ขวาบน) -->
             <button class="settings-btn" onclick="openSettings()"><i class="fas fa-cog"></i></button>
         </header>
 
@@ -292,7 +300,6 @@
                     <div style="display:flex; align-items:center; gap:8px;"><i class="fas fa-infinity"></i> <span class="ipd3">IPD3</span></div>
                     <span class="return" style="font-size: 20px;">Return</span> 
                     <span class="tagline">ยืมแล้วคืน</span>
-                    <button class="settings-btn" style="top: 0; right: 0;" onclick="openSettings()"><i class="fas fa-cog"></i></button>
                 </div>
             </div>
             <button onclick="switchPage('home-page')" class="nav-item active" id="nav-home"><i class="fas fa-home"></i><span>หน้าแรก</span></button>
@@ -300,6 +307,8 @@
             <button onclick="switchPage('history-page')" class="nav-item" id="nav-history"><i class="fas fa-history"></i><span>ประวัติ</span></button>
             <button onclick="switchPage('borrow-page')" class="nav-item" id="nav-borrow"><i class="fas fa-plus-circle"></i><span>บันทึกใหม่</span></button>
             <button onclick="switchPage('report-page')" class="nav-item" id="nav-report"><i class="fas fa-file-excel"></i><span>ออกรายงาน</span></button>
+            <!-- ปุ่มตั้งค่า Desktop (ล่างสุดของเมนูซ้าย) -->
+            <button onclick="openSettings()" class="nav-item nav-settings-desktop"><i class="fas fa-cog"></i><span>ตั้งค่าตัวเลือก</span></button>
         </nav>
 
         <div class="main-content">
@@ -595,30 +604,18 @@
         const API_URL = 'https://script.google.com/macros/s/AKfycbwrnITcqglj7nvhbiGkxejr8sRd3PF3DdOrSDIVPDryOldUKcb24XGzH3-ZK4aK111M/exec'; // <--- ใส่ URL ตรงนี้
         // ===============================================
 
-        let globalData = [];
-        try {
-            const cachedData = localStorage.getItem('cached_ipd3_data');
-            if (cachedData) globalData = JSON.parse(cachedData);
-        } catch(e) { globalData = []; }
-
-        let globalSettings = {
+        let globalData = JSON.parse(localStorage.getItem('cached_ipd3_data')) || [];
+        let globalSettings = JSON.parse(localStorage.getItem('cached_ipd3_settings')) || {
             ipd3_staff: ["ปิยะนาท", "ภูวนัย", "สุวนันท์", "สุรีภรณ์", "พรพิมล", "ปราณี"],
             other_staff: [],
             items: ["Syringe 10 ml", "Plaster transpore", "เกจ์ออกซิเจน", "ชุดให้เลือด"],
             units: ["ชิ้น/อัน", "กล่อง", "pacs", "ถาด", "ชุด"]
         };
-        try {
-            const cachedSettings = localStorage.getItem('cached_ipd3_settings');
-            if (cachedSettings) {
-                const parsed = JSON.parse(cachedSettings);
-                if (parsed.ipd3_staff) globalSettings = parsed;
-            }
-        } catch(e) {}
-
         let currentTab = 'ถูกยืม';
         let currentImageBase64 = ''; 
         let html5QrCode;
         let confirmResolve = null;
+        let lastProcessedTxType = 'ถูกยืม'; // ตัวแปรจำแท็บล่าสุด
 
         function showAlert(message, type='info') {
             document.getElementById('custom-alert-msg').innerText = message;
@@ -657,13 +654,10 @@
             }
             try {
                 const res = await fetchWithTimeout(API_URL, { method: 'POST', body: JSON.stringify(payload), timeout: 30000 });
-                const text = await res.text();
-                try {
-                    const json = JSON.parse(text);
-                    if (json.status === 'error') throw new Error(json.message);
-                    return json;
-                } catch (e) { throw new Error("การรับส่งข้อมูลผิดพลาด (รูปแบบข้อมูลไม่ถูกต้อง)"); }
-            } catch (err) { throw new Error("การเชื่อมต่อฐานข้อมูลล่าช้าหรือล้มเหลว (กรุณาลองอีกครั้ง)"); }
+                const json = await res.json();
+                if (json.status === 'error') throw new Error(json.message);
+                return json;
+            } catch (err) { throw new Error("การรับส่งข้อมูลล่าช้าหรือผิดพลาด (กรุณาลองอีกครั้ง)"); }
         }
 
         function updateDatalists() {
@@ -837,6 +831,8 @@
             const item = globalData.find(i => i.ID === id);
             if(!item) return;
 
+            lastProcessedTxType = item.TransactionType || 'ถูกยืม'; // จำแท็บสำหรับเปิดกลับ
+
             if(item.Status === 'คืนแล้ว') {
                 let sender = '-';
                 let customNotes = '-';
@@ -868,6 +864,8 @@
             showLoading(true, "กำลังบันทึกข้อมูล...");
 
             const txType = document.getElementById('b-tx-type').value;
+            lastProcessedTxType = txType; // จำหมวดหมู่
+            
             const itemVal = document.getElementById('b-item').value;
             const unitVal = document.getElementById('b-unit').value;
             const dept = document.getElementById('b-dept-select').value === 'อื่นๆ' ? document.getElementById('b-dept-other').value : document.getElementById('b-dept-select').value;
@@ -976,35 +974,27 @@
             if(showUI) showLoading(true, "กำลังซิงค์ข้อมูลจาก Cloud...");
             try {
                 const res = await fetchWithTimeout(API_URL, { timeout: 15000 });
-                const text = await res.text();
+                const json = await res.json();
                 
-                try {
-                    let parsedData = JSON.parse(text);
-                    if(parsedData && parsedData.status === 'error') throw new Error(parsedData.message);
-                    
-                    if (Array.isArray(parsedData)) {
-                        globalData = parsedData;
-                    } else if (parsedData && Array.isArray(parsedData.data)) {
-                        globalData = parsedData.data;
-                    } else {
-                        globalData = [];
-                    }
-
-                    if(parsedData.settings) {
-                        globalSettings = parsedData.settings;
-                        localStorage.setItem('cached_ipd3_settings', JSON.stringify(globalSettings));
-                        updateDatalists();
-                    }
-                } catch(e) {
-                    throw new Error(e.message || "เกิดข้อผิดพลาดในการแปลงข้อมูล");
+                if(json.status === 'error') throw new Error(json.message);
+                
+                const oldDataStr = JSON.stringify(globalData);
+                const newDataStr = JSON.stringify(json.data);
+                if (oldDataStr !== newDataStr) {
+                    globalData = json.data;
+                    localStorage.setItem('cached_ipd3_data', newDataStr);
+                    if (document.getElementById('dashboard-page').classList.contains('active')) filterList(currentTab, 'ยืมอยู่');
+                    if (document.getElementById('history-page').classList.contains('active')) buildHistoryTable();
                 }
-                
-                localStorage.setItem('cached_ipd3_data', JSON.stringify(globalData));
-                
-                if (document.getElementById('dashboard-page').classList.contains('active')) filterList(currentTab, 'ยืมอยู่');
-                if (document.getElementById('history-page').classList.contains('active')) buildHistoryTable();
+
+                if(json.settings) {
+                    globalSettings = json.settings;
+                    localStorage.setItem('cached_ipd3_settings', JSON.stringify(globalSettings));
+                    updateDatalists();
+                }
+
             } catch (err) { 
-                if(showUI) showAlert('เกิดข้อผิดพลาดในการซิงค์ข้อมูลออนไลน์ แต่คุณยังดูข้อมูลเดิมในเครื่องได้', 'error');
+                if(showUI) showAlert('เกิดข้อผิดพลาดในการโหลดข้อมูลออนไลน์ แต่คุณยังดูข้อมูลเดิมได้', 'error');
             } finally {
                 if(showUI) showLoading(false);
             }
@@ -1198,6 +1188,8 @@
             showLoading(true, "กำลังบันทึกการคืน...");
 
             const txType = document.getElementById('m-tx-type').value;
+            lastProcessedTxType = txType; // จำแท็บหลังคืนของสำเร็จ
+            
             const ipd3Staff = document.getElementById('r-staff-ipd3').value || '-';
             const otherStaff = document.getElementById('r-staff-other').value || '-';
             
@@ -1262,8 +1254,9 @@
         function openQrScanner() {
             document.getElementById('qr-modal').classList.remove('hidden');
             setTimeout(() => {
-                // เปลี่ยนกลับมาใช้คำสั่งที่เปิดกล้องตรงๆ และเสถียรกว่า (ไม่แยกหน้าต่าง)
-                if(!html5QrCode) html5QrCode = new Html5Qrcode("reader");
+                if(!html5QrCode) {
+                    html5QrCode = new Html5Qrcode("reader");
+                }
                 const config = { fps: 10, qrbox: { width: 250, height: 250 } };
                 
                 html5QrCode.start({ facingMode: "environment" }, config, 
@@ -1280,7 +1273,7 @@
                     },
                     (errorMessage) => { }
                 ).catch((err) => {
-                    showAlert("ไม่สามารถเปิดกล้องได้ กรุณาใช้ไฟล์รูปภาพแทน", "error");
+                    showAlert("ไม่สามารถเปิดกล้องได้ กรุณาใช้ปุ่ม 'อัปโหลดรูปภาพ' แทน", "error");
                 });
             }, 300);
         }
@@ -1292,7 +1285,7 @@
             
             html5QrCode.scanFile(file, true)
             .then(decodedText => { event.target.value = ""; closeQrScanner(); processQRCode(decodedText); })
-            .catch(err => { event.target.value = ""; showAlert("ไม่พบ QR Code ในรูปภาพนี้", "error"); });
+            .catch(err => { event.target.value = ""; showAlert("ไม่พบ QR Code ในรูปภาพนี้ กรุณาลองใหม่อีกครั้ง", "error"); });
         }
 
         function closeQrScanner() { 
@@ -1436,8 +1429,10 @@
             document.getElementById('receipt-modal').classList.remove('hidden');
         }
 
+        // กดปิดสลิป แล้วบังคับเด้งไปแท็บค้างคืนล่าสุด
         function closeReceipt() { 
-            document.getElementById('receipt-modal').classList.add('hidden'); 
+            document.getElementById('receipt-modal').classList.add('hidden');
+            currentTab = lastProcessedTxType; // ไปยังแท็บรายการล่าสุด
             switchPage('dashboard-page');
         }
 
