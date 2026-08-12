@@ -40,6 +40,7 @@
         .app-logo .return { color: #1e293b; }
         .app-logo .tagline { font-size: 11px; font-weight: bold; background: #1e293b; color: #fff; padding: 4px 10px; border-radius: 12px; font-style: normal; white-space: nowrap;}
 
+        /* ปุ่มตั้งค่ามุมขวาบน */
         .settings-btn { position: absolute; top: 15px; right: 15px; width: 35px; height: 35px; border-radius: 50%; border: none; background: #f1f5f9; color: var(--primary); font-size: 16px; cursor: pointer; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.05);}
         .settings-btn:active { transform: scale(0.9); }
 
@@ -59,6 +60,7 @@
         .card-borrow i, .card-borrow h3 { color: var(--primary); } 
         .card-history i, .card-history h3 { color: var(--success); }
 
+        /* ================= Theme Colors For Forms ================= */
         .glass-input { width: 100%; padding: 14px; margin-bottom: 15px; border-radius: 12px; background: #f8fafc; outline: none; font-size: 15px; color: #1e293b; border: 1px solid #e2e8f0; transition: 0.3s; }
         .input-label { font-size: 14px; margin-left: 5px; margin-bottom: 5px; display: block; font-weight: bold;}
         .file-upload-wrapper { position: relative; width: 100%; margin-bottom: 15px; }
@@ -75,6 +77,7 @@
         .theme-orange .glass-input { border: 1px solid #fed7aa; }
         .theme-orange .glass-input:focus { border: 1px solid var(--orange-main); box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.15); background: white;}
         .theme-orange .file-upload-btn { background: #fff7ed; border: 2px dashed var(--orange-main); color: var(--orange-main); }
+        /* ========================================================== */
 
         .toggle-container { display: flex; background: #f1f5f9; border-radius: 12px; margin-bottom: 20px; padding: 5px; }
         .toggle-btn { flex: 1; padding: 10px; text-align: center; font-weight: bold; cursor: pointer; border-radius: 10px; color: #64748b; transition: 0.3s; }
@@ -92,6 +95,7 @@
         .tab-btn.active-orange { background: #fff7ed; color: var(--orange-main); border: 1px solid var(--orange-main); }
         .tab-btn.active-blue { background: #eff6ff; color: var(--primary); border: 1px solid var(--primary); }
 
+        /* Item Cards */
         .item-card { background: white; border-radius: 16px; padding: 15px; margin-bottom: 15px; border: 1px solid #f1f5f9; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
         .item-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; border-bottom: 1px solid #f8fafc; padding-bottom: 10px;}
         .item-title { font-size: 16px; font-weight: bold; display: flex; align-items: center; gap: 8px;}
@@ -103,6 +107,7 @@
         .item-thumbnail img { width: 100%; height: 100%; object-fit: cover; }
         .item-thumbnail i { font-size: 24px; color: #cbd5e1; }
         
+        /* Theme specifically for Cards */
         .type-lent { border-color: #ffedd5; }
         .type-lent .item-title { color: var(--orange-main); }
         .type-lent .qty-badge { background: #fff7ed; color: var(--orange-main); }
@@ -171,6 +176,7 @@
         .k-item-highlight .name { font-size: 22px; font-weight: 800; color: var(--primary); line-height: 1.2; word-break: break-word;}
         .slip-theme-orange .k-item-highlight .name { color: var(--orange-main); }
         .k-item-highlight .qty { font-size: 16px; font-weight: bold; color: var(--danger); margin-top: 5px;}
+        .k-item-highlight .qty-sub { font-size: 12px; font-weight: normal; color: #64748b; margin-top: 2px;}
 
         .return-qty-box { background: rgba(255,255,255,0.8); border: 1px dashed #cbd5e1; border-radius: 8px; padding: 10px; margin-top: 10px; display: none; }
         .return-qty-row { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px;}
@@ -441,7 +447,7 @@
         </div>
     </div>
 
-    <!-- Modal สแกน QR: รื้อกลับเป็นเวอร์ชันที่ทำงานได้ -->
+    <!-- Modal สแกน QR -->
     <div id="qr-modal" class="modal hidden">
         <div class="modal-content" style="width: 95%; max-width: 400px; padding: 15px;">
             <h3 style="color: #1e293b; margin-bottom: 15px; text-align: center;"><i class="fas fa-qrcode"></i> สแกน QR เพื่อทำรายการ</h3>
@@ -501,7 +507,7 @@
         </div>
     </div>
 
-    <!-- Modal ใบเสร็จ -->
+    <!-- Modal ใบเสร็จ (Slip 9:16) -->
     <div id="receipt-modal" class="modal hidden">
         <div class="modal-content" style="background: transparent; box-shadow: none; padding: 10px; display: flex; flex-direction: column; align-items: center;">
             <div id="slip-capture-area" class="kplus-slip slip-theme-blue">
@@ -586,16 +592,29 @@
 
     <script>
         // ===============================================
-        const API_URL = 'https://script.google.com/macros/s/AKfycbwDDhq9S4s5aW5z8zJmYHTPMBeurW2Uuu9UaETn-irywhgg7_gJygtedwhubFgExKjx/exec'; // <--- ใส่ URL ตรงนี้
+        const API_URL = 'https://script.google.com/macros/s/AKfycbwrnITcqglj7nvhbiGkxejr8sRd3PF3DdOrSDIVPDryOldUKcb24XGzH3-ZK4aK111M/exec'; // <--- ใส่ URL ตรงนี้
         // ===============================================
 
-        let globalData = JSON.parse(localStorage.getItem('cached_ipd3_data')) || [];
-        let globalSettings = JSON.parse(localStorage.getItem('cached_ipd3_settings')) || {
+        let globalData = [];
+        try {
+            const cachedData = localStorage.getItem('cached_ipd3_data');
+            if (cachedData) globalData = JSON.parse(cachedData);
+        } catch(e) { globalData = []; }
+
+        let globalSettings = {
             ipd3_staff: ["ปิยะนาท", "ภูวนัย", "สุวนันท์", "สุรีภรณ์", "พรพิมล", "ปราณี"],
             other_staff: [],
             items: ["Syringe 10 ml", "Plaster transpore", "เกจ์ออกซิเจน", "ชุดให้เลือด"],
             units: ["ชิ้น/อัน", "กล่อง", "pacs", "ถาด", "ชุด"]
         };
+        try {
+            const cachedSettings = localStorage.getItem('cached_ipd3_settings');
+            if (cachedSettings) {
+                const parsed = JSON.parse(cachedSettings);
+                if (parsed.ipd3_staff) globalSettings = parsed;
+            }
+        } catch(e) {}
+
         let currentTab = 'ถูกยืม';
         let currentImageBase64 = ''; 
         let html5QrCode;
@@ -638,10 +657,13 @@
             }
             try {
                 const res = await fetchWithTimeout(API_URL, { method: 'POST', body: JSON.stringify(payload), timeout: 30000 });
-                const json = await res.json();
-                if (json.status === 'error') throw new Error(json.message);
-                return json;
-            } catch (err) { throw new Error("การรับส่งข้อมูลล่าช้าหรือผิดพลาด (กรุณาลองอีกครั้ง)"); }
+                const text = await res.text();
+                try {
+                    const json = JSON.parse(text);
+                    if (json.status === 'error') throw new Error(json.message);
+                    return json;
+                } catch (e) { throw new Error("การรับส่งข้อมูลผิดพลาด (รูปแบบข้อมูลไม่ถูกต้อง)"); }
+            } catch (err) { throw new Error("การเชื่อมต่อฐานข้อมูลล่าช้าหรือล้มเหลว (กรุณาลองอีกครั้ง)"); }
         }
 
         function updateDatalists() {
@@ -954,27 +976,35 @@
             if(showUI) showLoading(true, "กำลังซิงค์ข้อมูลจาก Cloud...");
             try {
                 const res = await fetchWithTimeout(API_URL, { timeout: 15000 });
-                const json = await res.json();
+                const text = await res.text();
                 
-                if(json.status === 'error') throw new Error(json.message);
+                try {
+                    let parsedData = JSON.parse(text);
+                    if(parsedData && parsedData.status === 'error') throw new Error(parsedData.message);
+                    
+                    if (Array.isArray(parsedData)) {
+                        globalData = parsedData;
+                    } else if (parsedData && Array.isArray(parsedData.data)) {
+                        globalData = parsedData.data;
+                    } else {
+                        globalData = [];
+                    }
+
+                    if(parsedData.settings) {
+                        globalSettings = parsedData.settings;
+                        localStorage.setItem('cached_ipd3_settings', JSON.stringify(globalSettings));
+                        updateDatalists();
+                    }
+                } catch(e) {
+                    throw new Error(e.message || "เกิดข้อผิดพลาดในการแปลงข้อมูล");
+                }
                 
-                const oldDataStr = JSON.stringify(globalData);
-                const newDataStr = JSON.stringify(json.data);
-                if (oldDataStr !== newDataStr) {
-                    globalData = json.data;
-                    localStorage.setItem('cached_ipd3_data', newDataStr);
-                    if (document.getElementById('dashboard-page').classList.contains('active')) filterList(currentTab, 'ยืมอยู่');
-                    if (document.getElementById('history-page').classList.contains('active')) buildHistoryTable();
-                }
-
-                if(json.settings) {
-                    globalSettings = json.settings;
-                    localStorage.setItem('cached_ipd3_settings', JSON.stringify(globalSettings));
-                    updateDatalists();
-                }
-
+                localStorage.setItem('cached_ipd3_data', JSON.stringify(globalData));
+                
+                if (document.getElementById('dashboard-page').classList.contains('active')) filterList(currentTab, 'ยืมอยู่');
+                if (document.getElementById('history-page').classList.contains('active')) buildHistoryTable();
             } catch (err) { 
-                if(showUI) showAlert('เกิดข้อผิดพลาดในการโหลดข้อมูลออนไลน์ แต่คุณยังดูข้อมูลเดิมได้', 'error');
+                if(showUI) showAlert('เกิดข้อผิดพลาดในการซิงค์ข้อมูลออนไลน์ แต่คุณยังดูข้อมูลเดิมในเครื่องได้', 'error');
             } finally {
                 if(showUI) showLoading(false);
             }
@@ -993,7 +1023,7 @@
             
             if(active.length === 0) { listBox.innerHTML = `<div style="text-align:center; padding: 30px; color:#94a3b8;">ไม่มีรายการค้าง</div>`; return; }
             
-            // เรียงลำดับจากวันที่-เวลาล่าสุด
+            // เรียงลำดับจาก ID สร้างใหม่สุดขึ้นก่อน
             active.sort((a,b) => {
                 let timeA = new Date(`${a.BorrowDate}T${a.BorrowTime || '00:00:00'}`).getTime() || 0;
                 let timeB = new Date(`${b.BorrowDate}T${b.BorrowTime || '00:00:00'}`).getTime() || 0;
@@ -1056,7 +1086,7 @@
                 tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; padding: 20px; color: #94a3b8;">ไม่มีประวัติ</td></tr>`; return;
             }
             
-            // เรียงลำดับจากวันที่-เวลาล่าสุด
+            // เรียงลำดับจากเวลาคืนใหม่สุดขึ้นก่อน
             returned.sort((a,b) => {
                 let timeA = new Date(`${a.ReturnDate}T${a.ReturnTime || '00:00:00'}`).getTime() || 0;
                 let timeB = new Date(`${b.ReturnDate}T${b.ReturnTime || '00:00:00'}`).getTime() || 0;
@@ -1232,9 +1262,10 @@
         function openQrScanner() {
             document.getElementById('qr-modal').classList.remove('hidden');
             setTimeout(() => {
+                // เปลี่ยนกลับมาใช้คำสั่งที่เปิดกล้องตรงๆ และเสถียรกว่า (ไม่แยกหน้าต่าง)
                 if(!html5QrCode) html5QrCode = new Html5Qrcode("reader");
-                
                 const config = { fps: 10, qrbox: { width: 250, height: 250 } };
+                
                 html5QrCode.start({ facingMode: "environment" }, config, 
                     (decodedText) => {
                         if (html5QrCode.isScanning) {
@@ -1249,7 +1280,7 @@
                     },
                     (errorMessage) => { }
                 ).catch((err) => {
-                    showAlert("ไม่สามารถเปิดกล้องได้ กรุณาอนุญาตให้เข้าถึงกล้องเบราว์เซอร์ หรือใช้วิธีอัปโหลดรูปภาพแทน", "error");
+                    showAlert("ไม่สามารถเปิดกล้องได้ กรุณาใช้ไฟล์รูปภาพแทน", "error");
                 });
             }, 300);
         }
@@ -1261,7 +1292,7 @@
             
             html5QrCode.scanFile(file, true)
             .then(decodedText => { event.target.value = ""; closeQrScanner(); processQRCode(decodedText); })
-            .catch(err => { event.target.value = ""; showAlert("ไม่พบ QR Code ในรูปภาพนี้ กรุณาลองใหม่อีกครั้ง", "error"); });
+            .catch(err => { event.target.value = ""; showAlert("ไม่พบ QR Code ในรูปภาพนี้", "error"); });
         }
 
         function closeQrScanner() { 
@@ -1405,6 +1436,11 @@
             document.getElementById('receipt-modal').classList.remove('hidden');
         }
 
+        function closeReceipt() { 
+            document.getElementById('receipt-modal').classList.add('hidden'); 
+            switchPage('dashboard-page');
+        }
+
         async function downloadSlip() {
             try {
                 const slipArea = document.getElementById('slip-capture-area');
@@ -1417,6 +1453,7 @@
                     if (navigator.canShare && navigator.canShare({ files: [file] })) {
                         try {
                             await navigator.share({ files: [file], title: 'Slip IPD3', text: 'ใบเสร็จรายการ IPD3' });
+                            closeReceipt();
                             return; 
                         } catch (e) { console.log(e); }
                     }
@@ -1427,12 +1464,11 @@
                     link.href = url;
                     document.body.appendChild(link);
                     link.click();
-                    setTimeout(() => { document.body.removeChild(link); URL.revokeObjectURL(url); }, 100);
+                    setTimeout(() => { document.body.removeChild(link); URL.revokeObjectURL(url); closeReceipt(); }, 100);
                 }, 'image/jpeg', 0.9);
                 
             } catch (err) { showAlert("บันทึกภาพไม่สำเร็จ", "error"); }
         }
-        function closeReceipt() { document.getElementById('receipt-modal').classList.add('hidden'); }
 
         // ================== Export CSV ==================
         function exportReport() {
